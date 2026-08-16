@@ -136,13 +136,56 @@ td.num{white-space:nowrap;color:var(--txt2)}
   .week-h .ti{order:3;flex:1 0 100%}
 }
 
-.chk{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed rgba(42,51,64,.6)}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed rgba(42,51,64,.6)}
 .chk:last-child{border-bottom:none}
-.chk input{margin:5px 0 0;width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
-.chk label{cursor:pointer;font-size:14px;flex:1}
+.chk input[type=checkbox]{margin:5px 0 0;width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
+.chk .body{flex:1;min-width:0}
+.chk label{cursor:pointer;font-size:14px;display:block}
 .chk label .d{display:block;color:var(--txt2);font-size:12.5px;margin-top:2px}
 .chk.done label{opacity:.45;text-decoration:line-through}
 .chk.done label .d{text-decoration:none}
+
+/* Bloc « en détail » : ce qu'il faut savoir pour faire l'objectif sans aller
+   chercher ailleurs — pourquoi maintenant, comment, à quoi on voit que c'est
+   réussi, ce que ça coûte. */
+.deep{margin-top:7px}
+.deep>summary{
+  cursor:pointer;font-size:12px;color:var(--gold2);list-style:none;
+  display:inline-block;padding:2px 9px;border:1px solid var(--line);border-radius:20px;
+}
+.deep>summary::-webkit-details-marker{display:none}
+.deep>summary:hover{border-color:var(--gold)}
+.deep[open]>summary{margin-bottom:8px}
+.deep .dbox{
+  background:var(--bg);border:1px solid var(--line);border-left:2px solid var(--gold);
+  border-radius:8px;padding:11px 13px;font-size:13px;
+}
+.deep .dbox h5{margin:0 0 3px;font-size:11.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--gold2)}
+.deep .dbox section+section{margin-top:11px}
+.deep .dbox p{margin:0;color:var(--txt2)}
+.deep .dbox ul{margin:0;padding-left:18px;color:var(--txt2)}
+.deep .dbox ul li{margin-bottom:3px}
+.deep .dbox .goal{color:var(--green)}
+.deep .dbox .cost{color:var(--red)}
+
+/* Note libre, partagée entre les deux joueurs. */
+.notewrap{margin-top:7px}
+.notebtn{
+  cursor:pointer;font-size:12px;color:var(--txt2);background:none;border:1px solid var(--line);
+  border-radius:20px;padding:2px 9px;font-family:inherit;
+}
+.notebtn:hover{border-color:var(--gold);color:var(--gold2)}
+.notebtn.has{border-color:var(--blue);color:var(--blue)}
+textarea.note{
+  width:100%;margin-top:7px;background:var(--bg);border:1px solid var(--line);
+  color:var(--txt);border-radius:8px;padding:9px 11px;font-family:inherit;font-size:13px;
+  min-height:64px;resize:vertical;
+}
+textarea.note:focus{outline:none;border-color:var(--gold)}
+.noteshow{
+  margin-top:6px;font-size:12.5px;color:var(--blue);background:rgba(90,169,230,.07);
+  border-left:2px solid var(--blue);border-radius:0 6px 6px 0;padding:6px 10px;white-space:pre-wrap;
+}
 
 .tag{font-size:10.5px;padding:1px 7px;border-radius:4px;margin-left:7px;vertical-align:middle;font-weight:600}
 .t-rec{background:rgba(79,191,139,.14);color:var(--green)}
@@ -822,30 +865,80 @@ const WEEKS = [
     ]
   },
   {
-    n:3, t:"Bûcheron sur le récolteur (métier neuf)", d:"~5 à 7 semaines",
-    s:"Le premier gros trou de la team se comble, sur un seul personnage",
+    n:3, t:"Pêcheur sur le récolteur + Tailleur", d:"~4 à 6 semaines",
+    s:"On commence par le métier neuf le plus rapide, pas par le plus long",
     items:[
-      {t:"main", job:"bucheron", to:200, d:"Métier neuf, donc 1 → 200 : c'est la plus grosse étape de récolte du plan. Repousse lente, donc boucle longue — 8 à 10 maps avant de revenir au départ, sinon vous attendez devant des souches. Un seul perso à déplacer, c'est un bloc peu fatigant qu'on peut faire en discutant."},
-      {t:"one", job:"bijoutier", to:200, d:"Dernier palier, le plus cher. Alimentez-vous au maximum avec vos propres minerais."},
-      {t:"todo", tag:"kamas", txt:"Vendre les premiers lots de bois THL", d:"Regardez le prix moyen avant de vous positionner. Ne cassez pas le marché d'une ressource que vous allez produire en masse."},
-      {t:"todo", tag:"kamas", txt:"Arrêter d'acheter du bois au HDV", d:"Les crafts d'armes et de boucliers sont désormais auto-alimentés. C'est de la marge récupérée sur chaque objet."}
+      {t:"todo", tag:"kamas", txt:"Test de rentabilité : est-ce que Pêcheur vaut ses 60 heures ?",
+       d:"À faire AVANT d'engager le bloc. Ces 60 heures passées en donjon rapporteraient aussi, et tout de suite.",
+       why:"C'est la question que ce plan ne posait pas. Un métier de récolte à 200, c'est une soixantaine d'heures de votre vie. Rien ne garantit d'avance que ça bat le simple fait de farmer des donjons et d'acheter la ressource. On vérifie une fois, ça prend une heure, et ça vaut pour les trois métiers de récolte qui restent.",
+       how:["<b>D</b> — Mesure <b>une heure</b> de ton bloc donjon, panoplies de prospection équipées : additionne les kamas ramassés et la valeur HDV de ce qui tombe.",
+            "<b>A</b> — Regarde ce que vous <b>achetez</b> de cette ressource par semaine, en kamas. C'est ce que le métier vous ferait économiser.",
+            "<b>V</b> — Estime ce que vous en <b>revendriez</b> par semaine une fois à 200. Si tu n'en as aucune idée, mets <b>0</b> : le calcul devient le pire cas, et s'il passe quand même, l'étape est sûre.",
+            "Calcule <b>60 × D ÷ (A + V)</b>. Le résultat est le nombre de semaines qu'il faut pour rembourser les 60 heures."],
+       ok:"Sous 20 semaines : l'étape est rentable, foncez. Au-delà : sautez le métier et continuez d'acheter la ressource. Le plan complet fait environ 26 semaines — un métier qui met plus de 20 semaines à se rembourser ne vous aura rien rapporté avant la fin."},
+      {t:"main", job:"pecheur", to:200,
+       d:"Le plus rapide des métiers neufs : boucles courtes, coins de pêche regroupés. C'est celui sur lequel on rode la méthode.",
+       why:"Il passe avant Bûcheron parce qu'il est plus court et plus indulgent. Vous encaissez une victoire tôt, et vous apprenez le rythme des boucles sur le métier qui pardonne, avant d'attaquer celui qui ne pardonne rien.",
+       how:["<b>Le piège numéro un : la canne.</b> Il en faut une adaptée à chaque palier — sans elle, impossible de remonter les poissons supérieurs. C'est exactement l'oubli de l'outil de chasse, en pire, parce qu'il revient tous les 10 niveaux.",
+            "<b>Un nouveau poisson tous les 10 niveaux</b>, donc une vingtaine de changements de zone. C'est le métier le plus mobile du lot : prévois de garder la carte ouverte.",
+            "Route classique : Astrub et Incarnam (1-20) → Rivière Kawaii (40-70) → Port de Madrestam (50-60) → Baie de Cania (70-80) → Lacs des Koalaks (80-90, <i>attention aux agressifs</i>) → Territoire des Porcos (90-110) → Île de Grobe (110-120) → Lacs Enchantés (120-130) → Rive Est de Cania (130-160) → Île des DragOeufs et Otomaï (160-180) → lacs gelés de Frigost (180-190) → Rive Est de Cania (190-200).",
+            "Toujours pêcher la ressource la plus haute que le niveau autorise : l'XP dépend du niveau du poisson."],
+       ok:"Pêcheur 200 sur le récolteur, et une boucle chronométrée que vous savez refaire sans réfléchir. Notez-la dans la note de cet objectif."},
+      {t:"one", job:"tailleur", to:180,
+       d:"Coiffes et capes : parmi les pièces les plus achetées du jeu.",
+       why:"Tailleur avance pendant que le récolteur pêche : deux personnages, deux activités, aucun temps mort. C'est le seul parallélisme que le plan vous offre vraiment.",
+       ok:"Tailleur 180, et au moins une coiffe THL vendue au prix que vous visiez."},
+      {t:"todo", tag:"kamas", txt:"Vendre poissons THL et plats",
+       d:"Relevez d'abord la concurrence réelle sur votre serveur avant de vous positionner — c'est très variable.",
+       ok:"Un premier lot vendu, et le prix noté dans votre carnet pour servir de référence."}
     ]
   },
   {
-    n:4, t:"Pêcheur sur le récolteur + Tailleur", d:"~4 à 6 semaines",
-    s:"Le métier de récolte le plus rapide, et Tailleur avance en parallèle",
+    n:4, t:"Bûcheron sur le récolteur (le gros morceau)", d:"~5 à 7 semaines",
+    s:"Le plus long métier de récolte, et le dernier gros trou de la team",
     items:[
-      {t:"main", job:"pecheur", to:200, d:"Le plus rapide des métiers neufs : les coins de pêche sont regroupés sur peu de maps, donc peu de déplacement. C'est aussi le seul endroit où avoir un deuxième pêcheur aurait du sens un jour — la densité le permet — mais ne le faites qu'une fois le reste bouclé."},
-      {t:"one", job:"tailleur", to:180, d:"Coiffes et capes : parmi les pièces les plus achetées du jeu."},
-      {t:"todo", tag:"kamas", txt:"Vendre poissons THL et plats", d:"Relevez d'abord la concurrence réelle sur votre serveur avant de vous positionner — c'est très variable."},
-      {t:"todo", tag:"kamas", txt:"Bilan mi-parcours : recalculer les prix HDV", d:"Vous êtes à la moitié du plan, vos prix de référence ont forcément bougé. Cinq minutes, un dimanche."}
+      {t:"todo", tag:"kamas", txt:"Refaire le test de rentabilité, pour le bois cette fois",
+       d:"Même calcul qu'à l'étape 3, avec vos dépenses réelles en bois. C'est le métier le plus long : c'est celui où le test compte le plus.",
+       why:"Le bois alimente les crafts d'armes, d'arcs, de baguettes et de boucliers. Si vous en consommez beaucoup, le métier se rembourse vite. Si vous en consommez peu, 60 heures pour économiser quelques centaines de milliers de kamas est un mauvais échange — et il vaut mieux le savoir avant.",
+       ok:"Sous 20 semaines de remboursement : on y va. Au-delà : on saute, on achète le bois, et on récupère 60 heures pour les donjons."},
+      {t:"main", job:"bucheron", to:200,
+       d:"Métier neuf, 1 → 200. La plus grosse étape de récolte du plan.",
+       why:"Il vient après Pêcheur parce qu'il est plus long et moins indulgent. Il débloque le bois de vos propres crafts d'armes et de boucliers, et il alimentera Sculpteur à l'étape 6.",
+       how:["<b>Forêt d'Astrub, au nord : 20 maps</b> avec frêne, châtaignier, noyer, chêne et érable. La boucle longue que ce métier exige est déjà toute faite — c'est la meilleure zone de départ. Scierie en <code>1,-25</code>.",
+            "<b>Le vrai tournant est au niveau 35</b> : Bombu et Oliviolet se débloquent, et à eux seuls ils vous tiennent <b>de 35 à 100</b>. Massif de Cania et Lande de Sidimote. Une seule route pendant 65 niveaux, c'est le meilleur moment du métier.",
+            "Au-delà de 100, on passe aux substrats par tranches de 20 niveaux (bosquet, fourré, forêt, forêt primaire, forêt vierge). <b>Confirme les zones exactes dans l'encyclopédie in-game</b> avant de te déplacer : c'est la partie la moins bien documentée.",
+            "<b>Repousse lente.</b> C'est le métier où la boucle doit être la plus longue : si tu reviens sur des souches, allonge le trajet plutôt que d'attendre."],
+       ok:"Bûcheron 200, et vous n'achetez plus une seule bûche au HDV."},
+      {t:"one", job:"bijoutier", to:200,
+       d:"Dernier palier, le plus cher.",
+       why:"Convict porte déjà Mineur : ses propres minerais alimentent ses propres bijoux. C'est la seule filière entièrement bouclée sur un personnage unique dans tout le plan.",
+       cost:"Le palier 185 → 200 est le plus cher en ressources de toute la chaîne bijoux. Videz le coffre de minerais avant d'acheter quoi que ce soit."},
+      {t:"todo", tag:"kamas", txt:"Arrêter d'acheter du bois au HDV",
+       d:"Les crafts d'armes et de boucliers sont désormais auto-alimentés.",
+       ok:"Une semaine complète sans un seul achat de bois. C'est la mesure directe de ce que l'étape vous a rapporté."},
+      {t:"todo", tag:"kamas", txt:"Bilan mi-parcours : recalculer les prix HDV",
+       d:"Vous êtes à la moitié du plan, vos prix de référence ont forcément bougé.",
+       how:["Reprenez les 10 ressources du carnet de l'étape 1 et notez les prix du jour.",
+            "Comparez à ceux de l'étape 1 : ce qui a monté de plus de 30 % mérite qu'on en produise plus, ce qui a chuté ne vaut plus la peine d'être farmé.",
+            "Refaites la mesure <b>D</b> (une heure de donjon) : elle a dû augmenter avec vos prospections."],
+       ok:"Carnet à jour et deux décisions prises : une ressource à pousser, une à abandonner."}
     ]
   },
   {
     n:5, t:"Alchimiste sur le récolteur + Tailleur 200", d:"~5 à 7 semaines",
     s:"Le métier le plus lent, et celui qui justifie le mieux le récolteur unique",
     items:[
-      {t:"main", job:"alchimiste", to:200, d:"1 à 3 plantes par map : c'est exactement le métier où une meute de 8 n'aurait servi à rien. Un seul perso, boucle très large, l'encyclopédie in-game ouverte à côté. Long mais peu fatigant."},
+      {t:"todo", tag:"kamas", txt:"Test de rentabilité, dernière fois : les plantes",
+       d:"Même calcul qu'aux étapes 3 et 4. Celui-ci est le plus susceptible d'échouer au seuil.",
+       why:"Alchimiste est le métier le plus lent et le moins dense du jeu. En face, vous avez déjà Natsugoffy Alchimiste 200 qui fabrique vos potions. La vraie question est donc étroite : est-ce que récolter vos plantes vous-mêmes bat le fait de les acheter ? Si vos potions se vendent bien, oui. Sinon, ce métier est le premier à sacrifier.",
+       ok:"Sous 20 semaines : on monte. Au-delà : on garde Natsugoffy comme seul alchimiste, on achète les plantes, et on récupère 60 heures."},
+      {t:"main", job:"alchimiste", to:200,
+       d:"1 à 3 plantes par map : le métier où une meute de 8 n'aurait servi à rien.",
+       why:"Il ferme la boucle des potions de téléportation : vos plantes, votre craft, votre marge entière. C'est aussi le dernier métier de récolte, donc la fin de cette moitié du plan.",
+       how:["<b>Boucle très large</b> et peu de nœuds par map : c'est le seul métier où l'on accepte de beaucoup marcher pour peu de ressources.",
+            "<b>L'encyclopédie in-game ouverte à côté</b>, en permanence. C'est le métier où elle sert le plus, parce que les plantes sont éparpillées sur énormément de zones différentes.",
+            "À monter <b>en tâche de fond</b> plutôt qu'en bloc dédié : pendant les déplacements, entre deux autres activités. Un bloc de 1 h 30 d'alchimie pure est le meilleur moyen de s'écœurer."],
+       ok:"Alchimiste 200 sur le récolteur, et les six métiers de récolte bouclés sur un seul personnage."},
       {t:"one", job:"tailleur", to:200, d:"Palier final. Vous pouvez maintenant sortir des coiffes/capes THL."},
       {t:"todo", tag:"kamas", txt:"Monter en régime sur les potions de téléportation", d:"Vos plantes viennent maintenant de votre propre récolteur au lieu du HDV : la marge sur chaque potion change complètement. Demande constante, à produire en lots."}
     ]
@@ -905,8 +998,9 @@ const DAILY = [
 const TAGS = {rec:["t-rec","récolte"],craft:["t-craft","craft"],fm:["t-fm","magie"],elev:["t-elev","élevage"],kamas:["t-kamas","kamas"],setup:["t-setup","setup"]};
 
 /* ---------- état ---------- */
-let state = {};
-let dailyState = {};
+let state = {};        // cases cochées des tâches manuelles
+let notes = {};        // notes libres par objectif, partagées entre les deux joueurs
+let dailyState = {};   // checklist du jour, locale et datée
 
 /* ---------- rendu ---------- */
 function jobColor(lv){
@@ -1250,9 +1344,9 @@ function refreshAll(skipMatrix){
 }
 
 /* ---------- persistance locale + synchro ---------- */
-const DATA_V = 5;   // v5 : récolteur principal, plus de `who`, objectifs calculés
+const DATA_V = 6;   // v6 : notes par objectif
 let SUSPEND = false;
-function getData(){ return {v:DATA_V, state:state, chars:CHARS, main:MAIN}; }
+function getData(){ return {v:DATA_V, state:state, notes:notes, chars:CHARS, main:MAIN}; }
 function persist(){
   if(SUSPEND) return;
   try{ localStorage.setItem("dofus.plan.local", JSON.stringify(getData())); }catch(e){}
@@ -1278,7 +1372,11 @@ function applyData(d, silent){
   SUSPEND = true;
   /* Avant la v4 les objectifs étaient numérotés autrement : les anciennes coches
      ne correspondent plus aux mêmes lignes, on repart des données de métier. */
-  state = (d.v && d.v >= DATA_V) ? (d.state || {}) : {};
+  /* Les identifiants d'objectifs ont changé avec la v5 : avant, les coches ne
+     correspondent plus aux mêmes lignes. Les notes, elles, sont apparues en v6
+     et n'ont jamais eu d'autre numérotation, donc on les reprend telles quelles. */
+  state = (d.v && d.v >= 5) ? (d.state || {}) : {};
+  notes = (d.notes && typeof d.notes === "object") ? d.notes : {};
   if(Array.isArray(d.chars) && d.chars.length) CHARS = readChars(d.chars);
   if(Number.isInteger(d.main)) MAIN = d.main;
   refreshAll();
@@ -1289,6 +1387,51 @@ window.applyData = applyData;
 window.getData = getData;
 
 let openWeeks = new Set([1]);
+
+/* Bloc « en détail » d'un objectif. Les quatre champs sont facultatifs :
+   why = pourquoi maintenant (la dépendance réelle), how = comment s'y prendre,
+   ok = à quoi on voit que c'est réussi, cost = ce que ça coûte avant de rapporter. */
+function deepHtml(it){
+  const li = v => Array.isArray(v) ? `<ul>${v.map(x=>`<li>${x}</li>`).join("")}</ul>` : `<p>${v}</p>`;
+  const parts = [];
+  if(it.why)  parts.push(`<section><h5>Pourquoi maintenant</h5>${li(it.why)}</section>`);
+  if(it.how)  parts.push(`<section><h5>Comment s'y prendre</h5>${li(it.how)}</section>`);
+  if(it.ok)   parts.push(`<section><h5>C'est réussi quand</h5><p class="goal">${it.ok}</p></section>`);
+  if(it.cost) parts.push(`<section><h5>Ce que ça coûte</h5><p class="cost">${it.cost}</p></section>`);
+  if(!parts.length) return "";
+  return `<details class="deep"><summary>En détail</summary><div class="dbox">${parts.join("")}</div></details>`;
+}
+
+/* Notes libres, partagées par la synchro au même titre que les cases cochées. */
+function noteHtml(id){
+  const n = notes[id] || "";
+  return `<div class="notewrap" id="nw-${id}">
+    <button class="notebtn${n?" has":""}" onclick="toggleNote('${id}')">${n?"Note":"+ Note"}</button>
+    ${n?`<div class="noteshow" id="ns-${id}">${esc(n)}</div>`:""}
+  </div>`;
+}
+function toggleNote(id){
+  const w = document.getElementById("nw-"+id);
+  if(!w) return;
+  const open = w.querySelector("textarea.note");
+  if(open){ saveNote(id, open.value); return; }
+  const show = document.getElementById("ns-"+id);
+  if(show) show.remove();
+  const ta = document.createElement("textarea");
+  ta.className = "note";
+  ta.value = notes[id] || "";
+  ta.placeholder = "Ce qui n'est écrit nulle part : ta boucle, tes spots, tes prix relevés, ce qui a marché ou pas…";
+  ta.onblur = () => saveNote(id, ta.value);
+  w.appendChild(ta);
+  ta.focus();
+}
+function saveNote(id, val){
+  const v = (val||"").trim();
+  if(v) notes[id] = v; else delete notes[id];
+  const w = document.getElementById("nw-"+id);
+  if(w) w.outerHTML = noteHtml(id);
+  persist();
+}
 
 function renderWeeks(){
   const c = document.getElementById("weeks");
@@ -1305,8 +1448,12 @@ function renderWeeks(){
         : `<input type="checkbox" id="${r.id}"${r.done?" checked":""} onchange="toggle('${r.id}')">`;
       return `<div class="chk${r.done?" done":""}${r.auto?" auto-row":""}" id="row-${r.id}">
         ${box}
-        <label${r.auto?"":` for="${r.id}"`}>${r.title}<span class="tag ${cls}">${lbl}</span>${r.prog?`<span class="prog ${r.progCls}">${r.prog}</span>`:""}
-        ${detail?`<span class="d">${detail}</span>`:""}</label>
+        <div class="body">
+          <label${r.auto?"":` for="${r.id}"`}>${r.title}<span class="tag ${cls}">${lbl}</span>${r.prog?`<span class="prog ${r.progCls}">${r.prog}</span>`:""}
+          ${detail?`<span class="d">${detail}</span>`:""}</label>
+          ${deepHtml(it)}
+          ${noteHtml(r.id)}
+        </div>
       </div>`;
     }).join("");
     return `<div class="week${openWeeks.has(w.n)?" open":""}" id="wk${w.n}">
@@ -1397,7 +1544,7 @@ function refresh(){
 function resetAll(){
   /* Un clic à côté effaçait toute la progression — et la poussait aussitôt
      à l'autre joueur, qui n'avait rien demandé. */
-  if(!confirm("Décocher toutes les tâches manuelles du plan ?\n\nSi vous êtes connectés en équipe, ça vaut pour vous deux. Les niveaux de métier ne sont pas touchés — et les objectifs de métier, qui se calculent dessus, resteront donc cochés.")) return;
+  if(!confirm("Décocher toutes les tâches manuelles du plan ?\n\nSi vous êtes connectés en équipe, ça vaut pour vous deux.\n\nNe sont PAS touchés : les niveaux de métier, la prospection, et vos notes. Les objectifs de métier se calculant sur les niveaux, ils resteront cochés.")) return;
   state = {};
   refreshAll();
 }
