@@ -325,11 +325,11 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
 <section class="tab on" id="tab-aujourdhui">
 
   <h2>Aujourd'hui</h2>
-  <p class="muted">Tout ce que vous avez besoin de savoir en vous connectant. Le reste du site est de la référence : vous n'avez pas à le lire pour jouer.</p>
+  <p class="muted">Le reste du site est de la référence.</p>
   <div id="focus"></div>
   <div id="prixAlerte"></div>
   <h2>La journée type (~3 h)</h2>
-  <p class="muted">L'ordre n'est pas une préférence, c'est une dépendance&nbsp;: <b>chaque bloc a besoin du précédent</b>. On ne peut pas trier un butin qu'on n'a pas encore, ni décider quoi crafter sans prix à jour. Suivez-le dans cet ordre et vous n'aurez jamais à vous demander quoi faire en vous connectant.</p>
+  <p class="muted">Dans cet ordre : chaque bloc a besoin du précédent.</p>
 
   <div class="card">
     <h3>0:00 – 0:05 · Les prix, avant tout le reste</h3>
@@ -405,16 +405,8 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
 </section>
 
 <section class="tab" id="tab-plan">
-  <h2>Ce que ce plan cherche à faire</h2>
   <div class="card blue">
-    <p><b>Le moteur, c'est le drop. Les métiers ne sont qu'un moyen.</b> Ce que vous produisez vraiment, ce sont des ressources qui tombent en combat — et là vos 8 personnages valent huit fois un joueur seul, sans malus de groupe et sans un seul niveau de métier à monter. Tout le reste du plan existe pour <b>convertir ce flux en valeur</b>&nbsp;: les métiers de craft transforment, les métiers de magie valorisent, les métiers de récolte comblent les trous d'approvisionnement.</p>
-    <p style="margin-bottom:0">C'est une hiérarchie, pas une liste&nbsp;: <b>le bloc de drop passe avant le bloc métier</b>, tous les jours. Un métier qui monte pendant que le flux de ressources est à l'arrêt ne vous rapproche de rien. La routine de l'onglet <b>Aujourd’hui</b> est écrite dans cet ordre-là.</p>
-  </div>
-
-  <div class="card red">
-    <h3>Le piège qui annule tout&nbsp;: crafter à perte</h3>
-    <p><b>Une ressource récoltée ou dropée n'est pas une ressource qu'il faut crafter.</b> Dans Dofus, il est courant que les ingrédients d'une recette coûtent plus cher que l'objet fini. Les retours de joueurs sont sans détour&nbsp;: en dehors des recettes proches du niveau 200, la plupart des crafts se font <b>à perte</b>.</p>
-    <p style="margin-bottom:0">Et l'erreur classique par-dessus&nbsp;: croire qu'une ressource qu'on a farmée soi-même est gratuite. <b>Elle ne l'est pas</b> — elle vaut son prix au HDV, que vous la vendiez ou non. La compter à zéro, c'est se convaincre qu'on gagne de l'argent pendant qu'on en perd. La règle de décision est dans l'onglet <b>Argent</b>, section « Crafter ou vendre brut ».</p>
+    <p style="margin-bottom:0"><b>Le bloc de drop passe avant le bloc métier, tous les jours.</b> Les métiers convertissent le flux de ressources en valeur — ils ne le produisent pas.</p>
   </div>
 
   <details class="deep" style="margin:0 0 18px"><summary>Les principes qui ont dicté ce plan</summary><div class="dbox" style="border-left-color:var(--blue)">
@@ -530,97 +522,44 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
 </section>
 
 <section class="tab" id="tab-argent">
-  <h2>Quoi farmer, quoi crafter, quoi en faire</h2>
-  <p class="muted">Cette page répond à une seule question&nbsp;: <b>j'ai ce métier à ce niveau, je fais quoi maintenant pour gagner des kamas&nbsp;?</b> Les modèles ci-dessous se recalculent depuis vos niveaux réels. Le carnet de prix et le calculateur, en bas, sont à vous de les remplir — ce sont vos prix, sur votre serveur, qui décident.</p>
+  <h2>Ce qu’il faut faire pour gagner des kamas</h2>
 
-  <div class="card red">
-    <p style="margin-bottom:0"><b>Ce que je ne peux pas faire à votre place.</b> Une liste d'objets rentables nommément vieillit en quelques semaines et dépend de votre serveur. Ce qui ne vieillit pas, c'est le <b>modèle économique de chaque métier</b> et le <b>calcul de marge</b>. Vous trouverez les objets vous-mêmes en dix minutes avec le calculateur, et vous aurez la bonne réponse plutôt qu'une réponse d'il y a six mois.</p>
-  </div>
-
-  <h2>Le drop — là où vos 8 comptes valent vraiment quelque chose</h2>
-  <p class="muted">C'est le pendant exact du principe 1. La récolte ne se parallélise pas&nbsp;; le drop, si. Et contrairement à la récolte, il n'y a <b>aucun métier à monter</b> pour en profiter.</p>
-
-  <div class="card green">
-    <h3>La règle qui change tout&nbsp;: pas de malus de groupe</h3>
-    <p>À la fin d'un combat, <b>chaque personnage fait son propre jet de drop, simultanément et sans ordre de priorité</b>. Être 8 ne divise rien. Le même combat, mené une seule fois, vous donne huit chances au lieu d'une.</p>
-    <p style="margin-bottom:0">La formule est simple&nbsp;: <b>taux final = taux de base × (PP / 100)</b>. Toutes les classes démarrent à 100 PP (120 pour un Enutrof), donc 100 PP = le taux affiché sur la ressource, 300 PP = trois fois ce taux.</p>
-  </div>
-
-  <div class="card red">
-    <h3>Le piège&nbsp;: le plafond d'exemplaires par monstre</h3>
-    <p>Chaque monstre ne lâche qu'un nombre limité d'exemplaires d'une même ressource — de l'ordre de <b>2 pour une ressource commune de monstre normal</b>, un peu plus sur les boss. Si vos 8 personnages réussissent tous leur jet, seuls les 2 premiers tirés au sort repartent avec.</p>
-    <p style="margin-bottom:0"><b>Conséquence directe, et c'est elle qui doit décider de vos circuits&nbsp;:</b> sur une ressource commune, 8 comptes ne valent guère mieux que 2 — vous tapez le plafond en permanence. Sur un <b>drop rare</b> (taux de base sous 1&nbsp;%&nbsp;: ressources de boss, ingrédients de craft THL, équipements, Dofus), la probabilité que deux persos réussissent le même jet est négligeable&nbsp;: là, vos 8 jets indépendants valent réellement 8 fois vos chances. <b>Farmez du rare avec les 8, pas du commun.</b></p>
-  </div>
-
-  <div class="card gold">
-    <h3>Deux réglages à faire avant de farmer</h3>
+  <div class="card blue">
+    <h3>Réglages du bloc drop</h3>
     <ul class="clean" style="margin-bottom:0">
-      <li><b>Chaque personnage a besoin de SA prospection.</b> C'est le seul vrai investissement de cette partie du plan, et il est souvent négligé&nbsp;: un perso resté à 100 PP tire au taux de base pendant que les autres tirent double ou triple. Comptez <b>~200 PP pour du farm courant, 300+ pour viser des drops rares</b>. La PP vient de l'équipement et de la Chance (10 Chance = 1 PP)&nbsp;: une panoplie de drop dédiée, qu'on enfile pour le bloc donjon et qu'on retire ensuite. Saisissez la PP de chacun dans l'onglet <b>Personnages</b>, le plan la suit.</li>
-      <li><b>Ne farmez pas trop bas.</b> Au-delà de <b>50 niveaux d'écart</b> entre le personnage et le monstre, la prospection n'est tout simplement plus prise en compte. À 200, ça veut dire viser du contenu <b>niveau 150 et plus</b> — en dessous, votre panoplie de drop ne sert à rien.</li>
+      <li><b>Panoplie de prospection sur les 8.</b> Objectif <b>200 PP</b>, puis <b>300 PP</b> pour les drops rares.</li>
+      <li><b>Donjons niveau 150 minimum.</b> Au-delà de 50 niveaux d’écart, la prospection ne compte plus du tout.</li>
+      <li><b>Outil de chasse équipé sur les 8</b> — la viande tombe du même combat.</li>
+      <li><b>Idoles orientées drop</b> une fois la prospection en place, difficulté montée par paliers.</li>
+      <li><b>Visez le rare, pas le commun.</b> Un monstre ne lâche que 2 exemplaires environ d’une ressource commune, quel que soit le nombre de joueurs.</li>
     </ul>
   </div>
 
-  <div class="card blue">
-    <h3>Les idoles, une fois que le reste tourne</h3>
-    <p style="margin-bottom:0">Les idoles se posent avant le combat&nbsp;: elles renforcent les monstres et donnent en échange un pourcentage de bonus d'XP et/ou de drop. C'est le multiplicateur le plus rentable une fois que votre prospection est en place — mais la seule erreur qui coûte cher, c'est d'en mettre trop et de <b>perdre le combat</b>, ce qui annule tout. Montez la difficulté par paliers, et gardez une combinaison orientée drop (pas XP) puisque vous êtes déjà 200.</p>
-  </div>
-
-  <div class="card">
-    <p style="margin-bottom:0"><b>Et ça se cumule avec Chasseur.</b> Le même combat vous donne le drop <i>et</i> un jet de viande par personnage équipé d'un outil de chasse. C'est pour ça que le bloc donjon est le meilleur usage de vos 8 comptes&nbsp;: trois revenus sur une seule action.</p>
-  </div>
-
-  <h2>Crafter ou vendre brut — la décision qui décide de tout</h2>
-  <p class="muted">C'est l'étape que la plupart des joueurs sautent, et celle qui sépare un artisanat rentable d'un artisanat qui coûte de l'argent sans qu'on s'en aperçoive. Elle se fait <b>après le bloc de drop</b>, sur le butin, avant de lancer le moindre craft.</p>
-
+  <h2>Crafter ou vendre brut</h2>
   <div class="card red">
-    <h3>Le calcul, en trois lignes</h3>
-    <p style="font-size:15px;margin:10px 0"><b>Prix de vente de l'objet × 0,98</b> <span class="muted">(la taxe HDV est de 2&nbsp;%)</span><br>
-    <b>− la somme des prix HDV de TOUS les ingrédients</b><br>
-    <b>= votre marge nette</b></p>
-    <p style="margin-bottom:0"><b>Marge sous 10&nbsp;% du coût&nbsp;: ne craftez pas.</b> Vendez les ressources brutes, vous gagnerez plus en faisant moins. Au-dessus, craftez — et refaites le calcul de temps en temps, les prix bougent.</p>
-  </div>
-
-  <div class="card gold">
-    <h3>La règle qu'on oublie toujours</h3>
-    <p style="margin-bottom:0"><b>Comptez vos propres ressources à leur prix HDV, pas à zéro.</b> Une bûche que vous avez coupée vaut exactement ce qu'elle vaut au marché&nbsp;: en la mettant dans un craft, vous renoncez à la vendre. C'est un coût réel. Un artisan qui compte ses ressources gratuites croit gagner sur chaque objet alors qu'il détruit de la valeur à chaque fois — et il ne s'en rend jamais compte, parce que son compte en banque monte quand même grâce au drop.</p>
-  </div>
-
-  <div class="card blue">
-    <h3>Les trois exceptions légitimes</h3>
+    <p style="font-size:15px;margin:0 0 10px"><b>Prix de vente × 0,98</b> <span class="muted">(taxe HDV)</span> <b>− prix des ingrédients = marge</b></p>
     <ul class="clean" style="margin-bottom:0">
-      <li><b>Monter un métier de craft.</b> Là, vous payez sciemment pour de l'XP. C'est incompressible et c'est un investissement, pas un revenu — mais sachez que c'est ce que vous êtes en train de faire. Et <b>brisez systématiquement les objets invendables</b>&nbsp;: les runes récupérées remboursent une bonne part du coût.</li>
-      <li><b>Une ressource introuvable en vente.</b> Si l'ingrédient n'est pas achetable en quantité, le calcul ne s'applique pas&nbsp;: votre stock a une valeur de rareté que le prix affiché ne reflète pas.</li>
-      <li><b>L'objet vaut plus brisé que vendu.</b> Comparez toujours le prix de vente au prix des runes qu'il rend. Pour certains objets, la casse est la vraie sortie.</li>
+      <li><b>Marge sous 10 % du coût : on ne craft pas.</b> On vend les ressources brutes.</li>
+      <li><b>Comptez vos propres ressources à leur prix HDV</b>, jamais à zéro.</li>
+      <li>On craft quand même dans trois cas : monter le métier, ressource introuvable en vente, objet qui vaut plus brisé que vendu.</li>
     </ul>
   </div>
 
-  <div class="card">
-    <p style="margin-bottom:0"><b>Ne faites pas ce calcul à la main.</b> Plusieurs outils communautaires le font à partir des prix de votre serveur — DofuCraft, Doradins, l'atelier de Dafous ou le calculateur de DofusGadgets. Saisissez vos prix une fois, et vous saurez en un coup d'œil ce qui mérite d'être crafté. C'est cinq minutes d'installation pour une décision que vous prendrez des centaines de fois.</p>
-  </div>
-
-  <h2>Les trois façons de gagner sa vie avec un métier de craft</h2>
-  <div class="grid g3">
-    <div class="card green">
-      <h3>1. Le craft à la commande</h3>
-      <p style="margin-bottom:0"><b>Le client apporte les ressources, vous facturez le service.</b> Coût matière&nbsp;: zéro. Risque de stock&nbsp;: zéro. Risque de marge négative&nbsp;: zéro. C'est le modèle des métiers à haut niveau, et de loin le plus sûr — c'est <i>la</i> réponse à «&nbsp;j'ai un bijoutier 200, j'en fais quoi&nbsp;». Il faut juste se faire connaître&nbsp;: canal commerce, discord du serveur, guilde.</p>
-    </div>
-    <div class="card gold">
-      <h3>2. Le brisage</h3>
-      <p style="margin-bottom:0"><b>On craft pour casser, pas pour vendre.</b> On compare le coût des ressources au HDV à la valeur moyenne des runes obtenues après brisage. Sur les paliers intermédiaires, c'est souvent le seul modèle qui tient — et c'est ce qui permet de monter un métier <i>en gagnant</i> des kamas au lieu d'en perdre. Visez les objets qui rendent des runes recherchées&nbsp;: Vitalité, Puissance, Sagesse.</p>
-    </div>
-    <div class="card blue">
-      <h3>3. La vente d'objets finis</h3>
-      <p style="margin-bottom:0"><b>Le modèle évident, et le plus risqué.</b> Vous achetez ou farmez les ressources, vous craftez, vous vendez. Ça ne marche que si la marge nette dépasse 10&nbsp;% après la taxe — ce qui, en dehors des recettes proches de 200, est rarement le cas. À réserver aux objets à demande permanente, et à vérifier au calculateur avant chaque série.</p>
-    </div>
+  <div class="card gold">
+    <h3>Les trois modèles qui rapportent</h3>
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Craft à la commande</b> — le client apporte les ressources, vous facturez le service. Coût nul, risque nul. À partir de 190.</li>
+      <li><b>Craft pour brisage</b> — on casse au lieu de vendre. Le modèle des paliers 100 à 190.</li>
+      <li><b>Vente d’objets finis</b> — seulement si le calcul ci-dessus passe.</li>
+    </ul>
   </div>
 
   <h2>Vos filières, métier par métier</h2>
-  <p class="muted">Recalculé depuis l'onglet Personnages. Pour chaque métier de craft, <b>les recettes les plus hautes que votre niveau autorise</b> — celles qui donnent le meilleur XP — avec leurs ingrédients et, pour chacun, <b>d'où il vient</b>&nbsp;: <span class="pill p-blue" style="font-size:10.5px">drop</span> il faut aller le chercher sur des monstres, <span class="pill p-green" style="font-size:10.5px">récolte</span> un de vos métiers le produit, <span class="pill p-purple" style="font-size:10.5px">craft</span> il se fabrique.</p>
-  <p class="muted">Le bouton <b>Étudier la marge</b> envoie la recette dans le calculateur et crée les lignes de prix correspondantes&nbsp;: il ne vous reste qu'à relever les prix au HDV pour savoir si ça vaut le coup.</p>
+  <p class="muted">Recalculé depuis l’onglet Personnages. Provenance de chaque ingrédient : <span class="pill p-blue" style="font-size:10.5px">drop</span> <span class="pill p-green" style="font-size:10.5px">récolte</span> <span class="pill p-purple" style="font-size:10.5px">craft</span>. Le bouton <b>Étudier la marge</b> envoie la recette dans le calculateur avec les lignes de prix déjà créées.</p>
   <div id="filieres"></div>
 
   <h2>Carnet de prix</h2>
-  <p class="muted">La base de tout le reste, et <b>ça se périme vite</b>&nbsp;: un prix de HDV vaut une trentaine de minutes, pas une journée. Le carnet suit l'heure exacte de chaque relevé et vous dit lesquels ne sont plus exploitables. Saisir un prix vaut relevé&nbsp;; le bouton <b>↻</b> sert à confirmer qu'un prix n'a pas bougé sans le retaper. <b>Partagé entre vous deux.</b></p>
+  <p class="muted">Un prix de HDV vaut une trentaine de minutes. Saisir un prix vaut relevé ; le bouton <b>↻</b> confirme qu’un prix n’a pas bougé. <b>Partagé entre vous deux.</b></p>
   <div id="prixAlerte"></div>
   <div class="card" style="padding:14px 16px">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
@@ -631,7 +570,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   <div style="overflow-x:auto"><table id="priceTable"></table></div>
 
   <h2>Calculateur de marge</h2>
-  <p class="muted">Pour chaque objet que vous envisagez de crafter&nbsp;: son prix de vente, ses ingrédients et leurs quantités. La marge se calcule toute seule, <b>taxe HDV de 2&nbsp;% comprise</b>. Les prix viennent du carnet ci-dessus.</p>
+  <p class="muted">Ingrédients au format <code>Nom × quantité</code>, un par ligne. Taxe HDV de 2 % appliquée, seuil de rentabilité à 10 %.</p>
   <div class="card" style="padding:14px 16px">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
       <button class="btn" onclick="addCraft()">+ Ajouter un objet</button>
@@ -937,7 +876,7 @@ const WEEKS = [
     items:[
       {t:"all", job:"chasseur", to:200, d:"Le seul métier où la team entière se justifie : la viande tombe des combats que vous faites déjà, et chaque perso équipé fait son propre jet. 8 fois plus de viande pour zéro temps de récolte en plus. Attention en revanche : l'XP ne vient pas du ramassage mais de la transformation en viandes conservées à l'atelier — et ça, c'est 8 fois plus de passages. Prévoyez un vrai créneau."},
       {t:"one", job:"bijoutier", to:185, d:"Crafte toujours la recette la plus haute que le niveau autorise. Brise tout ce qui ne part pas au HDV."},
-      {t:"pp", to:200, d:"Une panoplie de drop par personnage, à enfiler pour le bloc donjon et à retirer après. C'est le seul investissement qui multiplie tout le reste : chaque perso tire avec SA prospection, et le taux final vaut le taux de base × PP/100. Visez 300+ plus tard si vous chassez des drops rares."},
+      {t:"pp", to:200, d:"Une panoplie de drop par personnage, à enfiler pour le bloc donjon et à retirer après. Chaque perso tire avec SA prospection : un perso oublié en stuff de combat rapporte moitié moins, et ça ne se voit pas."},
       {t:"todo", tag:"kamas", txt:"Boucle de donjons niveau 150+, 1 h/jour", d:"Quadruple emploi : kamas, drops rares (8 jets indépendants sur le même combat), ingrédients de craft, et viande pour Chasseur. Restez au-dessus de 150 : au-delà de 50 niveaux d'écart la prospection n'est plus comptée."},
       {t:"todo", tag:"kamas", txt:"Se mettre d'accord sur les prix de vente", d:"Le risque, ce n'est pas de vendre à deux, c'est de se sous-coter sans le savoir. Un carnet commun, et vous répartissez les étals selon le volume."},
       {t:"todo", tag:"setup", txt:"Vérifier que les 8 ont bien Chasseur appris et un outil équipé", d:"Contrôle de routine — c'est le moment de rattraper un oubli de l'étape 1. Un perso sans outil ne fait aucun jet de viande, et ça peut passer inaperçu des semaines."}
