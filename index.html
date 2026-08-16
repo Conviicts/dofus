@@ -334,8 +334,8 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   <table>
     <thead><tr><th>Métier absent</th><th>Type</th><th>Pourquoi ça compte</th><th>Priorité</th></tr></thead>
     <tbody>
-      <tr><td><b>Bûcheron</b></td><td>Récolte</td><td>Le bois est la base de tous les crafts d'armes, arcs, baguettes, boucliers. Vous en achetez en ce moment — c'est de la marge perdue sur chaque craft. À monter <b>sur le récolteur principal uniquement</b>.</td><td><span class="pill p-red">Haute</span></td></tr>
-      <tr><td><b>Pêcheur</b></td><td>Récolte</td><td>Poissons THL demandés et plats qui se vendent en continu. Boucle courte, donc le métier neuf le plus rapide à monter. <b>Sur le récolteur principal uniquement.</b></td><td><span class="pill p-red">Haute</span></td></tr>
+      <tr><td><b>Bûcheron</b></td><td>Récolte</td><td>Le bois est la base de tous les crafts d'armes, arcs, baguettes, boucliers. Vous en achetez en ce moment — c'est de la marge perdue sur chaque craft. À monter sur <b>un</b> personnage.</td><td><span class="pill p-red">Haute</span></td></tr>
+      <tr><td><b>Pêcheur</b></td><td>Récolte</td><td>Poissons THL demandés et plats qui se vendent en continu. Boucle courte, donc le métier neuf le plus rapide. À monter sur <b>un autre</b> personnage que le Bûcheron, pour que les deux avancent en même temps.</td><td><span class="pill p-red">Haute</span></td></tr>
       <tr><td><b>Forgemage</b></td><td>Magie</td><td>La FM d'armes est le service le plus demandé et le plus cher du jeu. Vous avez déjà Forgeron — les deux vont ensemble.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
       <tr><td><b>Cordomage</b></td><td>Magie</td><td>Complète Cordonnier (bottes / ceintures). Vous vendez alors l'objet <i>fini</i> et pas la pièce brute.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
       <tr><td><b>Sculpteur / Sculptemage</b></td><td>Craft + Magie</td><td>Baguettes, arcs, bâtons. Absents de la team, donc aucun doublon possible — et le plan les pose sur un personnage <i>autre</i> que Natsugoffy pour ouvrir une deuxième file de craft. Voir l'onglet « À deux ».</td><td><span class="pill p-gold">Moyenne</span></td></tr>
@@ -348,7 +348,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   <h2>Les principes du plan</h2>
 
   <div class="card green">
-    <h3>1. Un récolteur dédié, pas une meute</h3>
+    <h3>1. Un porteur par métier — mais des métiers sur des personnages différents</h3>
     <p>Deux règles du jeu à connaître&nbsp;: un personnage n'a <b>aucune limite du nombre de métiers</b> (la limite des 3 n'existe plus sur Dofus PC — elle ne subsiste que sur Dofus Touch), et la récolte prend <b>3 secondes fixes</b> quel que soit le niveau, depuis la refonte des métiers de récolte. Autrement dit&nbsp;: <b>un seul personnage peut porter les 6 métiers de récolte</b>, et il récolte aussi vite qu'un autre.</p>
     <p>La tentation, avec 8 comptes, c'est de monter chaque métier sur les 8 pour récolter 8 nœuds à la fois. C'est un mauvais calcul, pour trois raisons qui s'additionnent&nbsp;:</p>
     <ul class="clean">
@@ -356,7 +356,11 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
       <li><b>Les ressources qui paient sont justement les plus rares.</b> Millet, Maïs, bois et minerais THL&nbsp;: quelques nœuds par map, dispersés, et disputés. Une meute de 8 ne peut pas récolter en parallèle là où ça compte — elle s'attend. Le gain de parallélisme n'existe vraiment que sur les champs de blé, c'est-à-dire là où la ressource ne vaut rien.</li>
       <li><b>Le déplacement de groupe n'aide pas autant qu'on croit.</b> Il amène les 8 sur <b>la même case</b>&nbsp;: il faut ensuite passer fenêtre par fenêtre pour envoyer chaque perso sur son nœud. Ce sont des clics en plus, pas en moins.</li>
     </ul>
-    <p style="margin-bottom:0">D'où le choix du plan&nbsp;: <b>un seul personnage porte les 6 métiers de récolte et fait les tours de ressources</b>. Vous divisez le temps de montée par 8, un tour de récolte devient une activité tranquille qu'on peut faire en discutant, et les 7 autres personnages restent disponibles pour ce qu'ils font vraiment mieux à 8 — les donjons, la viande, les files de craft et les étals au HDV. <b>Une seule exception, voir le principe 2.</b></p>
+    <p>D'où la première moitié de la règle&nbsp;: <b>un seul porteur par métier</b>. Jamais deux bûcherons, jamais deux forgerons.</p>
+    <div class="card gold" style="margin:14px 0">
+      <p style="margin-bottom:0"><b>Mais attention au piège inverse, dans lequel ce plan est tombé pendant des semaines&nbsp;:</b> « un porteur par métier » ne veut pas dire « tous les métiers sur un seul personnage ». Mettre six métiers de récolte sur le même perso coûte exactement le même temps que les répartir sur six persos — <i>mais un seul personnage ne peut récolter qu'une chose à la fois, et vous êtes deux joueurs</i>. En les répartissant, <b>pendant que l'un pêche, l'autre coupe du bois</b>. Même travail total, deux fois moins de temps calendaire.</p>
+    </div>
+    <p style="margin-bottom:0">D'où la seconde moitié&nbsp;: <b>chaque métier va sur un personnage différent, autant que possible</b>. Ça vaut pour la récolte comme pour le craft. Le corollaire est tout aussi important&nbsp;: avant d'ouvrir un métier, <b>vérifiez qu'il n'est pas déjà porté ailleurs</b> — l'onglet Personnages est fait pour ça. <b>Une exception au principe, voir juste en dessous.</b></p>
   </div>
 
   <div class="card green">
@@ -376,7 +380,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
 
   <div class="card">
     <h3>5. Le tempo réel — à lire avant de commencer</h3>
-    <p>Les guides récents comptent <b>une soixantaine d'heures de récolte pour amener un métier à 200 sur un personnage</b>, Paysan étant le plus rapide&nbsp;; Bûcheron et Alchimiste sont nettement plus longs. Avec un récolteur unique, il reste trois métiers neufs ou presque à monter — c'est déjà quelques mois de blocs métier. En le faisant sur 8 personnages, on multipliait ça par 8&nbsp;: c'était plusieurs années.</p>
+    <p>Les guides récents comptent <b>une soixantaine d'heures de récolte pour amener un métier à 200 sur un personnage</b>, Paysan étant le plus rapide&nbsp;; Bûcheron et Alchimiste sont nettement plus longs. En le faisant sur 8 personnages, on multipliait ça par 8&nbsp;: c'était plusieurs années. Il ne vous reste en réalité que <b>deux métiers de récolte neufs</b> — Bûcheron et Pêcheur — et comme ils partent sur deux personnages différents, vous les montez <b>en même temps</b>.</p>
     <p style="margin-bottom:0">C'est pour ça que le plan est découpé en <b>étapes et pas en semaines calendaires</b>. Chaque étape a une estimation en semaines, volontairement large&nbsp;: elle dépend de votre serveur, de la concurrence sur les spots et des jours où vous jouez moins. Tu avances quand l'étape est finie, pas quand la semaine est finie. La seule cadence fixe du plan, c'est la routine quotidienne et le bilan du dimanche — ça, c'est l'onglet <b>Routine</b>.</p>
   </div>
 
@@ -391,15 +395,6 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   <h2>Fiche personnages</h2>
   <p class="muted"><b>C'est la seule page où on saisit quelque chose, et tout le reste en découle.</b> Renommez les personnages et tenez les niveaux de métier à jour&nbsp;: les cartes d'état, la couverture d'équipe, les métiers manquants <i>et surtout les objectifs du plan</i> se recalculent à chaque modification. Un objectif déjà atteint se coche tout seul&nbsp;; un objectif en cours affiche le niveau réel et ce qu'il reste. Si ces chiffres sont faux, le plan l'est aussi.</p>
 
-  <div class="card gold" style="padding:14px 16px">
-    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-      <b style="font-size:14px">Récolteur principal&nbsp;:</b>
-      <select id="mainPick" onchange="setMain(this.value)"
-        style="background:var(--bg);border:1px solid var(--line);color:var(--gold2);border-radius:6px;padding:5px 8px;font-family:inherit;font-size:13px;font-weight:600"></select>
-      <span class="muted" style="font-size:12.5px;flex:1;min-width:220px">C'est lui qui porte les 6 métiers de récolte et qui fait les tours de ressources, seul. Les objectifs de récolte du plan sont calculés sur son niveau à lui.</span>
-    </div>
-  </div>
-
   <div class="card" style="padding:14px 16px">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
       <button class="btn" onclick="fillCol()">Remplir une colonne d'un coup</button>
@@ -413,7 +408,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   </div>
 
   <h2>Couverture de l'équipe</h2>
-  <p class="muted">Pour les métiers de récolte, seul compte le niveau du <b>récolteur principal</b> — c'est lui qui fait les tours de ressources. Le maillon faible de la team n'a d'importance que pour <b>Chasseur</b>, où les 8 personnages contribuent réellement.</p>
+  <p class="muted"><b>C'est le tableau à consulter avant d'ouvrir quoi que ce soit.</b> Il vous dit qui porte chaque métier de récolte et à quel niveau. Plusieurs porteurs sur un même métier n'est pas un gaspillage ici&nbsp;: ça veut dire que vous pouvez farmer cette ressource à deux en même temps. Ce qu'il faut éviter, c'est de monter un métier que quelqu'un a <i>déjà</i> à 200.</p>
   <div id="coverage"></div>
 
   <h2>Métiers de craft, de magie et d'élevage</h2>
@@ -428,7 +423,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
 
   <div class="card green">
     <h3>Le tour de ressources se fait à un seul personnage</h3>
-    <p style="margin-bottom:0">C'est le récolteur principal qui le fait, et il n'a besoin de personne. Concrètement, ça veut dire que <b>l'un peut farmer les ressources pendant que l'autre fait tourner les crafts ou les donjons</b> — vous n'êtes plus obligés d'être synchronisés sur le même bloc. Quand vous voulez quand même farmer ensemble, prenez deux boucles différentes plutôt que la même map&nbsp;: vous doublez le rendement au lieu de vous disputer les nœuds.</p>
+    <p style="margin-bottom:0">Chaque tour de ressources se mène à <b>un seul personnage</b> — mais comme les métiers sont répartis, vous en avez plusieurs, et chacun le sien. Concrètement&nbsp;: <b>l'un pêche pendant que l'autre coupe du bois</b>, deux boucles différentes, deux ressources différentes, aucun nœud disputé. C'est le double du rendement pour le même créneau de jeu, et c'est ce qui divise par deux la durée de l'étape 3.</p>
   </div>
 
   <div class="card blue">
@@ -487,7 +482,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
       <li><b>Forgemage 1 → 200</b>, le gros morceau. C'est le service FM le plus demandé du jeu, et vous avez déjà Forgeron pour vous auto-alimenter en armes à briser et à monter.</li>
       <li><b>Cordomage</b> puis <b>Sculptemage</b> (Sculpteur est déjà à 200 à la fin de l'étape 8), pour fermer complètement la boucle équipement.</li>
       <li><b>Éleveur 80 → 200</b>&nbsp;: chaque palier de 40 niveaux débloque un enclos de plus, jusqu'à 6 au niveau 200 — soit 60 places de montures. Comptez une soixantaine d'heures de progression pour le métier complet. C'est la source de kamas la plus indépendante du reste&nbsp;: elle ne dépend ni de vos récoltes ni du cours des ressources.</li>
-      <li><b>Les 6 métiers de récolte déjà à 200 sur le récolteur</b> → vous basculez en mode «&nbsp;tour de ressources rentable&nbsp;» pur les jours où vous n'avez pas envie de vous prendre la tête. C'est là aussi que se pose la seule vraie question d'un deuxième récolteur&nbsp;: si les tours deviennent votre activité principale, monter un second perso sur les 2-3 métiers les plus denses (Paysan, Pêcheur) peut se défendre. Pas avant.</li>
+      <li><b>Les 6 métiers de récolte couverts</b> → vous basculez en mode «&nbsp;tour de ressources rentable&nbsp;» pur les jours où vous n'avez pas envie de vous prendre la tête. Et si une ressource devient votre gagne-pain, c'est là qu'un <i>second</i> porteur sur ce métier précis se défend — pour farmer à deux dessus. Pas avant d'avoir la preuve qu'elle rapporte.</li>
     </ul>
     <p style="margin-bottom:0" class="muted">À partir de là, votre revenu ne vient plus du temps passé mais de la chaîne&nbsp;: vous récoltez vos propres ressources, vous dropez vos propres ingrédients rares, vous craftez l'équipement, vous le magiez vous-mêmes et vous vendez le produit fini. C'est le seul montage où vous captez 100&nbsp;% de la marge.</p>
   </div>
@@ -498,7 +493,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   <h2>Fiches métiers</h2>
 
   <h3>Paysan 1 → 200 (le plus rapide, à faire en premier)</h3>
-  <p class="muted">Le seul métier où la route est parfaitement balisée&nbsp;: les champs sont denses, les nœuds nombreux, la boucle est courte. C'est pour ça qu'il vient en premier sur le récolteur — et normalement il est déjà à 200 chez vous.</p>
+  <p class="muted">Le seul métier où la route est parfaitement balisée&nbsp;: les champs sont denses, les nœuds nombreux, la boucle est courte. Chez vous il est déjà à 200 sur trois personnages — donc vous pouvez farmer les céréales hautes à deux en même temps, ce qui en fait votre meilleure ressource de récolte disponible immédiatement.</p>
   <table>
     <thead><tr><th>Palier</th><th>Ressource</th><th>Où</th></tr></thead>
     <tbody>
@@ -535,11 +530,11 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
 
   <h3>Bûcheron, Mineur, Pêcheur, Alchimiste — la méthode commune</h3>
   <div class="card">
-    <p>Ces quatre métiers se montent exactement de la même façon, <b>sur le récolteur principal seulement</b>&nbsp;:</p>
+    <p>Ces quatre métiers se montent exactement de la même façon, chacun sur <b>son</b> porteur&nbsp;:</p>
     <ul class="clean">
       <li><b>Apprends le métier chez le PNJ</b> — gratuit et instantané, et il n'y a aucune limite du nombre de métiers par personnage. Un seul perso a besoin de l'apprendre.</li>
       <li><b>Ouvre l'encyclopédie in-game</b>, filtre Ressources par ce métier, note les 3-4 ressources correspondant à ton palier actuel et leurs maps.</li>
-      <li><b>Fais des boucles courtes et denses.</b> Une bonne boucle fait 6 à 10 maps et revient à son point de départ&nbsp;: quand tu reviens, les premiers nœuds ont repoussé. Avec un seul récolteur, c'est bien plus facile à calibrer — tu consommes les nœuds huit fois moins vite, donc la repousse suit presque toujours.</li>
+      <li><b>Fais des boucles courtes et denses.</b> Une bonne boucle fait 6 à 10 maps et revient à son point de départ&nbsp;: quand tu reviens, les premiers nœuds ont repoussé. Avec un récolteur unique par ressource, c'est facile à calibrer — tu consommes les nœuds huit fois moins vite qu'une meute, donc la repousse suit presque toujours.</li>
       <li><b>Sers-toi des autres persos comme mules.</b> Ils n'ont pas besoin du métier pour porter&nbsp;: amène-en un ou deux sur la boucle, transfère-leur les ressources quand tu satures, et tu doubles ou triples la longueur du tour sans repasser en banque.</li>
     </ul>
     <p><b>Les particularités à connaître</b>&nbsp;:</p>
@@ -549,7 +544,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
         <tr><td>Pêcheur</td><td><span class="pill p-green">Rapide</span></td><td>Les coins de pêche sont regroupés sur peu de maps, boucle très courte. Le plus facile après paysan.</td></tr>
         <tr><td>Bûcheron</td><td><span class="pill p-gold">Moyen</span></td><td>Repousse lente. Il faut une boucle plus longue, sinon tu attends devant des souches.</td></tr>
         <tr><td>Mineur</td><td><span class="pill p-gold">Moyen</span></td><td>Nœuds espacés dans les galeries, et c'est le métier le plus disputé du serveur. Privilégie les mines à plusieurs salles et les heures creuses.</td></tr>
-        <tr><td>Alchimiste</td><td><span class="pill p-red">Lent</span></td><td>Les plantes sont éparpillées sur beaucoup de maps, 1 à 3 par map. Le plus long du lot — mais aussi celui qui ouvre le business des potions, et celui où un récolteur unique ne perd strictement rien.</td></tr>
+        <tr><td>Alchimiste</td><td><span class="pill p-red">Lent</span></td><td>Les plantes sont éparpillées sur beaucoup de maps, 1 à 3 par map. Le plus long du lot. <b>Chez vous il est déjà à 200 sur Natsugoffy</b> — donc rien à faire, et c'est autant de semaines économisées.</td></tr>
       </tbody>
     </table>
     <p style="margin-bottom:0" class="muted">Note pour Alchimiste&nbsp;: tu as déjà Natsugoffy à 200. Il peut fabriquer les <b>potions de téléportation et de rappel</b> dès maintenant — c'est un revenu régulier et sans effort, tout le monde en consomme. Lance ça à l'étape 1 sans attendre le reste.</p>
@@ -617,7 +612,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
     <tbody>
       <tr>
         <td><b>Tour de ressources</b></td>
-        <td>Votre revenu de fond. Un récolteur unique sur une boucle de 6-10 maps THL, avec une mule derrière pour les pods. Moins spectaculaire qu'une meute de 8, mais disponible tout de suite, sans fatigue et sans investissement — et ça ne coûte pas des mois de montée sur 7 personnages de plus.</td>
+        <td>Votre revenu de fond. Un personnage par ressource sur une boucle de 6-10 maps THL, avec une mule derrière pour les pods. Comme les métiers sont répartis, les deux joueurs peuvent farmer deux ressources différentes en même temps — sans avoir payé des mois de montée sur 7 personnages de plus.</td>
         <td><span class="pill p-green">Faible</span></td>
         <td>Tous les jours, dès l'étape 1 et de plus en plus fort à mesure que les métiers montent</td>
       </tr>
@@ -717,7 +712,8 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   <h2>Les erreurs qui coûtent cher</h2>
   <div class="card red">
     <ul class="clean" style="margin-bottom:0">
-      <li><b>Monter plusieurs métiers de récolte en même temps.</b> Un métier à la fois sur le récolteur, jusqu'à 200. Sinon vous vous retrouvez avec six métiers à 90 qui ne débloquent aucune ressource intéressante — un métier à 90 ne rapporte rien, il ne compte que fini.</li>
+      <li><b>Éparpiller plusieurs métiers sur le même personnage.</b> Un métier à la fois par porteur, jusqu'à 200. Sinon vous vous retrouvez avec six métiers à 90 qui ne débloquent aucune ressource intéressante — un métier à 90 ne rapporte rien, il ne compte que fini. Deux métiers en parallèle, oui, mais sur <b>deux personnages différents</b>, pilotés par deux joueurs différents.</li>
+      <li><b>Ouvrir un métier que quelqu'un a déjà.</b> Regardez l'onglet Personnages avant. C'est l'erreur que ce plan a commise lui-même : faire monter Alchimiste de 101 à 200 alors qu'un autre personnage l'avait déjà à 200. Cinq semaines pour rien.</li>
       <li><b>Ouvrir un métier de récolte sur un deuxième personnage «&nbsp;pour aller plus vite&nbsp;».</b> Ça n'accélère rien&nbsp;: l'XP n'est pas partagée, vous repartez de 1 pour 60 heures. Un seul récolteur.</li>
       <li><b>Farmer du drop sans panoplie de prospection.</b> À 100 PP vous tirez au taux de base&nbsp;: vous divisez par deux ou trois le rendement du seul bloc où vos 8 comptes servent vraiment. Et un perso oublié en panoplie de combat, ça ne se voit pas — d'où la colonne PP dans l'onglet Personnages.</li>
       <li><b>Farmer du contenu trop bas niveau.</b> Plus de 50 niveaux d'écart et la prospection n'est plus comptée du tout. Vos panoplies de drop ne servent qu'à partir du niveau 150.</li>
@@ -803,11 +799,6 @@ const JOB_LIST = [
   {k:"eleveur",    n:"Éleveur",     c:"elev",  note:"Élevage — refonte 3.5 : capture, reproduction, carburants d'enclos"}
 ];
 
-/* Index du récolteur principal dans CHARS. Les métiers de récolte se montent
-   sur lui seul : c'est modifiable dans l'onglet Personnages. */
-let MAIN = 0;
-function mainChar(){ return CHARS[MAIN] || CHARS[0] || {name:"?", jobs:{}}; }
-
 /* pp = prospection affichée sur la fiche du personnage. 100 est la base de
    départ de toutes les classes (120 pour un Enutrof) : c'est un plancher, pas
    une valeur mesurée — à corriger depuis le jeu. */
@@ -825,9 +816,8 @@ const PP_CIBLE = 200;   // seuil « farm correct » ; 300+ pour les drops rares
 
 /* ---------- objectifs du plan ----------
    Quatre formes possibles :
-     {t:"main", job:"bucheron",  to:200}  → sur le récolteur principal uniquement
-     {t:"all",  job:"chasseur",  to:200}  → sur TOUS les persos (réservé à Chasseur)
      {t:"one",  job:"bijoutier", to:185}  → sur son porteur, détecté automatiquement
+     {t:"all",  job:"chasseur",  to:200}  → sur TOUS les persos (réservé à Chasseur)
      {t:"pp",   to:200}                   → prospection minimale sur TOUS les persos
      {t:"todo", tag:"setup",     txt:"…"} → tâche manuelle, cochée à la main
    Les deux premières sont entièrement recalculées à partir de l'onglet Personnages :
@@ -836,20 +826,32 @@ const PP_CIBLE = 200;   // seuil « farm correct » ; 300+ pour les drops rares
 
 const WEEKS = [
   {
-    n:1, t:"Fondations + désigner le récolteur", d:"~1 à 2 semaines",
-    s:"Poser l'infrastructure commune et finir les petits paliers déjà entamés",
+    n:1, t:"Fondations et répartition", d:"~1 à 2 semaines",
+    s:"Voir ce qui est déjà couvert, puis répartir ce qui manque",
     items:[
-      {t:"todo", tag:"setup", txt:"Choisir le récolteur principal et le noter dans l'onglet Personnages", d:"Un seul personnage porte les 6 métiers de récolte. Prenez celui qui en a déjà le plus : c'est lui qui fera les tours de ressources, seul. Les 7 autres n'ont pas besoin de ces métiers."},
-      {t:"main", job:"mineur", to:200, d:"Petit palier déjà bien avancé : les derniers niveaux sur les minerais les plus hauts que le niveau autorise. À faire en premier parce que c'est le moins cher en temps."},
-      {t:"todo", tag:"setup", txt:"Apprendre les 6 métiers de récolte sur le récolteur — et Chasseur sur les 7 autres", d:"Sur le récolteur : Paysan, Chasseur, Mineur, Bûcheron, Pêcheur, Alchimiste. Sur les 7 autres : Chasseur, et rien d'autre. Gratuit et instantané chez les PNJ, aucune limite du nombre de métiers par personnage."},
+      {t:"todo", tag:"setup", txt:"Faire l'inventaire de ce qui est DÉJÀ couvert",
+       d:"Avant d'engager quoi que ce soit : regardez l'onglet Personnages. Plusieurs métiers sont déjà à 200 sans que vous y pensiez.",
+       why:"C'est l'erreur que ce plan a lui-même commise pendant des semaines : il faisait monter Alchimiste de 101 à 200 sur Convict alors que Natsugoffy est Alchimiste 200 depuis le début. Cinq à sept semaines pour dupliquer un métier déjà au maximum. Le tableau « Couverture de l'équipe » existe pour que ça ne se reproduise pas.",
+       ok:"Vous savez nommer, pour chacun des 6 métiers de récolte, qui le porte et à quel niveau — et vous avez rayé du plan tout ce qui est déjà couvert."},
+      {t:"one", job:"mineur", to:200, d:"Petit palier déjà bien avancé : les derniers niveaux sur les minerais les plus hauts que le niveau autorise. Le moins cher en temps de tout le plan.",
+       why:"Convict porte déjà Mineur ET Bijoutier : finir le minerai, c'est alimenter ses propres bijoux sans passer par le HDV. La filière la plus courte du plan."},
+      {t:"todo", tag:"setup", txt:"Répartir les métiers de récolte manquants sur deux personnages différents",
+       d:"Bûcheron et Pêcheur ne sont portés par personne. Donnez-les à DEUX persos distincts, pas au même.",
+       why:"C'est le point qui change tout. Monter le même métier sur plusieurs personnages coûte autant de fois plus cher, ça c'est toujours vrai. Mais mettre des métiers <i>différents</i> sur des personnages <i>différents</i> ne coûte rien de plus — et pendant que l'un pêche, l'autre coupe du bois. Vous êtes deux joueurs : deux récolteurs, c'est deux fois moins de temps calendaire pour le même travail.",
+       how:["Bûcheron sur un personnage, Pêcheur sur un autre. Peu importe lesquels, tant que ce ne sont pas les mêmes.",
+            "Évitez Natsugoffy : il a déjà six métiers de craft et il sera occupé toute la seconde moitié du plan.",
+            "Apprendre un métier est gratuit et instantané chez le PNJ, et il n'y a aucune limite du nombre de métiers par personnage.",
+            "Chasseur, lui, va sur les 8 — c'est le seul métier de récolte qui le mérite."],
+       ok:"Deux personnages différents ont Bûcheron et Pêcheur appris, et chaque joueur sait lequel il pilote."},
       {t:"todo", tag:"setup", txt:"Créer / utiliser une guilde et son coffre comme banque commune", d:"Tout transite par là, personne ne garde de stock en perso. C'est ce qui vous évitera de racheter au HDV une ressource déjà en coffre."},
       {t:"todo", tag:"setup", txt:"Choisir une ville de base pour l'artisanat et y parquer l'artisan", d:"On ne peut pas mettre d'atelier dans son havre-sac — c'est une fonctionnalité de Wakfu, pas de Dofus. Les ateliers sont en ville : repérez celle où les vôtres sont les plus regroupés (Bonta, Brâkmar ou Astrub selon les métiers), et laissez Natsugoffy déconnecté sur place. Le havre-sac reste utile pour son coffre et son zaap."},
       {t:"todo", tag:"setup", txt:"Équiper les 8 personnages d'un outil de chasse", d:"Là il faut vraiment les 8 : chaque perso équipé fait son propre jet de viande sur le même combat. Pas forcément du corps-à-corps, arcs compris, et n'importe quelle arme peut le devenir avec une rune de chasse en FM. Il suffit de l'avoir équipé, pas de s'en servir."},
       {t:"todo", tag:"kamas", txt:"Relever la prospection des 8 personnages et la saisir ici", d:"Le chiffre est sur la fiche de chaque perso. Toutes les classes partent de 100 (120 pour un Enutrof). C'est la donnée qui manquait le plus : sans elle, impossible de savoir si votre bloc donjon rapporte ce qu'il devrait."},
       {t:"todo", tag:"kamas", txt:"Relever les prix HDV de 10 ressources clés", d:"Maïs, Millet, Frostiz, une viande THL, un bois THL, un minerai THL, une plante THL. Ce carnet est la seule boussole fiable du plan."},
-      {t:"main", job:"paysan", to:200, d:"Normalement déjà acquis. Si le récolteur choisi n'est pas encore à 200, c'est le métier le plus rapide à finir : les champs sont denses et la route est balisée."},
+      {t:"one", job:"paysan", to:200, d:"Déjà acquis, et sur plusieurs personnages — donc plusieurs d'entre vous peuvent farmer les céréales en même temps.",
+       why:"Exemple concret de ce que permet la répartition : avec trois paysans à 200, vos champs de Maïs et de Millet peuvent être exploités par les deux joueurs simultanément. Ce qui ressemblait à un doublon inutile est en fait votre meilleur atout de récolte."},
       {t:"todo", tag:"kamas", txt:"Lancer la production de potions de téléportation / rappel", d:"Natsugoffy est déjà Alchimiste 200. Revenu immédiat, à relancer régulièrement."},
-      {t:"todo", tag:"elev", txt:"Ne pas se lancer dans l'élevage tout de suite", d:"L'élevage est devenu un métier à part entière (refonte 3.5) qui demande des kamas avant d'en rapporter : carburant d'enclos, filets, montures à capturer. Il arrive à l'étape 6, quand vous aurez de quoi le financer. Voir la fiche dédiée."}
+      {t:"todo", tag:"elev", txt:"Ne pas se lancer dans l'élevage tout de suite", d:"L'élevage demande des kamas avant d'en rapporter : carburant d'enclos, filets, montures à capturer. Il arrive à l'étape 5, quand vous aurez de quoi le financer. Voir la fiche dédiée."}
     ]
   },
   {
@@ -865,119 +867,130 @@ const WEEKS = [
     ]
   },
   {
-    n:3, t:"Pêcheur sur le récolteur + Tailleur", d:"~4 à 6 semaines",
-    s:"On commence par le métier neuf le plus rapide, pas par le plus long",
+    n:3, t:"Les deux récolteurs, en parallèle", d:"~5 à 7 semaines",
+    s:"Bûcheron et Pêcheur montent en même temps, un par joueur",
     items:[
-      {t:"todo", tag:"kamas", txt:"Test de rentabilité : est-ce que Pêcheur vaut ses 60 heures ?",
-       d:"À faire AVANT d'engager le bloc. Ces 60 heures passées en donjon rapporteraient aussi, et tout de suite.",
-       why:"C'est la question que ce plan ne posait pas. Un métier de récolte à 200, c'est une soixantaine d'heures de votre vie. Rien ne garantit d'avance que ça bat le simple fait de farmer des donjons et d'acheter la ressource. On vérifie une fois, ça prend une heure, et ça vaut pour les trois métiers de récolte qui restent.",
+      {t:"todo", tag:"kamas", txt:"Test de rentabilité : est-ce que ces deux métiers valent leurs 60 heures ?",
+       d:"À faire AVANT d'engager le bloc, une fois pour chacun des deux. Ces heures passées en donjon rapporteraient aussi, et tout de suite.",
+       why:"C'est la question que ce plan ne posait pas. Un métier de récolte à 200, c'est une soixantaine d'heures de votre vie. Rien ne garantit d'avance que ça bat le simple fait de farmer des donjons et d'acheter la ressource. On vérifie une fois, ça prend une heure, et si un des deux échoue au seuil, vous venez d'économiser des mois.",
        how:["<b>D</b> — Mesure <b>une heure</b> de ton bloc donjon, panoplies de prospection équipées : additionne les kamas ramassés et la valeur HDV de ce qui tombe.",
             "<b>A</b> — Regarde ce que vous <b>achetez</b> de cette ressource par semaine, en kamas. C'est ce que le métier vous ferait économiser.",
             "<b>V</b> — Estime ce que vous en <b>revendriez</b> par semaine une fois à 200. Si tu n'en as aucune idée, mets <b>0</b> : le calcul devient le pire cas, et s'il passe quand même, l'étape est sûre.",
             "Calcule <b>60 × D ÷ (A + V)</b>. Le résultat est le nombre de semaines qu'il faut pour rembourser les 60 heures."],
-       ok:"Sous 20 semaines : l'étape est rentable, foncez. Au-delà : sautez le métier et continuez d'acheter la ressource. Le plan complet fait environ 26 semaines — un métier qui met plus de 20 semaines à se rembourser ne vous aura rien rapporté avant la fin."},
-      {t:"main", job:"pecheur", to:200,
-       d:"Le plus rapide des métiers neufs : boucles courtes, coins de pêche regroupés. C'est celui sur lequel on rode la méthode.",
-       why:"Il passe avant Bûcheron parce qu'il est plus court et plus indulgent. Vous encaissez une victoire tôt, et vous apprenez le rythme des boucles sur le métier qui pardonne, avant d'attaquer celui qui ne pardonne rien.",
-       how:["<b>Le piège numéro un : la canne.</b> Il en faut une adaptée à chaque palier — sans elle, impossible de remonter les poissons supérieurs. C'est exactement l'oubli de l'outil de chasse, en pire, parce qu'il revient tous les 10 niveaux.",
-            "<b>Un nouveau poisson tous les 10 niveaux</b>, donc une vingtaine de changements de zone. C'est le métier le plus mobile du lot : prévois de garder la carte ouverte.",
+       ok:"Sous 20 semaines : le métier est rentable, on y va. Au-delà : on le saute et on continue d'acheter la ressource. Le plan complet fait environ 25 semaines — un métier qui met plus de 20 semaines à se rembourser ne vous aura rien rapporté avant la fin."},
+      {t:"one", job:"pecheur", to:200,
+       d:"Le plus rapide des deux : boucles courtes, coins de pêche regroupés.",
+       why:"Confié à un joueur pendant que l'autre coupe du bois. Les deux métiers avancent sur le même créneau de jeu au lieu de se suivre — c'est ce qui fait passer cette étape de treize semaines à sept.",
+       how:["<b>Le piège numéro un : la canne.</b> Il en faut une adaptée à chaque palier — sans elle, impossible de remonter les poissons supérieurs. C'est l'oubli de l'outil de chasse, en pire, parce qu'il revient tous les 10 niveaux.",
+            "<b>Un nouveau poisson tous les 10 niveaux</b>, donc une vingtaine de changements de zone. Le métier le plus mobile du lot : garde la carte ouverte.",
             "Route classique : Astrub et Incarnam (1-20) → Rivière Kawaii (40-70) → Port de Madrestam (50-60) → Baie de Cania (70-80) → Lacs des Koalaks (80-90, <i>attention aux agressifs</i>) → Territoire des Porcos (90-110) → Île de Grobe (110-120) → Lacs Enchantés (120-130) → Rive Est de Cania (130-160) → Île des DragOeufs et Otomaï (160-180) → lacs gelés de Frigost (180-190) → Rive Est de Cania (190-200).",
             "Toujours pêcher la ressource la plus haute que le niveau autorise : l'XP dépend du niveau du poisson."],
-       ok:"Pêcheur 200 sur le récolteur, et une boucle chronométrée que vous savez refaire sans réfléchir. Notez-la dans la note de cet objectif."},
+       ok:"Pêcheur 200, et une boucle chronométrée que tu sais refaire sans réfléchir. Note-la dans la note de cet objectif."},
+      {t:"one", job:"bucheron", to:200,
+       d:"Le plus long des deux, et le moins indulgent. Confié à l'autre joueur.",
+       why:"Le bois alimente vos crafts d'armes et de boucliers, et il alimentera Sculpteur à l'étape 5. C'est aussi la ressource que vous achetez le plus aujourd'hui.",
+       how:["<b>Forêt d'Astrub, au nord : 20 maps</b> avec frêne, châtaignier, noyer, chêne et érable. La boucle longue que ce métier exige est déjà toute faite — la meilleure zone de départ. Scierie en <code>1,-25</code>.",
+            "<b>Le vrai tournant est au niveau 35</b> : Bombu et Oliviolet se débloquent et vous tiennent <b>de 35 à 100</b> à eux seuls. Massif de Cania et Lande de Sidimote. Une seule route pendant 65 niveaux, c'est le meilleur moment du métier.",
+            "Au-delà de 100, on passe aux substrats par tranches de 20 niveaux (bosquet, fourré, forêt, forêt primaire, forêt vierge). <b>Confirme les zones exactes dans l'encyclopédie in-game</b> : c'est la partie la moins bien documentée.",
+            "<b>Repousse lente.</b> Si tu reviens sur des souches, allonge le trajet plutôt que d'attendre."],
+       ok:"Bûcheron 200, et vous n'achetez plus une seule bûche au HDV."},
       {t:"one", job:"tailleur", to:180,
-       d:"Coiffes et capes : parmi les pièces les plus achetées du jeu.",
-       why:"Tailleur avance pendant que le récolteur pêche : deux personnages, deux activités, aucun temps mort. C'est le seul parallélisme que le plan vous offre vraiment.",
-       ok:"Tailleur 180, et au moins une coiffe THL vendue au prix que vous visiez."},
-      {t:"todo", tag:"kamas", txt:"Vendre poissons THL et plats",
-       d:"Relevez d'abord la concurrence réelle sur votre serveur avant de vous positionner — c'est très variable.",
-       ok:"Un premier lot vendu, et le prix noté dans votre carnet pour servir de référence."}
+       d:"Natsugoffy avance de son côté pendant que les deux autres récoltent.",
+       why:"Natsugoffy porte six métiers de craft et ne peut en faire tourner qu'un à la fois : c'est le chemin critique de tout le plan. Tout ce qui n'est pas sur lui doit avancer en parallèle, sinon vous l'attendez.",
+       ok:"Tailleur 180, et au moins une coiffe THL vendue au prix que vous visiez."}
     ]
   },
   {
-    n:4, t:"Bûcheron sur le récolteur (le gros morceau)", d:"~5 à 7 semaines",
-    s:"Le plus long métier de récolte, et le dernier gros trou de la team",
+    n:4, t:"Boucler les bijoux et le tissu", d:"~4 à 5 semaines",
+    s:"Deux filières de craft finies, sur deux personnages différents",
     items:[
-      {t:"todo", tag:"kamas", txt:"Refaire le test de rentabilité, pour le bois cette fois",
-       d:"Même calcul qu'à l'étape 3, avec vos dépenses réelles en bois. C'est le métier le plus long : c'est celui où le test compte le plus.",
-       why:"Le bois alimente les crafts d'armes, d'arcs, de baguettes et de boucliers. Si vous en consommez beaucoup, le métier se rembourse vite. Si vous en consommez peu, 60 heures pour économiser quelques centaines de milliers de kamas est un mauvais échange — et il vaut mieux le savoir avant.",
-       ok:"Sous 20 semaines de remboursement : on y va. Au-delà : on saute, on achète le bois, et on récupère 60 heures pour les donjons."},
-      {t:"main", job:"bucheron", to:200,
-       d:"Métier neuf, 1 → 200. La plus grosse étape de récolte du plan.",
-       why:"Il vient après Pêcheur parce qu'il est plus long et moins indulgent. Il débloque le bois de vos propres crafts d'armes et de boucliers, et il alimentera Sculpteur à l'étape 6.",
-       how:["<b>Forêt d'Astrub, au nord : 20 maps</b> avec frêne, châtaignier, noyer, chêne et érable. La boucle longue que ce métier exige est déjà toute faite — c'est la meilleure zone de départ. Scierie en <code>1,-25</code>.",
-            "<b>Le vrai tournant est au niveau 35</b> : Bombu et Oliviolet se débloquent, et à eux seuls ils vous tiennent <b>de 35 à 100</b>. Massif de Cania et Lande de Sidimote. Une seule route pendant 65 niveaux, c'est le meilleur moment du métier.",
-            "Au-delà de 100, on passe aux substrats par tranches de 20 niveaux (bosquet, fourré, forêt, forêt primaire, forêt vierge). <b>Confirme les zones exactes dans l'encyclopédie in-game</b> avant de te déplacer : c'est la partie la moins bien documentée.",
-            "<b>Repousse lente.</b> C'est le métier où la boucle doit être la plus longue : si tu reviens sur des souches, allonge le trajet plutôt que d'attendre."],
-       ok:"Bûcheron 200, et vous n'achetez plus une seule bûche au HDV."},
       {t:"one", job:"bijoutier", to:200,
-       d:"Dernier palier, le plus cher.",
-       why:"Convict porte déjà Mineur : ses propres minerais alimentent ses propres bijoux. C'est la seule filière entièrement bouclée sur un personnage unique dans tout le plan.",
+       d:"Dernier palier, le plus cher. Sur Convict, donc en parallèle de Natsugoffy.",
+       why:"Convict porte Bijoutier ET Mineur : ses propres minerais alimentent ses propres bijoux. La seule filière entièrement bouclée sur un personnage unique du plan — et elle avance sans bloquer Natsugoffy.",
        cost:"Le palier 185 → 200 est le plus cher en ressources de toute la chaîne bijoux. Videz le coffre de minerais avant d'acheter quoi que ce soit."},
-      {t:"todo", tag:"kamas", txt:"Arrêter d'acheter du bois au HDV",
-       d:"Les crafts d'armes et de boucliers sont désormais auto-alimentés.",
-       ok:"Une semaine complète sans un seul achat de bois. C'est la mesure directe de ce que l'étape vous a rapporté."},
+      {t:"one", job:"tailleur", to:200,
+       d:"Palier final. Vous pouvez maintenant sortir des coiffes et capes THL.",
+       ok:"Tailleur 200, et un premier set partiel maison : bijoux par Convict, coiffe et cape par Natsugoffy. Mesurez la marge réelle sur une vente complète."},
       {t:"todo", tag:"kamas", txt:"Bilan mi-parcours : recalculer les prix HDV",
        d:"Vous êtes à la moitié du plan, vos prix de référence ont forcément bougé.",
        how:["Reprenez les 10 ressources du carnet de l'étape 1 et notez les prix du jour.",
-            "Comparez à ceux de l'étape 1 : ce qui a monté de plus de 30 % mérite qu'on en produise plus, ce qui a chuté ne vaut plus la peine d'être farmé.",
+            "Comparez : ce qui a monté de plus de 30 % mérite qu'on en produise plus, ce qui a chuté ne vaut plus la peine d'être farmé.",
             "Refaites la mesure <b>D</b> (une heure de donjon) : elle a dû augmenter avec vos prospections."],
        ok:"Carnet à jour et deux décisions prises : une ressource à pousser, une à abandonner."}
     ]
   },
   {
-    n:5, t:"Alchimiste sur le récolteur + Tailleur 200", d:"~5 à 7 semaines",
-    s:"Le métier le plus lent, et celui qui justifie le mieux le récolteur unique",
+    n:5, t:"Ouvrir les filières neuves", d:"~4 à 6 semaines",
+    s:"Sculpteur et Éleveur, sur des personnages libres — pendant que Natsugoffy continue",
     items:[
-      {t:"todo", tag:"kamas", txt:"Test de rentabilité, dernière fois : les plantes",
-       d:"Même calcul qu'aux étapes 3 et 4. Celui-ci est le plus susceptible d'échouer au seuil.",
-       why:"Alchimiste est le métier le plus lent et le moins dense du jeu. En face, vous avez déjà Natsugoffy Alchimiste 200 qui fabrique vos potions. La vraie question est donc étroite : est-ce que récolter vos plantes vous-mêmes bat le fait de les acheter ? Si vos potions se vendent bien, oui. Sinon, ce métier est le premier à sacrifier.",
-       ok:"Sous 20 semaines : on monte. Au-delà : on garde Natsugoffy comme seul alchimiste, on achète les plantes, et on récupère 60 heures."},
-      {t:"main", job:"alchimiste", to:200,
-       d:"1 à 3 plantes par map : le métier où une meute de 8 n'aurait servi à rien.",
-       why:"Il ferme la boucle des potions de téléportation : vos plantes, votre craft, votre marge entière. C'est aussi le dernier métier de récolte, donc la fin de cette moitié du plan.",
-       how:["<b>Boucle très large</b> et peu de nœuds par map : c'est le seul métier où l'on accepte de beaucoup marcher pour peu de ressources.",
-            "<b>L'encyclopédie in-game ouverte à côté</b>, en permanence. C'est le métier où elle sert le plus, parce que les plantes sont éparpillées sur énormément de zones différentes.",
-            "À monter <b>en tâche de fond</b> plutôt qu'en bloc dédié : pendant les déplacements, entre deux autres activités. Un bloc de 1 h 30 d'alchimie pure est le meilleur moyen de s'écœurer."],
-       ok:"Alchimiste 200 sur le récolteur, et les six métiers de récolte bouclés sur un seul personnage."},
-      {t:"one", job:"tailleur", to:200, d:"Palier final. Vous pouvez maintenant sortir des coiffes/capes THL."},
-      {t:"todo", tag:"kamas", txt:"Monter en régime sur les potions de téléportation", d:"Vos plantes viennent maintenant de votre propre récolteur au lieu du HDV : la marge sur chaque potion change complètement. Demande constante, à produire en lots."}
+      {t:"one", job:"cordonnier", to:160,
+       d:"La file de Natsugoffy continue d'avancer : c'est elle qui donne le rythme.",
+       why:"Rien de ce qui suit ne dépend de Cordonnier, donc il peut tourner en fond pendant que les autres ouvrent les nouveaux métiers."},
+      {t:"one", job:"sculpteur", to:1,
+       hint:"Sur un personnage qui n'a pas déjà six métiers de craft — surtout pas Natsugoffy.",
+       d:"Baguettes, arcs, bâtons : totalement absents de la team.",
+       why:"C'est le premier métier de craft que vous posez librement, donc le premier vrai parallélisme côté artisanat. Sur un personnage libre, il craft pendant que Natsugoffy craft autre chose. Et il est alimenté par votre propre bois depuis l'étape 3.",
+       ok:"Sculpteur appris sur un personnage autre que Natsugoffy, et une première baguette sortie."},
+      {t:"one", job:"eleveur", to:80,
+       hint:"Encore un autre personnage : l'élevage se pilote séparément du craft.",
+       d:"Le niveau débloque les enclos : 1 dès le niveau 1, puis un de plus tous les 40 niveaux.",
+       why:"L'élevage est la seule source de kamas qui ne dépend ni de vos récoltes ni du cours des ressources. À 80 vous avez 3 enclos, de quoi faire tourner un vrai cycle sans y engloutir des mois.",
+       how:["Les enclos sont <b>publics et gratuits</b>, à gauche du zaap Village des Éleveurs, dans la Montagne des Koalaks. Il n'y a plus rien à posséder.",
+            "<b>Remplissez chaque enclos à 10 montures.</b> La consommation de carburant ne dépend pas du nombre de montures : un enclos à 3 coûte autant qu'un enclos à 10. C'est l'optimisation la plus rentable du métier, et elle est gratuite.",
+            "Deux jauges actives au maximum par enclos.",
+            "L'XP vient de la capture, de la fabrication de filets et de carburant, et surtout de la reproduction."],
+       cost:"Carburant, filets et montures de départ se paient avant de rapporter quoi que ce soit. C'est pour ça que l'élevage arrive ici et pas au début.",
+       ok:"3 enclos débloqués et remplis à 10, avec un premier cycle de reproduction bouclé."}
     ]
   },
   {
-    n:6, t:"Cordonnier, Sculpteur et ouverture de l'élevage", d:"~4 à 6 semaines",
-    s:"La récolte est bouclée : le temps libéré part sur le craft et l'élevage",
+    n:6, t:"Fermer la chaîne d'équipement", d:"~3 à 4 semaines",
+    s:"Cordonnier et Forgeron finissent, la prospection passe au palier suivant",
     items:[
-      {t:"todo", tag:"setup", txt:"Vérifier que le récolteur a bien les 6 métiers de récolte à 200", d:"Paysan, Chasseur, Mineur, Bûcheron, Pêcheur, Alchimiste. À partir d'ici, un seul personnage suffit pour un tour de ressources complet — le tableau de l'onglet Personnages vous le confirme d'un coup d'œil."},
-      {t:"one", job:"cordonnier", to:160, d:"Recette la plus haute autorisée, brisage systématique des invendus."},
-      {t:"one", job:"sculpteur", to:1, hint:"Prenez un personnage qui n'a pas déjà six métiers de craft — Conviict est le candidat naturel.", d:"Baguettes, arcs, bâtons : totalement absents de la team. Vous ne doublez rien, et ça vous donne une deuxième file de craft qui tourne en même temps que celle de Natsugoffy. Voir l'onglet « À deux »."},
-      {t:"todo", tag:"kamas", txt:"Premier set partiel fabriqué maison", d:"Bijoux + coiffe/cape : mesurez la marge réelle sur une vente complète."},
-      {t:"one", job:"eleveur", to:80, hint:"Un seul éleveur, comme pour la récolte.", d:"Le niveau du métier débloque les enclos : 1 dès le niveau 1, puis 1 de plus tous les 40 niveaux. À 80 vous en avez 3, de quoi faire tourner un vrai cycle sans y engloutir des mois. Les enclos sont publics et gratuits, à gauche du zaap Village des Éleveurs."},
-      {t:"todo", tag:"elev", txt:"Remplir chaque enclos à 10 montures avant de lancer une jauge", d:"La consommation de carburant ne dépend pas du nombre de montures : un enclos à 3 coûte autant qu'un enclos à 10. C'est l'optimisation numéro un de l'élevage, et elle ne coûte rien."}
+      {t:"one", job:"cordonnier", to:200,
+       d:"Vous couvrez maintenant coiffe, cape, bottes, ceinture, bouclier et bijoux."},
+      {t:"one", job:"forgeron", to:170,
+       d:"Le plus cher à monter de toute la chaîne.",
+       why:"Le Forgeron alimentera le futur Forgemage en armes à briser et à monter. C'est la dernière dépendance du plan : sans lui, la magie des armes coûte le double.",
+       cost:"Brisez tout ce qui ne se vend pas — les runes récupérées serviront directement à la magie de l'étape 7."},
+      {t:"one", job:"sculpteur", to:100,
+       d:"Alimenté par votre bois, donc quasi gratuit maintenant que Bûcheron est à 200."},
+      {t:"pp", to:300,
+       d:"Deuxième palier de prospection, une fois la trésorerie confortable.",
+       why:"À 300 PP vous triplez le taux de base. C'est le seuil à partir duquel les drops rares de boss deviennent réguliers plutôt qu'anecdotiques — et c'est ce qui financera la magie.",
+       ok:"Les 8 personnages à 300 PP ou plus, et des idoles orientées drop posées sur le bloc donjon."},
+      {t:"todo", tag:"kamas", txt:"Constituer le matelas de trésorerie pour la magie",
+       d:"Écrivez le chiffre à deux avant d'attaquer l'étape 7.",
+       why:"C'est ce qui bloque le plus de joueurs à mi-parcours : commencer la magie sans réserve, et rester coincé à 170 avec un métier qui ne rapporte rien tant qu'il n'est pas fini.",
+       ok:"Un chiffre écrit noir sur blanc, et la somme effectivement de côté dans le coffre."}
     ]
   },
   {
-    n:7, t:"Cordonnier 200 + Forgeron", d:"~3 à 4 semaines",
-    s:"La chaîne d'équipement se ferme — c'est l'étape où la marge décolle",
-    items:[
-      {t:"one", job:"cordonnier", to:200, d:"Vous couvrez maintenant coiffe, cape, bottes, ceinture, bouclier et bijoux."},
-      {t:"one", job:"forgeron", to:170, d:"Le plus cher à monter. Brisez tout ce qui ne se vend pas : les runes récupérées serviront pour la magie."},
-      {t:"one", job:"sculpteur", to:100, d:"Alimenté par votre bois, donc quasi gratuit maintenant que Bûcheron est à 200."},
-      {t:"pp", to:300, d:"Deuxième palier de prospection, une fois la trésorerie confortable. À 300 PP vous triplez le taux de base : c'est le seuil à partir duquel les drops rares de boss deviennent réguliers plutôt qu'anecdotiques. C'est aussi le moment d'ajouter des idoles orientées drop."},
-      {t:"todo", tag:"kamas", txt:"Sortir des sets complets fabriqués en interne", d:"Aucune ressource achetée sur toute la chaîne : c'est ici que vous captez 100 % de la marge."},
-      {t:"todo", tag:"kamas", txt:"Constituer le matelas de trésorerie pour la magie", d:"Écrivez le chiffre à deux avant d'attaquer l'étape 8. C'est ce qui bloque le plus de joueurs à mi-parcours."}
-    ]
-  },
-  {
-    n:8, t:"Forgeron 200 + bascule sur la magie", d:"~4 à 6 semaines",
+    n:7, t:"La magie, et le bout du plan", d:"~4 à 6 semaines",
     s:"Dernier métier de craft, puis on ouvre le chapitre rentable",
     items:[
-      {t:"one", job:"forgeron", to:200, d:"Palier final. Ce Forgeron alimentera ensuite le futur Forgemage en armes."},
-      {t:"todo", tag:"fm", txt:"Fixer un budget runes chiffré, et s'y tenir", d:"L'ordre de grandeur souvent cité est la dizaine de millions pour amener un métier de magie de 120 à 200, mais ça dépend entièrement du prix des runes sur votre serveur : relevez-le vous-mêmes avant de fixer le chiffre. Et le chiffre s'écrit avant, pas pendant."},
-      {t:"one", job:"costumage", to:200, d:"Le plus avancé de vos métiers de magie, et coiffes/capes = grosse demande. À finir en premier."},
-      {t:"one", job:"joaillomage", to:160, d:"Objets bas niveau + runes bon marché achetées en gros en heures creuses."},
-      {t:"one", job:"sculpteur", to:200, d:"Vous devenez votre propre fournisseur d'armes magiques."},
-      {t:"todo", tag:"kamas", txt:"Ouvrir les premiers services de FM", d:"Même à niveau intermédiaire, vous pouvez prendre des commandes simples."},
-      {t:"todo", tag:"fm", txt:"Planifier l'extension : Joaillomage 200, Forgemage, Sculptemage", d:"Posez chaque nouveau métier de magie sur un porteur différent de Natsugoffy quand c'est possible : deux files qui tournent en parallèle valent mieux qu'une seule saturée."}
+      {t:"one", job:"forgeron", to:200,
+       d:"Palier final. Ce Forgeron alimentera ensuite le futur Forgemage en armes."},
+      {t:"todo", tag:"fm", txt:"Fixer un budget runes chiffré, et s'y tenir",
+       d:"Le chiffre s'écrit avant, pas pendant.",
+       why:"La magie est le seul poste du plan qui se paie en kamas secs. Sans budget écrit, on découvre la facture en cours de route et on s'arrête au pire moment.",
+       cost:"L'ordre de grandeur souvent cité est la dizaine de millions pour amener un métier de magie de 120 à 200, mais ça dépend entièrement du prix des runes sur votre serveur : relevez-le vous-mêmes avant de fixer le chiffre."},
+      {t:"one", job:"costumage", to:200,
+       d:"Le plus avancé de vos métiers de magie, et coiffes et capes = grosse demande. À finir en premier."},
+      {t:"one", job:"joaillomage", to:160,
+       d:"Objets bas niveau et runes bon marché achetées en gros en heures creuses."},
+      {t:"one", job:"sculpteur", to:200,
+       d:"Vous devenez votre propre fournisseur d'armes magiques.",
+       why:"Sur un personnage libre, donc en parallèle de la magie de Natsugoffy. C'est le dernier bénéfice de la répartition."},
+      {t:"one", job:"eleveur", to:200,
+       d:"6 enclos au niveau 200, soit 60 places de montures.",
+       why:"Chaque palier de 40 niveaux débloque un enclos de plus. C'est le seul plafond de votre production d'élevage."},
+      {t:"todo", tag:"kamas", txt:"Ouvrir les premiers services de FM",
+       d:"Même à niveau intermédiaire, vous pouvez prendre des commandes simples.",
+       ok:"Une première commande de forgemagie honorée et payée."},
+      {t:"todo", tag:"fm", txt:"Planifier l'extension : Joaillomage 200, Forgemage, Cordomage, Sculptemage, Façomage",
+       d:"Quatre métiers de magie encore absents, et un personnage libre pour chacun.",
+       why:"Vous avez maintenant la preuve que la répartition marche : Natsugoffy reste saturé, les autres non. Chaque nouveau métier de magie va sur un porteur différent — c'est autant de files qui tournent en même temps."}
     ]
   }
 ];
@@ -1050,23 +1063,6 @@ function resolveItem(w, it, i){
 
   const j = JOB_LIST.find(x=>x.k===it.job) || {n:it.job, c:"craft"};
 
-  if(it.t === "main"){
-    const ch = mainChar();
-    const lv = ch.jobs[it.job] || 0;
-    const done = lv >= it.to;
-    return {
-      id, auto:true, done, tag:j.c,
-      /* lv vaut 0 quand le métier n'est pas appris : on écrit « 1 → 200 »,
-         comme on le dirait en jeu, plutôt qu'un « 0 → 200 » qui n'existe pas. */
-      title: done ? `${esc(j.n)} — palier ${it.to} atteint sur ${esc(ch.name)}`
-                  : `${esc(j.n)} ${lv||1} → ${it.to} sur ${esc(ch.name)}`,
-      prog: done ? `niveau ${lv}` : (lv ? `${it.to - lv} niveaux restants` : "métier à apprendre"),
-      progCls: done ? "ok" : (lv ? "part" : "none"),
-      live: `Récolteur principal — les autres personnages n'ont pas besoin de ce métier.`,
-      note: it.d
-    };
-  }
-
   if(it.t === "all"){
     const lvls = CHARS.map(ch=>ch.jobs[it.job]||0);
     const at = lvls.filter(v=>v>=it.to).length;
@@ -1089,6 +1085,13 @@ function resolveItem(w, it, i){
   const who = hs.map(x=>esc(x.name)).join(", ");
   const open = it.to <= 1;                       // objectif « ouvrir ce métier »
   const done = open ? hs.length > 0 : lv >= it.to;
+  /* Deux porteurs d'un même métier de RÉCOLTE, ce n'est pas un gaspillage :
+     ça laisse les deux joueurs récolter en même temps. Pour le craft et la
+     magie, en revanche, un second porteur ne sert toujours à rien. */
+  const plusieurs = hs.length > 1
+    ? (j.c === "rec" ? " — deux récolteurs, vous pouvez farmer en parallèle"
+                     : " — doublon, un seul porteur suffit")
+    : "";
 
   let title, prog, progCls, live;
   if(open){
@@ -1106,12 +1109,12 @@ function resolveItem(w, it, i){
     title = `${esc(j.n)} — palier ${it.to} atteint`;
     prog = `niveau ${lv}`;
     progCls = "ok";
-    live = `Porté par <b>${who}</b>${hs.length>1 ? " — doublon, un seul porteur suffit" : ""}.`;
+    live = `Porté par <b>${who}</b>${plusieurs}.`;
   } else {
     title = `${esc(j.n)} ${lv} → ${it.to}`;
     prog = `${it.to - lv} niveaux restants`;
     progCls = "part";
-    live = `Porté par <b>${who}</b>${hs.length>1 ? " — doublon, un seul porteur suffit" : ""}.`;
+    live = `Porté par <b>${who}</b>${plusieurs}.`;
   }
   return {id, auto:true, done, tag:j.c, title, prog, progCls, live, note:it.d};
 }
@@ -1151,14 +1154,6 @@ function renderKpis(){
   const el = document.getElementById("absentList");
   if(el) el.textContent = JOB_LIST.filter(j=>!CHARS.some(ch=>(ch.jobs[j.k]||0)>0)).map(j=>j.n).join(", ");
 }
-
-function renderMainPick(){
-  const el = document.getElementById("mainPick");
-  if(!el) return;
-  el.innerHTML = CHARS.map((ch,i)=>
-    `<option value="${i}"${i===MAIN?" selected":""}>${esc(ch.name)}</option>`).join("");
-}
-function setMain(i){ MAIN = Math.max(0, Math.min(CHARS.length-1, parseInt(i,10)||0)); refreshAll(); }
 
 /* --- matrice éditable (onglet Personnages) --- */
 function renderMatrix(){
@@ -1279,12 +1274,11 @@ function clearCol(){
 /* --- couverture --- */
 function renderCoverage(){
   const rec = JOB_LIST.filter(j=>j.c==="rec");
-  const ch = mainChar();
-  let h = `<table><thead><tr><th>Métier</th><th>Qui le porte</th><th>Niveau utile</th><th>État</th></tr></thead><tbody>`;
+  let h = `<table><thead><tr><th>Métier</th><th>Qui le porte</th><th>Niveau</th><th>État</th></tr></thead><tbody>`;
   rec.forEach(j=>{
     /* Chasseur est le seul métier de récolte où les 8 comptent : la viande tombe
-       des combats, chaque perso équipé fait son propre jet. Partout ailleurs,
-       seul le récolteur principal est pertinent. */
+       des combats, chaque perso équipé fait son propre jet. Partout ailleurs on
+       affiche les porteurs réels, plusieurs étant une bonne nouvelle. */
     if(j.k === "chasseur"){
       const at = CHARS.filter(c=>(c.jobs.chasseur||0)>=200).length;
       const lack = CHARS.filter(c=>(c.jobs.chasseur||0)<200);
@@ -1297,15 +1291,17 @@ function renderCoverage(){
           : `${lack.length} perso${lack.length>1?"s":""} à finir : ${lack.map(x=>esc(x.name)).join(", ")}`}</span></td></tr>`;
       return;
     }
-    const lv = ch.jobs[j.k]||0;
-    const others = CHARS.filter((c,i)=>i!==MAIN && (c.jobs[j.k]||0)>0).length;
-    const cls = lv>=200 ? "p-green" : lv ? "p-gold" : "p-red";
-    const verdict = lv>=200 ? "Prêt pour les tours de ressources"
+    const hs = holdersOf(j.k);
+    const lv = hs.length ? hs[0].lv : 0;
+    const pret = hs.filter(x=>x.lv>=200).length;
+    const cls = pret ? "p-green" : lv ? "p-gold" : "p-red";
+    const verdict = pret>1 ? `${pret} récolteurs prêts — farmez en parallèle`
+                  : pret ? "Prêt pour les tours de ressources"
                   : lv ? `${200-lv} niveaux avant la ressource haute`
-                       : "Pas encore appris";
+                       : "Personne ne le porte";
     h += `<tr><td><b>${j.n}</b></td>
-      <td>${esc(ch.name)}${others?` <span class="d2">${others} autre${others>1?"s l'ont":" l'a"} aussi — pas nécessaire</span>`:""}</td>
-      <td class="num" style="color:${lv?jobColor(lv):"var(--txt2)"}">${lv||"—"}</td>
+      <td>${hs.length ? hs.map(x=>esc(x.name)).join(", ") : "—"}</td>
+      <td class="num" style="color:${lv?jobColor(lv):"var(--txt2)"}">${hs.length?hs.map(x=>x.lv).join(" / "):"—"}</td>
       <td><span class="pill ${cls}">${verdict}</span></td></tr>`;
   });
   document.getElementById("coverage").innerHTML = h + `</tbody></table>`;
@@ -1335,8 +1331,7 @@ function renderCraftCov(){
    Le plan, lui, est TOUJOURS reconstruit : c'est ce qui garantit qu'un objectif
    ne reste jamais affiché avec un niveau périmé. */
 function refreshAll(skipMatrix){
-  if(MAIN >= CHARS.length) MAIN = 0;
-  renderKpis(); renderTeamCards(); renderMainPick();
+  renderKpis(); renderTeamCards();
   if(!skipMatrix) renderMatrix();
   renderCoverage(); renderCraftCov();
   renderWeeks(); refresh();
@@ -1344,9 +1339,9 @@ function refreshAll(skipMatrix){
 }
 
 /* ---------- persistance locale + synchro ---------- */
-const DATA_V = 6;   // v6 : notes par objectif
+const DATA_V = 7;   // v7 : plus de récolteur unique, un porteur par métier
 let SUSPEND = false;
-function getData(){ return {v:DATA_V, state:state, notes:notes, chars:CHARS, main:MAIN}; }
+function getData(){ return {v:DATA_V, state:state, notes:notes, chars:CHARS}; }
 function persist(){
   if(SUSPEND) return;
   try{ localStorage.setItem("dofus.plan.local", JSON.stringify(getData())); }catch(e){}
@@ -1378,7 +1373,8 @@ function applyData(d, silent){
   state = (d.v && d.v >= 5) ? (d.state || {}) : {};
   notes = (d.notes && typeof d.notes === "object") ? d.notes : {};
   if(Array.isArray(d.chars) && d.chars.length) CHARS = readChars(d.chars);
-  if(Number.isInteger(d.main)) MAIN = d.main;
+  /* d.main (récolteur unique, v5-v6) est volontairement ignoré : le porteur de
+     chaque métier se déduit maintenant des niveaux eux-mêmes. */
   refreshAll();
   SUSPEND = false;
   if(!silent) persist();
