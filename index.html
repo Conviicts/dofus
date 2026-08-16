@@ -247,24 +247,29 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
     <div class="syncbar">
       <span class="dot" id="syncDot"></span>
       <span id="syncTxt">Mode local — ta progression est enregistrée sur ce navigateur</span>
-      <button class="btn" onclick="toggleSync()">Configurer l'équipe</button>
+      <button class="btn" onclick="toggleSync()">Rejoindre l'équipe</button>
     </div>
     <div class="io" id="syncPanel">
-      <p class="muted" style="margin:12px 0 4px">Une fois configuré, toi et ton pote voyez <b>les mêmes données en direct</b>. Suis le fichier <code>MODE-EMPLOI.md</code> pour obtenir ces deux informations — c'est gratuit et ça prend 10 minutes, une seule fois.</p>
-      <label class="fl">1 · Configuration Firebase (colle le bloc <code>firebaseConfig</code> tel quel)</label>
-      <textarea class="tx" id="fbCfg" placeholder='const firebaseConfig = {
-  apiKey: "...",
-  databaseURL: "https://....firebasedatabase.app",
-  projectId: "..."
-};'></textarea>
-      <label class="fl">2 · URL de la base <span style="color:var(--txt2);font-weight:400">— seulement si <code>databaseURL</code> n'apparaît pas au-dessus</span></label>
-      <input class="tx" id="fbUrl" placeholder="https://mon-projet-default-rtdb.europe-west1.firebasedatabase.app">
-      <label class="fl">3 · Code d'équipe <span style="color:var(--txt2);font-weight:400">— identique pour vous deux, 8 caractères minimum, long et pas devinable</span></label>
-      <input class="tx" id="teamCode" placeholder="convict-natsu-k7x9p2">
+      <p class="muted" style="margin:12px 0 4px">La base d'équipe est <b>déjà configurée dans cette page</b>. Depuis n'importe quel navigateur, il suffit du code d'équipe — rien d'autre à installer ni à recopier.</p>
+      <label class="fl">Code d'équipe <span style="color:var(--txt2);font-weight:400">— exactement le même pour vous deux, 8 caractères minimum</span></label>
+      <input class="tx" id="teamCode" placeholder="votre code d'équipe" autocomplete="off" spellcheck="false"
+             onkeydown="if(event.key==='Enter')connectTeam()">
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn" onclick="connectTeam()">Connecter</button>
         <button class="btn" onclick="disconnectTeam()">Repasser en mode local</button>
       </div>
+      <details style="margin-top:14px">
+        <summary style="cursor:pointer;color:var(--txt2);font-size:12.5px">Utiliser une autre base Firebase que celle intégrée</summary>
+        <p class="muted" style="margin:10px 0 4px;font-size:12.5px">À ne remplir que si vous voulez héberger les données sur votre propre projet Firebase. Laissé vide, c'est la base intégrée qui sert.</p>
+        <label class="fl">Configuration Firebase (bloc <code>firebaseConfig</code> tel quel)</label>
+        <textarea class="tx" id="fbCfg" placeholder='const firebaseConfig = {
+  apiKey: "...",
+  databaseURL: "https://....firebasedatabase.app",
+  projectId: "..."
+};'></textarea>
+        <label class="fl">URL de la base <span style="color:var(--txt2);font-weight:400">— seulement si <code>databaseURL</code> n'apparaît pas au-dessus</span></label>
+        <input class="tx" id="fbUrl" placeholder="https://mon-projet-default-rtdb.europe-west1.firebasedatabase.app">
+      </details>
     </div>
     <nav id="nav"></nav>
   </div>
@@ -1422,6 +1427,22 @@ function toggleSync(){ document.getElementById("syncPanel").classList.toggle("on
    Le SDK n'est téléchargé qu'au moment où l'on se connecte : si le réseau
    est coupé ou le CDN bloqué, la page continue de fonctionner en mode local. */
 (function(){
+  /* Base d'équipe intégrée : c'est ce qui permet de rejoindre l'équipe avec le
+     seul code, depuis n'importe quel navigateur, sans rien recopier.
+     Ces valeurs ne sont pas des secrets — l'apiKey d'une app web Firebase est
+     un identifiant public. Ce qui protège réellement les données, ce sont les
+     règles de la base (voir regles-firebase.json) et le code d'équipe, qui lui
+     n'est écrit nulle part dans ce fichier. */
+  const FB_INTEGRE = {
+    apiKey: "AIzaSyCl7rY6nCUqnvguk5nVs-vpCVMdDRrd2HQ",
+    authDomain: "dofus-team-59f4e1b7-cd96b.firebaseapp.com",
+    databaseURL: "https://dofus-team-59f4e1b7-cd96b-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "dofus-team-59f4e1b7-cd96b",
+    storageBucket: "dofus-team-59f4e1b7-cd96b.firebasestorage.app",
+    messagingSenderId: "757418611154",
+    appId: "1:757418611154:web:61967a422bcf3a677f780b"
+  };
+
   let dbApi = null, dbRef = null, applying = false, timer = null, unsub = null;
 
   /* Un navigateur qui bloque le stockage local fait lever une exception au
@@ -1537,13 +1558,17 @@ function toggleSync(){ document.getElementById("syncPanel").classList.toggle("on
     /* Minuscules forcées : le chemin Firebase est sensible à la casse, donc
        « Natsu » et « natsu » créaient deux équipes distinctes sans prévenir. */
     const code = document.getElementById("teamCode").value.trim().toLowerCase();
-    if(!raw){ alert("Colle d'abord le bloc firebaseConfig (étape 1)."); return; }
     if(code.length < 8){ alert("Le code d'équipe doit faire au moins 8 caractères, et être exactement le même pour vous deux."); return; }
+    /* Sans config saisie, on prend la base intégrée : c'est le cas normal. */
     let cfg;
-    try{ cfg = parseCfg(raw); }
-    catch(e){ alert("Je n'arrive pas à lire cette configuration (" + e.message + "). Recopie tout le bloc, accolades comprises."); return; }
+    if(raw){
+      try{ cfg = parseCfg(raw); }
+      catch(e){ alert("Je n'arrive pas à lire cette configuration (" + e.message + "). Recopie tout le bloc, accolades comprises."); return; }
+    } else {
+      cfg = Object.assign({}, FB_INTEGRE);
+    }
     if(url) cfg.databaseURL = url;
-    if(!cfg.databaseURL){ alert("Il manque databaseURL. Recopie l'URL affichée en haut de ta page Realtime Database dans le champ 2."); return; }
+    if(!cfg.databaseURL){ alert("Il manque databaseURL dans la configuration saisie. Renseigne l'URL de la base juste en dessous, ou vide le champ de configuration pour utiliser la base intégrée."); return; }
     lsSet("dofus.plan.cfg", JSON.stringify(cfg));
     lsSet("dofus.plan.code", code);
     const me = prompt("Ton pseudo (juste pour savoir qui a modifié en dernier) :", lsGet("dofus.plan.me") || "");
@@ -1563,12 +1588,17 @@ function toggleSync(){ document.getElementById("syncPanel").classList.toggle("on
     status("", "Mode local — ta progression est enregistrée sur ce navigateur");
   };
 
-  /* reconnexion automatique au chargement */
+  /* Reconnexion automatique au chargement. Le code seul suffit : s'il n'y a pas
+     de config enregistrée, c'est la base intégrée qui prend le relais. */
   try{
-    const cfg  = JSON.parse(lsGet("dofus.plan.cfg") || "null");
     const code = lsGet("dofus.plan.code");
-    if(cfg && code){
-      document.getElementById("fbCfg").value = JSON.stringify(cfg, null, 2);
+    if(code){
+      const stocke = JSON.parse(lsGet("dofus.plan.cfg") || "null");
+      const perso  = stocke && stocke.databaseURL !== FB_INTEGRE.databaseURL;
+      const cfg    = perso ? stocke : FB_INTEGRE;
+      /* On ne réaffiche la config que si elle est personnalisée : sinon le champ
+         avancé donnerait l'impression qu'il faut le remplir. */
+      if(perso) document.getElementById("fbCfg").value = JSON.stringify(stocke, null, 2);
       document.getElementById("teamCode").value = code;
       start(cfg, code);
     }
