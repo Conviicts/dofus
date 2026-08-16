@@ -150,6 +150,7 @@ td.num{white-space:nowrap;color:var(--txt2)}
 .t-fm{background:rgba(169,139,224,.14);color:var(--purple)}
 .t-kamas{background:rgba(90,169,230,.14);color:var(--blue)}
 .t-setup{background:rgba(154,167,184,.14);color:var(--txt2)}
+.t-elev{background:rgba(224,108,108,.14);color:var(--red)}
 /* Objectifs automatiques : pas de case à cocher, l'état vient des niveaux saisis
    dans l'onglet Personnages. */
 .auto{
@@ -296,9 +297,10 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
       <tr><td><b>Cordomage</b></td><td>Magie</td><td>Complète Cordonnier (bottes / ceintures). Vous vendez alors l'objet <i>fini</i> et pas la pièce brute.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
       <tr><td><b>Sculpteur / Sculptemage</b></td><td>Craft + Magie</td><td>Baguettes, arcs, bâtons. Absents de la team, donc aucun doublon possible — et le plan les pose sur un personnage <i>autre</i> que Natsugoffy pour ouvrir une deuxième file de craft. Voir l'onglet « À deux ».</td><td><span class="pill p-gold">Moyenne</span></td></tr>
       <tr><td><b>Façomage</b></td><td>Magie</td><td>La magie des boucliers. Complète Bricoleur, que Natsugoffy a déjà à 200. Petit marché comparé à la FM d'armes&nbsp;: à ouvrir en dernier, quand tout le reste tourne.</td><td><span class="pill p-blue">Basse</span></td></tr>
+      <tr><td><b>Éleveur</b></td><td>Élevage</td><td>Métier neuf, arrivé avec la refonte de l'élevage (mise à jour 3.5, mars 2026). Il ouvre une source de kamas à part, qui ne dépend ni de la récolte ni du HDV. Voir la fiche dédiée dans l'onglet «&nbsp;Fiches métiers&nbsp;».</td><td><span class="pill p-gold">Moyenne</span></td></tr>
     </tbody>
   </table>
-  <p class="muted">Ça fait bien les <b>7 métiers absents</b> comptés par la carte ci-dessus&nbsp;: Bûcheron, Pêcheur, Sculpteur, Sculptemage, Forgemage, Cordomage, Façomage.</p>
+  <p class="muted">Détail des métiers absents comptés par la carte ci-dessus&nbsp;: <span id="absentList"></span>.</p>
 
   <h2>Les principes du plan</h2>
 
@@ -371,7 +373,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   <p class="muted">Pour les métiers de récolte, seul compte le niveau du <b>récolteur principal</b> — c'est lui qui fait les tours de ressources. Le maillon faible de la team n'a d'importance que pour <b>Chasseur</b>, où les 8 personnages contribuent réellement.</p>
   <div id="coverage"></div>
 
-  <h2>Métiers de craft et de magie</h2>
+  <h2>Métiers de craft, de magie et d'élevage</h2>
   <p class="muted">Ici la logique est inverse&nbsp;: un seul porteur suffit, et un doublon est une perte sèche puisque vous partagez tout.</p>
   <div id="craftcov"></div>
 </section>
@@ -441,7 +443,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
       <li><b>Joaillomage 160 → 200</b> sur Natsu, pour vendre des bijoux finis plutôt que bruts. Le meilleur ratio effort/gain de tout ce qui reste.</li>
       <li><b>Forgemage 1 → 200</b>, le gros morceau. C'est le service FM le plus demandé du jeu, et vous avez déjà Forgeron pour vous auto-alimenter en armes à briser et à monter.</li>
       <li><b>Cordomage</b> puis <b>Sculptemage</b> (Sculpteur est déjà à 200 à la fin de l'étape 8), pour fermer complètement la boucle équipement.</li>
-      <li><b>Élevage de dragodindes</b>&nbsp;: enclos dans le havre-sac, une passe quotidienne courte mais obligatoire (nourrissage + sorties). Revenu régulier, à condition de ne pas sauter des jours.</li>
+      <li><b>Éleveur 80 → 200</b>&nbsp;: chaque palier de 40 niveaux débloque un enclos de plus, jusqu'à 6 au niveau 200 — soit 60 places de montures. Comptez une soixantaine d'heures de progression pour le métier complet. C'est la source de kamas la plus indépendante du reste&nbsp;: elle ne dépend ni de vos récoltes ni du cours des ressources.</li>
       <li><b>Les 6 métiers de récolte déjà à 200 sur le récolteur</b> → vous basculez en mode «&nbsp;tour de ressources rentable&nbsp;» pur les jours où vous n'avez pas envie de vous prendre la tête. C'est là aussi que se pose la seule vraie question d'un deuxième récolteur&nbsp;: si les tours deviennent votre activité principale, monter un second perso sur les 2-3 métiers les plus denses (Paysan, Pêcheur) peut se défendre. Pas avant.</li>
     </ul>
     <p style="margin-bottom:0" class="muted">À partir de là, votre revenu ne vient plus du temps passé mais de la chaîne&nbsp;: vous récoltez vos propres ressources, vous dropez vos propres ingrédients rares, vous craftez l'équipement, vous le magiez vous-mêmes et vous vendez le produit fini. C'est le seul montage où vous captez 100&nbsp;% de la marge.</p>
@@ -517,11 +519,36 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
     <p>Fabriquer 500 objets niveau 20 quand ton métier est à 160, c'est jeter des ressources. Et à l'inverse, dès que tu passes un palier, change immédiatement de recette.</p>
     <ul class="clean">
       <li><b>Brise tout ce qui ne se vend pas.</b> Un objet crafté invendable n'est pas une perte&nbsp;: brisé, il te rend des runes, que tu revends ou que tu gardes pour ta magie plus tard. Ça récupère une bonne part du coût de montée.</li>
-      <li><b>Installe les ateliers dans ton havre-sac.</b> Tu crafts sans faire un aller-retour à Bonta à chaque fois. Sur la durée du plan, c'est des heures gagnées.</li>
+      <li><b>Parque ton artisan à côté de ses ateliers.</b> Les ateliers sont en ville et on ne peut pas les déplacer chez soi&nbsp;: choisis la ville où les tiens sont les plus regroupés et déconnecte le personnage sur place. Sur la durée du plan, ce sont des heures d'aller-retour économisées.</li>
       <li><b>Ordre de priorité</b>&nbsp;: Bijoutier → Tailleur → Cordonnier → Forgeron. Les bijoux et les coiffes/capes sont les pièces les plus achetées du jeu&nbsp;; le Forgeron est le plus cher à monter et ne prend toute sa valeur qu'avec le Forgemage, qui viendra après.</li>
       <li><b>Calcule avant d'acheter.</b> Avant de racheter une ressource au HDV pour monter un métier, regarde le coût total du palier. Parfois attendre une semaine que ta propre récolte fournisse le stock est largement plus rentable que d'acheter.</li>
     </ul>
     <p style="margin-bottom:0" class="muted">Vise le moment où tu peux sortir un <b>set complet fabriqué en interne</b> (bijoux par Convict, coiffe/cape/bottes/ceinture par Natsu) — c'est là que la marge devient sérieuse, parce que tu ne paies rien à personne sur toute la chaîne.</p>
+  </div>
+
+  <h3>Éleveur — le métier neuf de la refonte 3.5</h3>
+  <div class="card">
+    <p>L'élevage a été entièrement refondu le <b>3 mars 2026</b> et est devenu un métier. Si vous aviez des souvenirs de l'ancien système, oubliez-les&nbsp;: <b>consanguinité, énergie et fatigue ont disparu</b>, les certificats aussi, et Dragodindes, Muldos et Volkornes suivent désormais les mêmes règles.</p>
+
+    <p><b>Les enclos ne sont plus chez vous.</b> Les enclos privés ont été supprimés du jeu (les propriétaires ont été remboursés). Tous les enclos sont maintenant <b>publics, gratuits et regroupés à gauche du zaap Village des Éleveurs</b>, dans la Montagne des Koalaks. Chacun a <b>10 places</b>.</p>
+
+    <p><b>Ce que débloque le niveau du métier</b>&nbsp;: <b>1 enclos dès le niveau 1, puis un de plus tous les 40 niveaux, jusqu'à 6 au niveau 200</b> — soit 60 montures en parallèle. C'est la seule chose qui plafonne votre production, d'où l'intérêt de pousser le métier.</p>
+
+    <p><b>Le fonctionnement des enclos.</b> Chaque enclos a <b>6 jauges</b> — 2 de sérénité, 3 de besoins, 1 d'expérience — qui s'appliquent à <i>toutes</i> les montures de l'enclos, et qu'on alimente avec du <b>carburant d'enclos</b> (que l'Éleveur fabrique). <b>Deux jauges actives au maximum</b> en même temps.</p>
+
+    <div class="card gold" style="margin:14px 0">
+      <p style="margin-bottom:0"><b>La règle à retenir&nbsp;: remplissez toujours vos enclos à 10.</b> La consommation de carburant <b>ne dépend pas du nombre de montures</b>. Un enclos avec 3 montures coûte exactement le même carburant qu'un enclos avec 10. C'est l'optimisation la plus rentable du métier, et elle est gratuite.</p>
+    </div>
+
+    <p><b>Reproduction et capture.</b> Une monture ne se reproduit <b>qu'une seule fois</b>, puis devient stérile&nbsp;; le <b>clonage</b> fusionne deux stériles pour en refaire une fertile. Les petits naissent en <b>génération 1</b>, donc la capture reste indispensable pour renouveler le cheptel. Les <b>filets</b> sont devenus des consommables de combat (4 qualités), une tentative par combat, avec réussite garantie si les conditions sont réunies. Muldos et Volkornes se croisent dès le niveau 60 dans les nouvelles zones.</p>
+
+    <p><b>Comment monte le métier</b>&nbsp;: capture (de l'ordre de 30 XP l'unité), fabrication de filets et de carburant, et surtout reproduction — l'XP y vaut <i>(XP de la mère + XP du père) × nombre de bébés</i>, donc elle grimpe avec la génération des parents. Comptez environ <b>60 heures pour aller à 200</b>, moitié moins si vous entretenez les bons bonus.</p>
+
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Un seul éleveur</b>, comme pour la récolte. Un deuxième personnage à 200 vous donnerait 6 enclos de plus, mais c'est 60 heures pour y arriver&nbsp;: ne l'envisagez que si vos 6 premiers enclos tournent pleins en permanence.</li>
+      <li><b>Ça s'amorce en kamas.</b> Carburant, filets et montures de départ se paient avant de rapporter quoi que ce soit. C'est pour ça que le plan met l'élevage à l'étape 6 et pas au début.</li>
+      <li><b>Ordre de grandeur de rentabilité</b>&nbsp;: une semaine de production mesurée juste après la sortie donnait entre 500&nbsp;k et 1,2&nbsp;M de kamas de marge selon le taux de fertilité et la qualité du tri. À prendre comme un ordre de grandeur d'époque, pas comme une promesse — relevez vos propres chiffres.</li>
+    </ul>
   </div>
 
   <h3>Métiers de magie — Costumage, Joaillomage (et Forgemage plus tard)</h3>
@@ -576,10 +603,10 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
         <td>Étape 8 et après</td>
       </tr>
       <tr>
-        <td><b>Élevage de dragodindes</b></td>
-        <td>Enclos dans le havre-sac. Ce n'est <b>pas</b> passif&nbsp;: les dragodindes doivent être nourries et sorties régulièrement, sinon l'élevage stagne. Compte un vrai passage quotidien, court mais non négociable, pour un rendement modeste.</td>
-        <td><span class="pill p-green">Faible</span></td>
-        <td>À installer aux étapes 1-2</td>
+        <td><b>Élevage (métier Éleveur)</b></td>
+        <td>Depuis la refonte 3.5, c'est un métier à part entière et un vrai atelier de production, plus un revenu d'appoint. Le seul de la liste qui ne dépend ni de vos récoltes ni du cours des ressources. En contrepartie il faut l'amorcer en kamas et le piloter&nbsp;: ce n'est plus du tout passif.</td>
+        <td><span class="pill p-gold">Moyen</span></td>
+        <td>À partir de l'étape 6</td>
       </tr>
       <tr>
         <td><b>Quotidiennes (chasses au trésor, Almanax, dopeuls)</b></td>
@@ -729,7 +756,8 @@ const JOB_LIST = [
   {k:"forgemage",  n:"Forgemage",   c:"fm",    note:"Magie des armes — le service le plus demandé"},
   {k:"sculptemage",n:"Sculptemage", c:"fm",    note:"Magie des baguettes, arcs, bâtons"},
   {k:"cordomage",  n:"Cordomage",   c:"fm",    note:"Magie des bottes et ceintures"},
-  {k:"facomage",   n:"Façomage",    c:"fm",    note:"Magie des boucliers — complète Bricoleur"}
+  {k:"facomage",   n:"Façomage",    c:"fm",    note:"Magie des boucliers — complète Bricoleur"},
+  {k:"eleveur",    n:"Éleveur",     c:"elev",  note:"Élevage — refonte 3.5 : capture, reproduction, carburants d'enclos"}
 ];
 
 /* Index du récolteur principal dans CHARS. Les métiers de récolte se montent
@@ -772,13 +800,13 @@ const WEEKS = [
       {t:"main", job:"mineur", to:200, d:"Petit palier déjà bien avancé : les derniers niveaux sur les minerais les plus hauts que le niveau autorise. À faire en premier parce que c'est le moins cher en temps."},
       {t:"todo", tag:"setup", txt:"Apprendre les 6 métiers de récolte sur le récolteur — et Chasseur sur les 7 autres", d:"Sur le récolteur : Paysan, Chasseur, Mineur, Bûcheron, Pêcheur, Alchimiste. Sur les 7 autres : Chasseur, et rien d'autre. Gratuit et instantané chez les PNJ, aucune limite du nombre de métiers par personnage."},
       {t:"todo", tag:"setup", txt:"Créer / utiliser une guilde et son coffre comme banque commune", d:"Tout transite par là, personne ne garde de stock en perso. C'est ce qui vous évitera de racheter au HDV une ressource déjà en coffre."},
-      {t:"todo", tag:"setup", txt:"Aménager les havres-sacs : ateliers + enclos", d:"Un atelier par métier de craft détenu, plus l'atelier de conservation des viandes — il servira pour Chasseur. Plus un seul aller-retour à Bonta ensuite."},
+      {t:"todo", tag:"setup", txt:"Choisir une ville de base pour l'artisanat et y parquer l'artisan", d:"On ne peut pas mettre d'atelier dans son havre-sac — c'est une fonctionnalité de Wakfu, pas de Dofus. Les ateliers sont en ville : repérez celle où les vôtres sont les plus regroupés (Bonta, Brâkmar ou Astrub selon les métiers), et laissez Natsugoffy déconnecté sur place. Le havre-sac reste utile pour son coffre et son zaap."},
       {t:"todo", tag:"setup", txt:"Équiper les 8 personnages d'un outil de chasse", d:"Là il faut vraiment les 8 : chaque perso équipé fait son propre jet de viande sur le même combat. Pas forcément du corps-à-corps, arcs compris, et n'importe quelle arme peut le devenir avec une rune de chasse en FM. Il suffit de l'avoir équipé, pas de s'en servir."},
       {t:"todo", tag:"kamas", txt:"Relever la prospection des 8 personnages et la saisir ici", d:"Le chiffre est sur la fiche de chaque perso. Toutes les classes partent de 100 (120 pour un Enutrof). C'est la donnée qui manquait le plus : sans elle, impossible de savoir si votre bloc donjon rapporte ce qu'il devrait."},
       {t:"todo", tag:"kamas", txt:"Relever les prix HDV de 10 ressources clés", d:"Maïs, Millet, Frostiz, une viande THL, un bois THL, un minerai THL, une plante THL. Ce carnet est la seule boussole fiable du plan."},
       {t:"main", job:"paysan", to:200, d:"Normalement déjà acquis. Si le récolteur choisi n'est pas encore à 200, c'est le métier le plus rapide à finir : les champs sont denses et la route est balisée."},
       {t:"todo", tag:"kamas", txt:"Lancer la production de potions de téléportation / rappel", d:"Natsugoffy est déjà Alchimiste 200. Revenu immédiat, à relancer régulièrement."},
-      {t:"todo", tag:"kamas", txt:"Installer 2-3 dragodindes en enclos", d:"Rapide à mettre en place, mais il faudra les nourrir et les sortir tous les jours — ce n'est pas du revenu passif."}
+      {t:"todo", tag:"elev", txt:"Ne pas se lancer dans l'élevage tout de suite", d:"L'élevage est devenu un métier à part entière (refonte 3.5) qui demande des kamas avant d'en rapporter : carburant d'enclos, filets, montures à capturer. Il arrive à l'étape 6, quand vous aurez de quoi le financer. Voir la fiche dédiée."}
     ]
   },
   {
@@ -823,13 +851,15 @@ const WEEKS = [
     ]
   },
   {
-    n:6, t:"Cordonnier + ouverture de Sculpteur", d:"~3 à 4 semaines",
-    s:"La récolte est bouclée : tout le temps repart sur le craft",
+    n:6, t:"Cordonnier, Sculpteur et ouverture de l'élevage", d:"~4 à 6 semaines",
+    s:"La récolte est bouclée : le temps libéré part sur le craft et l'élevage",
     items:[
       {t:"todo", tag:"setup", txt:"Vérifier que le récolteur a bien les 6 métiers de récolte à 200", d:"Paysan, Chasseur, Mineur, Bûcheron, Pêcheur, Alchimiste. À partir d'ici, un seul personnage suffit pour un tour de ressources complet — le tableau de l'onglet Personnages vous le confirme d'un coup d'œil."},
       {t:"one", job:"cordonnier", to:160, d:"Recette la plus haute autorisée, brisage systématique des invendus."},
       {t:"one", job:"sculpteur", to:1, hint:"Prenez un personnage qui n'a pas déjà six métiers de craft — Conviict est le candidat naturel.", d:"Baguettes, arcs, bâtons : totalement absents de la team. Vous ne doublez rien, et ça vous donne une deuxième file de craft qui tourne en même temps que celle de Natsugoffy. Voir l'onglet « À deux »."},
-      {t:"todo", tag:"kamas", txt:"Premier set partiel fabriqué maison", d:"Bijoux + coiffe/cape : mesurez la marge réelle sur une vente complète."}
+      {t:"todo", tag:"kamas", txt:"Premier set partiel fabriqué maison", d:"Bijoux + coiffe/cape : mesurez la marge réelle sur une vente complète."},
+      {t:"one", job:"eleveur", to:80, hint:"Un seul éleveur, comme pour la récolte.", d:"Le niveau du métier débloque les enclos : 1 dès le niveau 1, puis 1 de plus tous les 40 niveaux. À 80 vous en avez 3, de quoi faire tourner un vrai cycle sans y engloutir des mois. Les enclos sont publics et gratuits, à gauche du zaap Village des Éleveurs."},
+      {t:"todo", tag:"elev", txt:"Remplir chaque enclos à 10 montures avant de lancer une jauge", d:"La consommation de carburant ne dépend pas du nombre de montures : un enclos à 3 coûte autant qu'un enclos à 10. C'est l'optimisation numéro un de l'élevage, et elle ne coûte rien."}
     ]
   },
   {
@@ -869,10 +899,10 @@ const DAILY = [
   ["Mise en vente par lots de 10 ou 100","Jamais à l'unité."],
   ["Mettre à jour les niveaux dans l'onglet Personnages","C'est ce qui garde le plan juste — et ça évite que l'autre refasse le même bloc."],
   ["Note des prix qui ont bougé","C'est ce qui fait repérer les bonnes affaires avant les autres."],
-  ["Passage sur les enclos (nourrissage + sorties)","Obligatoire tous les jours, sinon l'élevage stagne."]
+  ["Passage sur les enclos : jauges et carburant","Deux jauges actives au maximum. Vérifier que les enclos sont bien remplis à 10 avant de relancer."]
 ];
 
-const TAGS = {rec:["t-rec","récolte"],craft:["t-craft","craft"],fm:["t-fm","magie"],kamas:["t-kamas","kamas"],setup:["t-setup","setup"]};
+const TAGS = {rec:["t-rec","récolte"],craft:["t-craft","craft"],fm:["t-fm","magie"],elev:["t-elev","élevage"],kamas:["t-kamas","kamas"],setup:["t-setup","setup"]};
 
 /* ---------- état ---------- */
 let state = {};
@@ -1022,6 +1052,10 @@ function renderKpis(){
     <div class="kpi"><b>${absent}</b><span>métier${absent>1?"s":""} totalement absent${absent>1?"s":""} de la team</span></div>
     <div class="kpi"><b>${empty}</b><span>personnage${empty>1?"s":""} sans aucun métier</span></div>
     <div class="kpi"><b>${CHARS.filter(c=>(c.pp||0)>=PP_CIBLE).length}/${CHARS.length}</b><span>personnages à ${PP_CIBLE} prospection ou plus</span></div>`;
+  /* Liste écrite à partir des données : elle se désynchronisait du compteur
+     à chaque fois qu'on touchait à JOB_LIST. */
+  const el = document.getElementById("absentList");
+  if(el) el.textContent = JOB_LIST.filter(j=>!CHARS.some(ch=>(ch.jobs[j.k]||0)>0)).map(j=>j.n).join(", ");
 }
 
 function renderMainPick(){
@@ -1057,7 +1091,7 @@ function renderMatrix(){
   let lastC = null;
   JOB_LIST.forEach(j=>{
     if(j.c!==lastC){
-      const lbl = j.c==="rec"?"Récolte":j.c==="craft"?"Craft":"Magie";
+      const lbl = j.c==="rec"?"Récolte":j.c==="craft"?"Craft":j.c==="fm"?"Magie":"Élevage";
       h += `<tr class="grp"><td colspan="${CHARS.length+2}">${lbl}</td></tr>`;
       lastC = j.c;
     }
