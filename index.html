@@ -767,6 +767,56 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   </div>
 </section>
 
+<!-- ============ FILIÈRES ============ -->
+<section class="tab" id="tab-filieres">
+  <h2>Quoi farmer, quoi crafter, quoi en faire</h2>
+  <p class="muted">Cette page répond à une seule question&nbsp;: <b>j'ai ce métier à ce niveau, je fais quoi maintenant pour gagner des kamas&nbsp;?</b> Les modèles ci-dessous se recalculent depuis vos niveaux réels. Le carnet de prix et le calculateur, en bas, sont à vous de les remplir — ce sont vos prix, sur votre serveur, qui décident.</p>
+
+  <div class="card red">
+    <p style="margin-bottom:0"><b>Ce que je ne peux pas faire à votre place.</b> Une liste d'objets rentables nommément vieillit en quelques semaines et dépend de votre serveur. Ce qui ne vieillit pas, c'est le <b>modèle économique de chaque métier</b> et le <b>calcul de marge</b>. Vous trouverez les objets vous-mêmes en dix minutes avec le calculateur, et vous aurez la bonne réponse plutôt qu'une réponse d'il y a six mois.</p>
+  </div>
+
+  <h2>Les trois façons de gagner sa vie avec un métier de craft</h2>
+  <div class="grid g3">
+    <div class="card green">
+      <h3>1. Le craft à la commande</h3>
+      <p style="margin-bottom:0"><b>Le client apporte les ressources, vous facturez le service.</b> Coût matière&nbsp;: zéro. Risque de stock&nbsp;: zéro. Risque de marge négative&nbsp;: zéro. C'est le modèle des métiers à haut niveau, et de loin le plus sûr — c'est <i>la</i> réponse à «&nbsp;j'ai un bijoutier 200, j'en fais quoi&nbsp;». Il faut juste se faire connaître&nbsp;: canal commerce, discord du serveur, guilde.</p>
+    </div>
+    <div class="card gold">
+      <h3>2. Le brisage</h3>
+      <p style="margin-bottom:0"><b>On craft pour casser, pas pour vendre.</b> On compare le coût des ressources au HDV à la valeur moyenne des runes obtenues après brisage. Sur les paliers intermédiaires, c'est souvent le seul modèle qui tient — et c'est ce qui permet de monter un métier <i>en gagnant</i> des kamas au lieu d'en perdre. Visez les objets qui rendent des runes recherchées&nbsp;: Vitalité, Puissance, Sagesse.</p>
+    </div>
+    <div class="card blue">
+      <h3>3. La vente d'objets finis</h3>
+      <p style="margin-bottom:0"><b>Le modèle évident, et le plus risqué.</b> Vous achetez ou farmez les ressources, vous craftez, vous vendez. Ça ne marche que si la marge nette dépasse 10&nbsp;% après la taxe — ce qui, en dehors des recettes proches de 200, est rarement le cas. À réserver aux objets à demande permanente, et à vérifier au calculateur avant chaque série.</p>
+    </div>
+  </div>
+
+  <h2>Vos filières, métier par métier</h2>
+  <p class="muted">Recalculé depuis l'onglet Personnages&nbsp;: seuls vos métiers réellement portés apparaissent, avec le conseil correspondant à leur niveau actuel.</p>
+  <div id="filieres"></div>
+
+  <h2>Carnet de prix</h2>
+  <p class="muted">La base de tout le reste. Relevez le prix unitaire au HDV, notez la date, et le calculateur en dessous s'en sert automatiquement. <b>Partagé entre vous deux</b>, comme le reste du plan. Mettez-le à jour le dimanche&nbsp;: des prix vieux d'un mois donnent des décisions fausses.</p>
+  <div class="card" style="padding:14px 16px">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button class="btn" onclick="addPrice()">+ Ajouter une ligne</button>
+      <span class="muted" style="font-size:12.5px">Ressources <i>et</i> objets finis&nbsp;: le calculateur a besoin des deux.</span>
+    </div>
+  </div>
+  <div style="overflow-x:auto"><table id="priceTable"></table></div>
+
+  <h2>Calculateur de marge</h2>
+  <p class="muted">Pour chaque objet que vous envisagez de crafter&nbsp;: son prix de vente, ses ingrédients et leurs quantités. La marge se calcule toute seule, <b>taxe HDV de 2&nbsp;% comprise</b>. Les prix viennent du carnet ci-dessus.</p>
+  <div class="card" style="padding:14px 16px">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button class="btn" onclick="addCraft()">+ Ajouter un objet</button>
+      <span class="muted" style="font-size:12.5px">Ingrédients au format <code>Nom × quantité</code>, un par ligne.</span>
+    </div>
+  </div>
+  <div id="craftCalc"></div>
+</section>
+
 <!-- ============ ROUTINE ============ -->
 <section class="tab" id="tab-routine">
   <h2>La journée type (~3 h)</h2>
@@ -1077,7 +1127,35 @@ const TAGS = {rec:["t-rec","récolte"],craft:["t-craft","craft"],fm:["t-fm","mag
 /* ---------- état ---------- */
 let state = {};        // cases cochées des tâches manuelles
 let notes = {};        // notes libres par objectif, partagées entre les deux joueurs
+let prices = [];       // carnet de prix : [{n, p, d}] — nom, prix unitaire, date de relevé
+let crafts = [];       // objets étudiés : [{n, sell, ing:[{n,q}]}]
 let dailyState = {};   // checklist du jour, locale et datée
+
+const TAXE_HDV = 0.02;   // prélèvement à la vente
+const MARGE_MINI = 0.10; // en dessous, le craft n'est pas rentable
+
+/* Modèle économique par métier, selon le niveau réellement atteint.
+   C'est la réponse à « j'ai ce métier à ce niveau, je fais quoi ? ». */
+function conseilMetier(j, lv){
+  if(j.c === "fm"){
+    if(lv >= 180) return {t:"Service à façon", c:"green", d:"Vous êtes au niveau où la forgemagie se vend <b>comme un service</b> : le client apporte l'objet et les runes, vous facturez la prestation. Aucun coût matière, aucun risque. C'est le meilleur revenu du métier, et il ne dépend d'aucun cours de ressource."};
+    if(lv >= 100) return {t:"Monter en s'auto-alimentant", c:"gold", d:"Encore trop bas pour vendre du service fiable. Continuez à monter, mais <b>brisez vos propres crafts ratés pour récupérer les runes</b> au lieu de les acheter — c'est ce qui divise la facture par deux."};
+    return {t:"Chantier long", c:"red", d:"Un métier de magie en dessous de 100 ne rapporte rien et coûte des runes à chaque tentative. À ne pousser qu'avec une trésorerie dédiée, et jamais en même temps qu'un autre métier de magie."};
+  }
+  if(j.c === "craft"){
+    if(lv >= 190) return {t:"Craft à la commande", c:"green", d:"Le modèle le plus rentable et le moins risqué : <b>le client fournit les ressources, vous facturez le craft</b>. Faites-vous connaître sur le canal commerce et le discord du serveur. En parallèle, les recettes proches de 200 sont les seules où la vente d'objets finis dégage réellement une marge — vérifiez-les au calculateur."};
+    if(lv >= 100) return {t:"Craft pour brisage", c:"gold", d:"À ce palier, la vente d'objets finis est souvent perdante. Le modèle qui tient : <b>crafter pour briser</b>. Comparez le coût des ressources à la valeur des runes obtenues, et privilégiez les objets qui rendent de la Vitalité, de la Puissance ou de la Sagesse. C'est ce qui permet de monter en gagnant des kamas au lieu d'en perdre."};
+    return {t:"Phase d'investissement", c:"red", d:"En dessous de 100, vous payez pour de l'XP — c'est normal et incompressible. Craftez la recette la plus haute autorisée, <b>brisez tout ce qui ne part pas</b>, et ne comptez pas ce métier comme une source de revenu avant un moment."};
+  }
+  if(j.c === "elev"){
+    if(lv >= 120) return {t:"Production en régime", c:"green", d:"4 enclos ou plus : vous pouvez faire tourner plusieurs cycles en parallèle. Remplissez systématiquement à 10 montures — le carburant coûte pareil."};
+    return {t:"Amorçage", c:"gold", d:"Peu d'enclos, donc peu de débit. Concentrez-vous sur la capture pour renouveler le cheptel et sur la fabrication de carburant, qui donne de l'XP sans consommer de montures."};
+  }
+  // récolte
+  if(lv >= 200) return {t:"Ressource haute débloquée", c:"green", d:"Vous récoltez ce que le métier a de plus cher. Vendez par lots, et gardez à l'esprit qu'une ressource que vous alimentez à un craft n'est pas gratuite : elle vaut son prix au HDV."};
+  if(lv >= 100) return {t:"Palier intermédiaire", c:"gold", d:"Les ressources de ce palier valent peu. Récoltez toujours la plus haute autorisée, et considérez cette phase comme de la montée, pas comme un revenu."};
+  return {t:"Démarrage", c:"red", d:"Trop bas pour rapporter quoi que ce soit. Enchaînez les paliers sans vous soucier de la valeur des ressources."};
+}
 
 /* ---------- rendu ---------- */
 function jobColor(lv){
@@ -1390,6 +1468,115 @@ function renderCraftCov(){
   document.getElementById("craftcov").innerHTML = h + `</tbody></table>`;
 }
 
+/* --- onglet Filières --- */
+function renderFilieres(){
+  const el = document.getElementById("filieres");
+  if(!el) return;
+  const portes = JOB_LIST.map(j=>({j, hs:holdersOf(j.k)})).filter(x=>x.hs.length);
+  if(!portes.length){ el.innerHTML = `<p class="muted">Aucun métier saisi pour l'instant.</p>`; return; }
+  el.innerHTML = `<div class="grid g2">` + portes.map(({j,hs})=>{
+    const lv = hs[0].lv, c = conseilMetier(j, lv);
+    return `<div class="card ${c.c}">
+      <h3 style="margin-top:0">${j.n} <span class="muted" style="font-weight:400;font-size:12.5px">· ${esc(hs[0].name)} niveau ${lv}</span></h3>
+      <p style="margin:0 0 6px"><span class="pill p-${c.c==="green"?"green":c.c==="gold"?"gold":"red"}">${c.t}</span></p>
+      <p style="margin-bottom:0" class="muted">${c.d}</p>
+    </div>`;
+  }).join("") + `</div>`;
+}
+
+/* --- carnet de prix --- */
+function prixDe(nom){
+  const e = prices.find(x => x.n.trim().toLowerCase() === String(nom).trim().toLowerCase());
+  return e ? Number(e.p)||0 : null;
+}
+function renderPrices(){
+  const t = document.getElementById("priceTable");
+  if(!t) return;
+  if(!prices.length){
+    t.innerHTML = `<tbody><tr><td class="muted">Carnet vide. Ajoutez les ressources que vous achetez le plus, et les objets que vous envisagez de crafter.</td></tr></tbody>`;
+    return;
+  }
+  t.innerHTML = `<thead><tr><th style="min-width:170px">Ressource ou objet</th><th style="min-width:110px">Prix unitaire</th><th style="min-width:110px">Relevé le</th><th></th></tr></thead><tbody>` +
+    prices.map((r,i)=>`<tr>
+      <td><input class="tx" style="margin:0;font-family:inherit" value="${esc(r.n)}" onchange="setPrice(${i},'n',this.value)" placeholder="Nom exact"></td>
+      <td><input class="tx" style="margin:0" type="number" min="0" value="${r.p||""}" onchange="setPrice(${i},'p',this.value)" placeholder="0"></td>
+      <td><input class="tx" style="margin:0" type="date" value="${esc(r.d||"")}" onchange="setPrice(${i},'d',this.value)"></td>
+      <td><button class="btn" onclick="delPrice(${i})" title="Supprimer">×</button></td>
+    </tr>`).join("") + `</tbody>`;
+}
+function addPrice(){ prices.push({n:"", p:0, d:today()}); refreshEco(); }
+function delPrice(i){ prices.splice(i,1); refreshEco(); }
+function setPrice(i,k,v){
+  if(!prices[i]) return;
+  prices[i][k] = (k==="p") ? Math.max(0, parseInt(v,10)||0) : v;
+  if(k==="p") prices[i].d = today();   // un prix modifié est un prix du jour
+  refreshEco();
+}
+
+/* --- calculateur de marge --- */
+function renderCrafts(){
+  const el = document.getElementById("craftCalc");
+  if(!el) return;
+  if(!crafts.length){
+    el.innerHTML = `<p class="muted">Aucun objet étudié. Ajoutez-en un pour savoir s'il vaut la peine d'être crafté.</p>`;
+    return;
+  }
+  el.innerHTML = crafts.map((c,i)=>{
+    let cout = 0, manquants = [];
+    (c.ing||[]).forEach(g=>{
+      const p = prixDe(g.n);
+      if(p === null){ if(g.n.trim()) manquants.push(esc(g.n)); }
+      else cout += p * (Number(g.q)||0);
+    });
+    const vente = Number(c.sell)||0;
+    const net = vente * (1 - TAXE_HDV);
+    const marge = net - cout;
+    const pct = cout > 0 ? marge / cout : 0;
+    const complet = vente > 0 && cout > 0 && !manquants.length;
+    let verdict, cls;
+    if(!complet){ verdict = manquants.length ? "Prix manquants au carnet : " + manquants.join(", ") : "Renseignez le prix de vente et au moins un ingrédient"; cls = "p-blue"; }
+    else if(pct >= MARGE_MINI){ verdict = `Rentable — marge de ${Math.round(pct*100)} %`; cls = "p-green"; }
+    else if(marge >= 0){ verdict = `Trop juste — ${Math.round(pct*100)} %, sous le seuil de 10 %`; cls = "p-gold"; }
+    else { verdict = `À perte — vendez les ressources brutes`; cls = "p-red"; }
+    const ingTxt = (c.ing||[]).map(g=>`${g.n} × ${g.q}`).join("\n");
+    return `<div class="card">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+        <input class="tx" style="margin:0;flex:1;min-width:170px;font-family:inherit;font-weight:600;color:var(--gold2)"
+               value="${esc(c.n)}" onchange="setCraft(${i},'n',this.value)" placeholder="Nom de l'objet">
+        <label class="muted" style="font-size:12.5px">Prix de vente
+          <input class="tx" style="margin:0;width:120px" type="number" min="0" value="${c.sell||""}"
+                 onchange="setCraft(${i},'sell',this.value)" placeholder="0"></label>
+        <button class="btn" onclick="delCraft(${i})" title="Supprimer">×</button>
+      </div>
+      <label class="muted" style="font-size:12.5px;display:block;margin-bottom:4px">Ingrédients, un par ligne, au format <code>Nom × quantité</code></label>
+      <textarea class="tx" style="height:88px;font-family:inherit;font-size:13px"
+                onchange="setCraft(${i},'ing',this.value)" placeholder="Frêne × 10&#10;Fer × 5">${esc(ingTxt)}</textarea>
+      <table style="margin:6px 0 0"><tbody>
+        <tr><td>Coût des ingrédients</td><td class="num" style="text-align:right">${cout ? cout.toLocaleString("fr-FR") : "—"}</td></tr>
+        <tr><td>Vente nette <span class="muted">(après 2 % de taxe)</span></td><td class="num" style="text-align:right">${vente ? Math.round(net).toLocaleString("fr-FR") : "—"}</td></tr>
+        <tr><td><b>Marge</b></td><td class="num" style="text-align:right;color:${complet?(pct>=MARGE_MINI?"var(--green)":marge>=0?"var(--gold2)":"var(--red)"):"var(--txt2)"}"><b>${complet ? Math.round(marge).toLocaleString("fr-FR") : "—"}</b></td></tr>
+      </tbody></table>
+      <p style="margin:8px 0 0"><span class="pill ${cls}">${verdict}</span></p>
+    </div>`;
+  }).join("");
+}
+function addCraft(){ crafts.push({n:"", sell:0, ing:[]}); refreshEco(); }
+function delCraft(i){ crafts.splice(i,1); refreshEco(); }
+function setCraft(i,k,v){
+  if(!crafts[i]) return;
+  if(k === "ing"){
+    /* Une ligne par ingrédient, « Nom × quantité ». On accepte x, × ou * comme séparateur. */
+    crafts[i].ing = String(v).split("\n").map(l=>l.trim()).filter(Boolean).map(l=>{
+      const m = l.match(/^(.*?)\s*[x×*]\s*(\d+)\s*$/i);
+      return m ? {n:m[1].trim(), q:parseInt(m[2],10)} : {n:l, q:1};
+    });
+  } else if(k === "sell"){ crafts[i].sell = Math.max(0, parseInt(v,10)||0); }
+  else { crafts[i][k] = v; }
+  refreshEco();
+}
+/* Le carnet et le calculateur ne dépendent pas des niveaux : on ne rerend qu'eux. */
+function refreshEco(){ renderPrices(); renderCrafts(); persist(); }
+
 /* skipMatrix : à utiliser quand l'appel vient d'une saisie DANS la matrice,
    pour ne pas détruire le champ qui a le focus.
    Le plan, lui, est TOUJOURS reconstruit : c'est ce qui garantit qu'un objectif
@@ -1397,15 +1584,16 @@ function renderCraftCov(){
 function refreshAll(skipMatrix){
   renderKpis(); renderTeamCards();
   if(!skipMatrix) renderMatrix();
-  renderCoverage(); renderCraftCov();
+  renderCoverage(); renderCraftCov(); renderFilieres();
+  renderPrices(); renderCrafts();
   renderWeeks(); refresh();
   persist();
 }
 
 /* ---------- persistance locale + synchro ---------- */
-const DATA_V = 7;   // v7 : plus de récolteur unique, un porteur par métier
+const DATA_V = 8;   // v8 : carnet de prix et calculateur de marge
 let SUSPEND = false;
-function getData(){ return {v:DATA_V, state:state, notes:notes, chars:CHARS}; }
+function getData(){ return {v:DATA_V, state:state, notes:notes, chars:CHARS, prices:prices, crafts:crafts}; }
 function persist(){
   if(SUSPEND) return;
   try{ localStorage.setItem("dofus.plan.local", JSON.stringify(getData())); }catch(e){}
@@ -1435,7 +1623,12 @@ function applyData(d, silent){
      correspondent plus aux mêmes lignes. Les notes, elles, sont apparues en v6
      et n'ont jamais eu d'autre numérotation, donc on les reprend telles quelles. */
   state = (d.v && d.v >= 5) ? (d.state || {}) : {};
-  notes = (d.notes && typeof d.notes === "object") ? d.notes : {};
+  notes  = (d.notes && typeof d.notes === "object") ? d.notes : {};
+  prices = Array.isArray(d.prices) ? d.prices.map(r=>({n:String(r.n||""), p:Number(r.p)||0, d:String(r.d||"")})) : [];
+  crafts = Array.isArray(d.crafts) ? d.crafts.map(c=>({
+    n:String(c.n||""), sell:Number(c.sell)||0,
+    ing:Array.isArray(c.ing) ? c.ing.map(g=>({n:String(g.n||""), q:Number(g.q)||0})) : []
+  })) : [];
   if(Array.isArray(d.chars) && d.chars.length) CHARS = readChars(d.chars);
   /* d.main (récolteur unique, v5-v6) est volontairement ignoré : le porteur de
      chaque métier se déduit maintenant des niveaux eux-mêmes. */
@@ -1553,7 +1746,8 @@ function toggle(id){
 /* La checklist quotidienne est locale (elle ne se synchronise pas : vous ne faites
    pas la même journée). Elle est datée, donc elle se remet à zéro toute seule
    au changement de jour. */
-function today(){ return new Date().toLocaleDateString("fr-CA"); }
+function today(){ return new Date().toLocaleDateString("fr-CA"); }   // AAAA-MM-JJ, compatible <input type="date">
+window.today = today;
 function persistDaily(){
   try{ localStorage.setItem("dofus.plan.daily", JSON.stringify({day:today(), items:dailyState})); }catch(e){}
 }
@@ -1639,6 +1833,7 @@ const TABS = [
   ["persos","Personnages"],
   ["duo","À deux"],
   ["plan","Plan par étapes"],
+  ["filieres","Filières &amp; prix"],
   ["metiers","Fiches métiers"],
   ["kamas","Farm kamas"],
   ["routine","Routine"]
