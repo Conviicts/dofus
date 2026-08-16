@@ -322,41 +322,102 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
 <div class="wrap">
 
 <!-- ============ VUE D'ENSEMBLE ============ -->
-<section class="tab on" id="tab-etat">
-  <h2>Où vous en êtes</h2>
+<section class="tab on" id="tab-aujourdhui">
 
-  <div class="grid g3" id="kpis" style="margin-bottom:20px"></div>
+  <h2>Aujourd'hui</h2>
+  <p class="muted">Tout ce que vous avez besoin de savoir en vous connectant. Le reste du site est de la référence : vous n'avez pas à le lire pour jouer.</p>
+  <div id="focus"></div>
+  <div id="prixAlerte"></div>
+  <h2>La journée type (~3 h)</h2>
+  <p class="muted">L'ordre n'est pas une préférence, c'est une dépendance&nbsp;: <b>chaque bloc a besoin du précédent</b>. On ne peut pas trier un butin qu'on n'a pas encore, ni décider quoi crafter sans prix à jour. Suivez-le dans cet ordre et vous n'aurez jamais à vous demander quoi faire en vous connectant.</p>
 
-  <p class="muted">Ces cartes se mettent à jour toutes seules à partir de l'onglet <b>Personnages</b> — c'est là que vous saisissez les niveaux de métier et la prospection au fur et à mesure.</p>
-  <div class="grid g2" id="teamCards"></div>
+  <div class="card">
+    <h3>0:00 – 0:05 · Les prix, avant tout le reste</h3>
+    <p style="margin-bottom:0">Cinq minutes, et elles conditionnent toutes les décisions de la session. Relevez les ressources de votre carnet et le prix des 2-3 objets que vous fabriquez en ce moment. <b>Sans prix à jour, le tri du butin et la décision de crafter se font à l'aveugle</b> — et c'est comme ça qu'on craft à perte pendant des semaines sans le voir.</p>
+  </div>
+  <div class="card">
+    <h3>0:05 – 0:15 · Ouverture</h3>
+    <p style="margin-bottom:0">Connexion des 8 comptes → relève des ventes HDV et remise en vente de ce qui n'est pas parti → percepteurs → bonus Almanax → passage sur les enclos. Rythme de démarrage, rien de plus.</p>
+  </div>
+  <div class="card blue">
+    <h3>0:15 – 1:15 · Bloc drop — le cœur</h3>
+    <p style="margin-bottom:0"><b>C'est le bloc sur lequel vous ne transigez pas</b>, celui qui produit la matière première de tout le reste. Panoplies de prospection sur les 8, idoles orientées drop, outils de chasse équipés, donjons niveau 150 et plus. Une seule action vous donne trois revenus&nbsp;: les ressources rares (8 jets indépendants), la viande pour Chasseur (8 jets), et les ingrédients de vos propres crafts. Les autres blocs peuvent sauter, pas celui-ci.</p>
+  </div>
+  <div class="card red">
+    <h3>1:15 – 1:25 · Tri du butin</h3>
+    <p style="margin-bottom:0">Dix minutes, et c'est l'étape que presque personne ne fait. Pour chaque ressource ramenée&nbsp;: <b>vendre brut, ou garder pour crafter&nbsp;?</b> Appliquez la règle de l'onglet <b>Argent</b> — prix de vente × 0,98 moins la somme des ingrédients, et en dessous de 10&nbsp;% de marge on ne craft pas. Ce tri de dix minutes vaut plus que l'heure de craft qui suit.</p>
+  </div>
+  <div class="card gold">
+    <h3>1:25 – 2:10 · Bloc craft</h3>
+    <p style="margin-bottom:0">Uniquement ce qui a passé le tri. Le reste part en vente brute, sans état d'âme. Deux artisans peuvent tourner en parallèle sur deux personnages différents&nbsp;; l'artisan principal reste parqué près de ses ateliers en ville. Si vous êtes en train de monter un métier de craft, c'est ici — en sachant que vous payez pour de l'XP, pas que vous gagnez des kamas.</p>
+  </div>
+  <div class="card green">
+    <h3>2:10 – 2:50 · Bloc métier — secondaire</h3>
+    <p style="margin-bottom:0">La progression de l'étape en cours&nbsp;: récolte du métier neuf, sur son porteur. <b>C'est le bloc qui saute quand la journée est courte</b>, et c'est normal — un métier qui monte pendant que le flux de ressources est à l'arrêt ne vous rapproche de rien. Quand vous êtes deux connectés, c'est le moment de faire tourner les deux récolteurs en parallèle sur deux ressources différentes.</p>
+  </div>
+  <div class="card">
+    <h3>2:50 – 3:00 · Clôture</h3>
+    <p style="margin-bottom:0">Dépôt en banque et centralisation → mise en vente par lots → <b>mise à jour des niveaux et de la prospection dans l'onglet Personnages</b> → note de ce qui a bougé. Cette dernière ligne est ce qui garde le plan juste&nbsp;: des niveaux périmés, et tous les objectifs affichés deviennent faux.</p>
+  </div>
 
-  <h2>Ce qui manque à la team</h2>
+  <h2>La semaine type</h2>
+  <p class="muted">Le bloc drop est quotidien et ne bouge pas. Ce qui change d'un jour à l'autre, c'est le bloc métier — et le circuit de récolte, qu'on alterne pour laisser repousser.</p>
   <table>
-    <thead><tr><th>Métier absent</th><th>Type</th><th>Pourquoi ça compte</th><th>Priorité</th></tr></thead>
+    <thead><tr><th>Jour</th><th>Bloc drop (1 h)</th><th>Bloc métier (40 min)</th></tr></thead>
     <tbody>
-      <tr><td><b>Bûcheron</b></td><td>Récolte</td><td>Le bois est la base de tous les crafts d'armes, arcs, baguettes, boucliers. Vous en achetez en ce moment — c'est de la marge perdue sur chaque craft. À monter sur <b>un</b> personnage.</td><td><span class="pill p-red">Haute</span></td></tr>
-      <tr><td><b>Pêcheur</b></td><td>Récolte</td><td>Poissons THL demandés et plats qui se vendent en continu. Boucle courte, donc le métier neuf le plus rapide. À monter sur <b>un autre</b> personnage que le Bûcheron, pour que les deux avancent en même temps.</td><td><span class="pill p-red">Haute</span></td></tr>
-      <tr><td><b>Forgemage</b></td><td>Magie</td><td>La FM d'armes est le service le plus demandé et le plus cher du jeu. Vous avez déjà Forgeron — les deux vont ensemble.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
-      <tr><td><b>Cordomage</b></td><td>Magie</td><td>Complète Cordonnier (bottes / ceintures). Vous vendez alors l'objet <i>fini</i> et pas la pièce brute.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
-      <tr><td><b>Sculpteur / Sculptemage</b></td><td>Craft + Magie</td><td>Baguettes, arcs, bâtons. Absents de la team, donc aucun doublon possible — et le plan les pose sur un personnage <i>autre</i> que Natsugoffy pour ouvrir une deuxième file de craft. Voir l'onglet « À deux ».</td><td><span class="pill p-gold">Moyenne</span></td></tr>
-      <tr><td><b>Façomage</b></td><td>Magie</td><td>La magie des boucliers. Complète Bricoleur, que Natsugoffy a déjà à 200. Petit marché comparé à la FM d'armes&nbsp;: à ouvrir en dernier, quand tout le reste tourne.</td><td><span class="pill p-blue">Basse</span></td></tr>
-      <tr><td><b>Éleveur</b></td><td>Élevage</td><td>Métier neuf, arrivé avec la refonte de l'élevage (mise à jour 3.5, mars 2026). Il ouvre une source de kamas à part, qui ne dépend ni de la récolte ni du HDV. Voir la fiche dédiée dans l'onglet «&nbsp;Fiches métiers&nbsp;».</td><td><span class="pill p-gold">Moyenne</span></td></tr>
+      <tr><td><b>Lundi</b></td><td>Donjons 150+</td><td>Récolte : céréales et plantes</td></tr>
+      <tr><td><b>Mardi</b></td><td>Donjons 150+</td><td>Récolte : bois et minerais</td></tr>
+      <tr><td><b>Mercredi</b></td><td>Donjons 150+</td><td>Métier neuf de l'étape en cours</td></tr>
+      <tr><td><b>Jeudi</b></td><td>Donjons 150+</td><td>Récolte : céréales et plantes</td></tr>
+      <tr><td><b>Vendredi</b></td><td>Donjons 150+</td><td>Craft en gros, sur les recettes qui passent le tri</td></tr>
+      <tr><td><b>Samedi</b></td><td colspan="2">Session longue (4-6 h) — chaîne de donjons étendue, gros tri, gros batch de craft, et les deux récolteurs en parallèle</td></tr>
+      <tr><td><b>Dimanche</b></td><td colspan="2">Bilan&nbsp;: relevé complet des prix, recalcul des marges de craft, point sur l'étape en cours. Session courte, ou repos si la semaine a été bonne.</td></tr>
     </tbody>
   </table>
-  <p class="muted">Détail des métiers absents comptés par la carte ci-dessus&nbsp;: <span id="absentList"></span>.</p>
 
+  <h2>Checklist quotidienne</h2>
+  <p class="muted">Celle-ci est <b>personnelle et locale</b>&nbsp;: elle ne se synchronise pas avec ton pote, et elle se remet à zéro toute seule au changement de jour. Le bouton sert juste à repartir de zéro en cours de journée.</p>
+  <div class="card" id="daily"></div>
+  <button class="btn" onclick="resetDaily()">Nouvelle journée</button>
+
+  <h2>Les règles quand vous êtes deux</h2>
+  <h2>Les règles d'une économie commune</h2>
+  <div class="card">
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Un seul prix, pas forcément un seul vendeur.</b> Le vrai risque, c'est de vous sous-coter mutuellement sans le savoir sur une ressource que vous produisez en masse — et ça se règle en s'accordant sur le prix, pas en centralisant. D'ailleurs chaque personnage a un nombre limité d'emplacements de vente&nbsp;: à 8 persos, tout faire passer par un seul vendeur finit par vous brider. En pratique&nbsp;: un carnet de prix commun, et vous répartissez les étals quand le volume le demande.</li>
+      <li><b>Coffre de guilde = banque unique.</b> Tout y transite, personne ne garde de stock en perso. Sinon vous rachetez au HDV une ressource déjà en stock — c'est l'erreur classique du parc partagé.</li>
+      <li><b>Zéro métier de craft en double.</b> Vous partagez tout, donc un deuxième forgeron ne sert à rien et coûte cher à monter. Chaque nouveau métier ouvert doit combler un trou&nbsp;: l'onglet <b>Personnages</b> vous dit lesquels sont encore absents.</li>
+      <li><b>Le budget s'écrit avant, pas pendant.</b> Avant un gros palier de craft ou avant d'attaquer la magie, vous fixez un chiffre à deux. C'est ce qui vous évitera de vous retrouver bloqués à 170 en Costumage avec la banque vide.</li>
+      <li><b>Carnet de prix partagé, mis à jour le dimanche.</b> Dix ressources, cinq minutes. C'est ce qui vous fera repérer les bonnes affaires avant les autres.</li>
+      <li><b>Mettez les niveaux à jour dans l'onglet Personnages au fil de l'eau.</b> Tout le plan se recalcule dessus&nbsp;: si les chiffres sont faux, les objectifs affichés le sont aussi.</li>
+    </ul>
+  </div>
+
+  <h2>Quand vous jouez chacun de votre côté</h2>
+  <div class="card">
+    <p>Puisque vous avez les mêmes accès, celui qui joue seul peut tout faire&nbsp;: le tour de ressources ne demande qu'un personnage, et même le bloc donjon se mène seul avec les 8. Il n'y a rien d'interdit. Deux réflexes suffisent&nbsp;:</p>
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Coche ce que tu avances</b> dans le plan, et mets les niveaux à jour. C'est ce qui évite que l'autre refasse le même bloc le lendemain.</li>
+      <li><b>N'ouvre pas un métier de récolte sur un autre personnage «&nbsp;pour aider&nbsp;».</b> C'est le réflexe naturel quand on a 8 comptes sous la main, et c'est exactement ce que le plan cherche à éviter&nbsp;: ça n'accélère rien et ça repart pour 60 heures. Un seul récolteur.</li>
+    </ul>
+  </div>
+
+</section>
+
+<section class="tab" id="tab-plan">
   <h2>Ce que ce plan cherche à faire</h2>
   <div class="card blue">
     <p><b>Le moteur, c'est le drop. Les métiers ne sont qu'un moyen.</b> Ce que vous produisez vraiment, ce sont des ressources qui tombent en combat — et là vos 8 personnages valent huit fois un joueur seul, sans malus de groupe et sans un seul niveau de métier à monter. Tout le reste du plan existe pour <b>convertir ce flux en valeur</b>&nbsp;: les métiers de craft transforment, les métiers de magie valorisent, les métiers de récolte comblent les trous d'approvisionnement.</p>
-    <p style="margin-bottom:0">C'est une hiérarchie, pas une liste&nbsp;: <b>le bloc de drop passe avant le bloc métier</b>, tous les jours. Un métier qui monte pendant que le flux de ressources est à l'arrêt ne vous rapproche de rien. La routine de l'onglet <b>Routine</b> est écrite dans cet ordre-là.</p>
+    <p style="margin-bottom:0">C'est une hiérarchie, pas une liste&nbsp;: <b>le bloc de drop passe avant le bloc métier</b>, tous les jours. Un métier qui monte pendant que le flux de ressources est à l'arrêt ne vous rapproche de rien. La routine de l'onglet <b>Aujourd’hui</b> est écrite dans cet ordre-là.</p>
   </div>
 
   <div class="card red">
     <h3>Le piège qui annule tout&nbsp;: crafter à perte</h3>
     <p><b>Une ressource récoltée ou dropée n'est pas une ressource qu'il faut crafter.</b> Dans Dofus, il est courant que les ingrédients d'une recette coûtent plus cher que l'objet fini. Les retours de joueurs sont sans détour&nbsp;: en dehors des recettes proches du niveau 200, la plupart des crafts se font <b>à perte</b>.</p>
-    <p style="margin-bottom:0">Et l'erreur classique par-dessus&nbsp;: croire qu'une ressource qu'on a farmée soi-même est gratuite. <b>Elle ne l'est pas</b> — elle vaut son prix au HDV, que vous la vendiez ou non. La compter à zéro, c'est se convaincre qu'on gagne de l'argent pendant qu'on en perd. La règle de décision est dans l'onglet <b>Farm kamas</b>, section «&nbsp;Crafter ou vendre brut&nbsp;».</p>
+    <p style="margin-bottom:0">Et l'erreur classique par-dessus&nbsp;: croire qu'une ressource qu'on a farmée soi-même est gratuite. <b>Elle ne l'est pas</b> — elle vaut son prix au HDV, que vous la vendiez ou non. La compter à zéro, c'est se convaincre qu'on gagne de l'argent pendant qu'on en perd. La règle de décision est dans l'onglet <b>Argent</b>, section « Crafter ou vendre brut ».</p>
   </div>
 
+  <details class="deep" style="margin:0 0 18px"><summary>Les principes qui ont dicté ce plan</summary><div class="dbox" style="border-left-color:var(--blue)">
   <h2>Les principes du plan</h2>
 
   <div class="card green">
@@ -393,17 +454,57 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   <div class="card">
     <h3>5. Le tempo réel — à lire avant de commencer</h3>
     <p>Les guides récents comptent <b>une soixantaine d'heures de récolte pour amener un métier à 200 sur un personnage</b>, Paysan étant le plus rapide&nbsp;; Bûcheron et Alchimiste sont nettement plus longs. En le faisant sur 8 personnages, on multipliait ça par 8&nbsp;: c'était plusieurs années. Il ne vous reste en réalité que <b>deux métiers de récolte neufs</b> — Bûcheron et Pêcheur — et comme ils partent sur deux personnages différents, vous les montez <b>en même temps</b>.</p>
-    <p style="margin-bottom:0">C'est pour ça que le plan est découpé en <b>étapes et pas en semaines calendaires</b>. Chaque étape a une estimation en semaines, volontairement large&nbsp;: elle dépend de votre serveur, de la concurrence sur les spots et des jours où vous jouez moins. Tu avances quand l'étape est finie, pas quand la semaine est finie. La seule cadence fixe du plan, c'est la routine quotidienne et le bilan du dimanche — ça, c'est l'onglet <b>Routine</b>.</p>
+    <p style="margin-bottom:0">C'est pour ça que le plan est découpé en <b>étapes et pas en semaines calendaires</b>. Chaque étape a une estimation en semaines, volontairement large&nbsp;: elle dépend de votre serveur, de la concurrence sur les spots et des jours où vous jouez moins. Tu avances quand l'étape est finie, pas quand la semaine est finie. La seule cadence fixe du plan, c'est la routine quotidienne et le bilan du dimanche — ça, c'est l'onglet <b>Aujourd’hui</b>.</p>
   </div>
 
-  <h2>Un réflexe à prendre tout de suite</h2>
+  </div></details>
+  <h2>Le plan, étape par étape</h2>
+  <p class="muted">Base ~20&nbsp;h/semaine, soit environ 3&nbsp;h/jour. Chaque ligne porte son type&nbsp;: <span class="tag t-rec">récolte</span> <span class="tag t-craft">craft</span> <span class="tag t-fm">magie</span> <span class="tag t-kamas">kamas</span> <span class="tag t-setup">setup</span>. Le mélange est volontaire&nbsp;: le revenu ne s'arrête jamais pendant que les métiers montent.</p>
+  <div class="card blue">
+    <p style="margin-bottom:0"><b>Deux sortes de lignes.</b> Celles qui portent une <b>case à cocher</b> sont des tâches manuelles&nbsp;: vous les cochez vous-mêmes. Celles qui portent une <b>pastille</b> <span class="auto ok" style="display:inline-flex;margin:0 2px;vertical-align:-3px">✓</span> sont des objectifs chiffrés — niveaux de métier et prospection&nbsp;: leur libellé, ce qu'il reste à faire et leur état sont <b>calculés en direct depuis l'onglet Personnages</b>. Vous ne pouvez pas les cocher, et vous n'avez pas à le faire — dès que vous mettez un niveau à jour, la ligne se met à jour et se barre toute seule si l'objectif est atteint. C'est ce qui évite d'avoir un objectif qui dit encore «&nbsp;163 → 185&nbsp;» alors que le métier est déjà à 190.</p>
+  </div>
+  <div class="card gold">
+    <p style="margin-bottom:0"><b>Une étape n'est pas une semaine.</b> L'estimation affichée sur chaque étape est une fourchette large&nbsp;: elle bouge selon votre serveur, la concurrence sur les spots et les jours où vous jouez moins. Vous passez à l'étape suivante quand la précédente est cochée, pas quand le dimanche arrive. Bout à bout, les estimations affichées totalisent <b>23 à 33 semaines, soit 5 à 8 mois à 20&nbsp;h/semaine</b> — c'est normal, et c'est mieux de le savoir maintenant que de se croire en retard à la troisième semaine. Les tests de rentabilité peuvent raccourcir ça&nbsp;: une étape de récolte qui échoue au seuil, c'est cinq à sept semaines rendues. Le rythme réellement hebdomadaire, c'est la routine&nbsp;: onglet <b>Aujourd’hui</b>.</p>
+  </div>
+  <div id="weeks"></div>
+
+  <h2>Après l'étape 7 — l'extension</h2>
   <div class="card">
-    <p style="margin-bottom:0">Aucune liste de ressources trouvée sur internet n'est fiable à 100&nbsp;% et les prix bougent d'un serveur à l'autre. L'outil de référence, c'est <b>l'encyclopédie in-game</b>&nbsp;: onglet <i>Ressources</i> → filtre par métier et par niveau → clique sur une ressource pour voir la liste exacte des maps où elle pousse. Fais-le au début de chaque nouveau palier de métier, ça prend 30 secondes et ça t'évite de courir après une info périmée. Même logique pour les prix&nbsp;: relève toi-même 10 ressources clés au HDV de ton serveur en début de plan, c'est ta seule vraie boussole.</p>
+    <p>À ce stade&nbsp;: les 6 métiers de récolte sont couverts, les 8 personnages ont Chasseur 200 et 300 de prospection, l'élevage tourne sur 6 enclos, et la chaîne de craft est complète. Il ne manque plus que <b>quatre métiers de magie sur les six</b>. La suite se joue sans urgence, en régime de croisière — et chacun de ces métiers va sur <b>un personnage libre différent</b>, jamais sur Natsugoffy qui est déjà saturé&nbsp;:</p>
+    <ul class="clean">
+      <li><b>Joaillomage 160 → 200</b>, le seul qui reste sur Natsugoffy puisqu'il le porte déjà. Vendre des bijoux finis plutôt que bruts, c'est le meilleur ratio effort/gain de tout ce qui reste.</li>
+      <li><b>Forgemage 1 → 200</b>, le gros morceau et le service FM le plus demandé du jeu. Vous avez déjà Forgeron 200 pour vous auto-alimenter en armes à briser et à monter.</li>
+      <li><b>Sculptemage</b>, à poser sur le personnage qui porte déjà Sculpteur 200 — il fabrique et magie ses propres baguettes, arcs et bâtons.</li>
+      <li><b>Cordomage</b> (bottes et ceintures) puis <b>Façomage</b> (boucliers), pour fermer complètement la boucle équipement. Façomage en dernier&nbsp;: le marché des boucliers est le plus petit des six.</li>
+      <li><b>Un second porteur sur une ressource</b>, seulement si l'une d'elles est devenue votre gagne-pain — pour la farmer à deux. Jamais avant d'en avoir la preuve chiffrée.</li>
+    </ul>
+    <p style="margin-bottom:0" class="muted">À partir de là, votre revenu ne vient plus du temps passé mais de la chaîne&nbsp;: vous récoltez vos propres ressources, vous dropez vos propres ingrédients rares, vous craftez l'équipement, vous le magiez vous-mêmes et vous vendez le produit fini. C'est le seul montage où vous captez 100&nbsp;% de la marge.</p>
   </div>
 </section>
 
-<!-- ============ PERSONNAGES ============ -->
 <section class="tab" id="tab-persos">
+  <h2>Où vous en êtes</h2>
+
+  <div class="grid g3" id="kpis" style="margin-bottom:20px"></div>
+
+  <p class="muted">Ces cartes se mettent à jour toutes seules à partir de l'onglet <b>Personnages</b> — c'est là que vous saisissez les niveaux de métier et la prospection au fur et à mesure.</p>
+  <div class="grid g2" id="teamCards"></div>
+
+  <h2>Ce qui manque à la team</h2>
+  <table>
+    <thead><tr><th>Métier absent</th><th>Type</th><th>Pourquoi ça compte</th><th>Priorité</th></tr></thead>
+    <tbody>
+      <tr><td><b>Bûcheron</b></td><td>Récolte</td><td>Le bois est la base de tous les crafts d'armes, arcs, baguettes, boucliers. Vous en achetez en ce moment — c'est de la marge perdue sur chaque craft. À monter sur <b>un</b> personnage.</td><td><span class="pill p-red">Haute</span></td></tr>
+      <tr><td><b>Pêcheur</b></td><td>Récolte</td><td>Poissons THL demandés et plats qui se vendent en continu. Boucle courte, donc le métier neuf le plus rapide. À monter sur <b>un autre</b> personnage que le Bûcheron, pour que les deux avancent en même temps.</td><td><span class="pill p-red">Haute</span></td></tr>
+      <tr><td><b>Forgemage</b></td><td>Magie</td><td>La FM d'armes est le service le plus demandé et le plus cher du jeu. Vous avez déjà Forgeron — les deux vont ensemble.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
+      <tr><td><b>Cordomage</b></td><td>Magie</td><td>Complète Cordonnier (bottes / ceintures). Vous vendez alors l'objet <i>fini</i> et pas la pièce brute.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
+      <tr><td><b>Sculpteur / Sculptemage</b></td><td>Craft + Magie</td><td>Baguettes, arcs, bâtons. Absents de la team, donc aucun doublon possible — et le plan les pose sur un personnage <i>autre</i> que Natsugoffy pour ouvrir une deuxième file de craft. Voir l'l’onglet <b>Aujourd’hui</b>.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
+      <tr><td><b>Façomage</b></td><td>Magie</td><td>La magie des boucliers. Complète Bricoleur, que Natsugoffy a déjà à 200. Petit marché comparé à la FM d'armes&nbsp;: à ouvrir en dernier, quand tout le reste tourne.</td><td><span class="pill p-blue">Basse</span></td></tr>
+      <tr><td><b>Éleveur</b></td><td>Élevage</td><td>Métier neuf, arrivé avec la refonte de l'élevage (mise à jour 3.5, mars 2026). Il ouvre une source de kamas à part, qui ne dépend ni de la récolte ni du HDV. Voir la fiche dédiée dans l'onglet «&nbsp;Fiches métiers&nbsp;».</td><td><span class="pill p-gold">Moyenne</span></td></tr>
+    </tbody>
+  </table>
+  <p class="muted">Détail des métiers absents comptés par la carte ci-dessus&nbsp;: <span id="absentList"></span>.</p>
+
   <h2>Fiche personnages</h2>
   <p class="muted"><b>C'est la seule page où on saisit quelque chose, et tout le reste en découle.</b> Renommez les personnages et tenez les niveaux de métier à jour&nbsp;: les cartes d'état, la couverture d'équipe, les métiers manquants <i>et surtout les objectifs du plan</i> se recalculent à chaque modification. Un objectif déjà atteint se coche tout seul&nbsp;; un objectif en cours affiche le niveau réel et ce qu'il reste. Si ces chiffres sont faux, le plan l'est aussi.</p>
 
@@ -428,79 +529,189 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   <div id="craftcov"></div>
 </section>
 
-<!-- ============ À DEUX ============ -->
-<section class="tab" id="tab-duo">
-  <h2>Jouer à deux sur un parc commun</h2>
-  <p class="muted">Vous avez tous les deux accès aux 8 comptes, et tout est commun. Il n'y a donc rien à répartir par personne&nbsp;: celui qui est connecté fait avancer le plan, point. Ce qui compte, c'est de ne pas se marcher dessus.</p>
+<section class="tab" id="tab-argent">
+  <h2>Quoi farmer, quoi crafter, quoi en faire</h2>
+  <p class="muted">Cette page répond à une seule question&nbsp;: <b>j'ai ce métier à ce niveau, je fais quoi maintenant pour gagner des kamas&nbsp;?</b> Les modèles ci-dessous se recalculent depuis vos niveaux réels. Le carnet de prix et le calculateur, en bas, sont à vous de les remplir — ce sont vos prix, sur votre serveur, qui décident.</p>
+
+  <div class="card red">
+    <p style="margin-bottom:0"><b>Ce que je ne peux pas faire à votre place.</b> Une liste d'objets rentables nommément vieillit en quelques semaines et dépend de votre serveur. Ce qui ne vieillit pas, c'est le <b>modèle économique de chaque métier</b> et le <b>calcul de marge</b>. Vous trouverez les objets vous-mêmes en dix minutes avec le calculateur, et vous aurez la bonne réponse plutôt qu'une réponse d'il y a six mois.</p>
+  </div>
+
+  <h2>Le drop — là où vos 8 comptes valent vraiment quelque chose</h2>
+  <p class="muted">C'est le pendant exact du principe 1. La récolte ne se parallélise pas&nbsp;; le drop, si. Et contrairement à la récolte, il n'y a <b>aucun métier à monter</b> pour en profiter.</p>
 
   <div class="card green">
-    <h3>Le tour de ressources se fait à un seul personnage</h3>
-    <p style="margin-bottom:0">Chaque tour de ressources se mène à <b>un seul personnage</b> — mais comme les métiers sont répartis, vous en avez plusieurs, et chacun le sien. Concrètement&nbsp;: <b>l'un pêche pendant que l'autre coupe du bois</b>, deux boucles différentes, deux ressources différentes, aucun nœud disputé. C'est le double du rendement pour le même créneau de jeu, et c'est ce qui divise par deux la durée de l'étape 3.</p>
+    <h3>La règle qui change tout&nbsp;: pas de malus de groupe</h3>
+    <p>À la fin d'un combat, <b>chaque personnage fait son propre jet de drop, simultanément et sans ordre de priorité</b>. Être 8 ne divise rien. Le même combat, mené une seule fois, vous donne huit chances au lieu d'une.</p>
+    <p style="margin-bottom:0">La formule est simple&nbsp;: <b>taux final = taux de base × (PP / 100)</b>. Toutes les classes démarrent à 100 PP (120 pour un Enutrof), donc 100 PP = le taux affiché sur la ressource, 300 PP = trois fois ce taux.</p>
+  </div>
+
+  <div class="card red">
+    <h3>Le piège&nbsp;: le plafond d'exemplaires par monstre</h3>
+    <p>Chaque monstre ne lâche qu'un nombre limité d'exemplaires d'une même ressource — de l'ordre de <b>2 pour une ressource commune de monstre normal</b>, un peu plus sur les boss. Si vos 8 personnages réussissent tous leur jet, seuls les 2 premiers tirés au sort repartent avec.</p>
+    <p style="margin-bottom:0"><b>Conséquence directe, et c'est elle qui doit décider de vos circuits&nbsp;:</b> sur une ressource commune, 8 comptes ne valent guère mieux que 2 — vous tapez le plafond en permanence. Sur un <b>drop rare</b> (taux de base sous 1&nbsp;%&nbsp;: ressources de boss, ingrédients de craft THL, équipements, Dofus), la probabilité que deux persos réussissent le même jet est négligeable&nbsp;: là, vos 8 jets indépendants valent réellement 8 fois vos chances. <b>Farmez du rare avec les 8, pas du commun.</b></p>
+  </div>
+
+  <div class="card gold">
+    <h3>Deux réglages à faire avant de farmer</h3>
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Chaque personnage a besoin de SA prospection.</b> C'est le seul vrai investissement de cette partie du plan, et il est souvent négligé&nbsp;: un perso resté à 100 PP tire au taux de base pendant que les autres tirent double ou triple. Comptez <b>~200 PP pour du farm courant, 300+ pour viser des drops rares</b>. La PP vient de l'équipement et de la Chance (10 Chance = 1 PP)&nbsp;: une panoplie de drop dédiée, qu'on enfile pour le bloc donjon et qu'on retire ensuite. Saisissez la PP de chacun dans l'onglet <b>Personnages</b>, le plan la suit.</li>
+      <li><b>Ne farmez pas trop bas.</b> Au-delà de <b>50 niveaux d'écart</b> entre le personnage et le monstre, la prospection n'est tout simplement plus prise en compte. À 200, ça veut dire viser du contenu <b>niveau 150 et plus</b> — en dessous, votre panoplie de drop ne sert à rien.</li>
+    </ul>
   </div>
 
   <div class="card blue">
-    <h3>Le vrai risque du parc partagé&nbsp;: la double manip</h3>
-    <p style="margin-bottom:0">Comme n'importe lequel de vous peut ouvrir n'importe quel compte, l'erreur qui coûte cher n'est plus «&nbsp;qui fait quoi&nbsp;» mais <b>faire deux fois la même chose sans le savoir</b>&nbsp;: racheter au HDV une ressource déjà en coffre, lancer un batch de craft que l'autre a déjà lancé, ouvrir un métier qui existe ailleurs. D'où les règles ci-dessous, et d'où ce tracker&nbsp;: <b>ce que vous cochez ici, c'est votre point de vérité commun</b>.</p>
+    <h3>Les idoles, une fois que le reste tourne</h3>
+    <p style="margin-bottom:0">Les idoles se posent avant le combat&nbsp;: elles renforcent les monstres et donnent en échange un pourcentage de bonus d'XP et/ou de drop. C'est le multiplicateur le plus rentable une fois que votre prospection est en place — mais la seule erreur qui coûte cher, c'est d'en mettre trop et de <b>perdre le combat</b>, ce qui annule tout. Montez la difficulté par paliers, et gardez une combinaison orientée drop (pas XP) puisque vous êtes déjà 200.</p>
   </div>
 
-  <h2>Les règles d'une économie commune</h2>
   <div class="card">
-    <ul class="clean" style="margin-bottom:0">
-      <li><b>Un seul prix, pas forcément un seul vendeur.</b> Le vrai risque, c'est de vous sous-coter mutuellement sans le savoir sur une ressource que vous produisez en masse — et ça se règle en s'accordant sur le prix, pas en centralisant. D'ailleurs chaque personnage a un nombre limité d'emplacements de vente&nbsp;: à 8 persos, tout faire passer par un seul vendeur finit par vous brider. En pratique&nbsp;: un carnet de prix commun, et vous répartissez les étals quand le volume le demande.</li>
-      <li><b>Coffre de guilde = banque unique.</b> Tout y transite, personne ne garde de stock en perso. Sinon vous rachetez au HDV une ressource déjà en stock — c'est l'erreur classique du parc partagé.</li>
-      <li><b>Zéro métier de craft en double.</b> Vous partagez tout, donc un deuxième forgeron ne sert à rien et coûte cher à monter. Chaque nouveau métier ouvert doit combler un trou&nbsp;: l'onglet <b>Personnages</b> vous dit lesquels sont encore absents.</li>
-      <li><b>Le budget s'écrit avant, pas pendant.</b> Avant un gros palier de craft ou avant d'attaquer la magie, vous fixez un chiffre à deux. C'est ce qui vous évitera de vous retrouver bloqués à 170 en Costumage avec la banque vide.</li>
-      <li><b>Carnet de prix partagé, mis à jour le dimanche.</b> Dix ressources, cinq minutes. C'est ce qui vous fera repérer les bonnes affaires avant les autres.</li>
-      <li><b>Mettez les niveaux à jour dans l'onglet Personnages au fil de l'eau.</b> Tout le plan se recalcule dessus&nbsp;: si les chiffres sont faux, les objectifs affichés le sont aussi.</li>
-    </ul>
+    <p style="margin-bottom:0"><b>Et ça se cumule avec Chasseur.</b> Le même combat vous donne le drop <i>et</i> un jet de viande par personnage équipé d'un outil de chasse. C'est pour ça que le bloc donjon est le meilleur usage de vos 8 comptes&nbsp;: trois revenus sur une seule action.</p>
   </div>
 
-  <h2>Quand vous jouez chacun de votre côté</h2>
-  <div class="card">
-    <p>Puisque vous avez les mêmes accès, celui qui joue seul peut tout faire&nbsp;: le tour de ressources ne demande qu'un personnage, et même le bloc donjon se mène seul avec les 8. Il n'y a rien d'interdit. Deux réflexes suffisent&nbsp;:</p>
-    <ul class="clean" style="margin-bottom:0">
-      <li><b>Coche ce que tu avances</b> dans le plan, et mets les niveaux à jour. C'est ce qui évite que l'autre refasse le même bloc le lendemain.</li>
-      <li><b>N'ouvre pas un métier de récolte sur un autre personnage «&nbsp;pour aider&nbsp;».</b> C'est le réflexe naturel quand on a 8 comptes sous la main, et c'est exactement ce que le plan cherche à éviter&nbsp;: ça n'accélère rien et ça repart pour 60 heures. Un seul récolteur.</li>
-    </ul>
+  <h2>Crafter ou vendre brut — la décision qui décide de tout</h2>
+  <p class="muted">C'est l'étape que la plupart des joueurs sautent, et celle qui sépare un artisanat rentable d'un artisanat qui coûte de l'argent sans qu'on s'en aperçoive. Elle se fait <b>après le bloc de drop</b>, sur le butin, avant de lancer le moindre craft.</p>
+
+  <div class="card red">
+    <h3>Le calcul, en trois lignes</h3>
+    <p style="font-size:15px;margin:10px 0"><b>Prix de vente de l'objet × 0,98</b> <span class="muted">(la taxe HDV est de 2&nbsp;%)</span><br>
+    <b>− la somme des prix HDV de TOUS les ingrédients</b><br>
+    <b>= votre marge nette</b></p>
+    <p style="margin-bottom:0"><b>Marge sous 10&nbsp;% du coût&nbsp;: ne craftez pas.</b> Vendez les ressources brutes, vous gagnerez plus en faisant moins. Au-dessus, craftez — et refaites le calcul de temps en temps, les prix bougent.</p>
   </div>
 
-  <h2>Pourquoi ouvrir Sculpteur</h2>
   <div class="card gold">
-    <p>Le plan ouvre <b>Sculpteur</b> à l'étape 5, puis Sculptemage dans l'extension. Deux raisons&nbsp;:</p>
+    <h3>La règle qu'on oublie toujours</h3>
+    <p style="margin-bottom:0"><b>Comptez vos propres ressources à leur prix HDV, pas à zéro.</b> Une bûche que vous avez coupée vaut exactement ce qu'elle vaut au marché&nbsp;: en la mettant dans un craft, vous renoncez à la vendre. C'est un coût réel. Un artisan qui compte ses ressources gratuites croit gagner sur chaque objet alors qu'il détruit de la valeur à chaque fois — et il ne s'en rend jamais compte, parce que son compte en banque monte quand même grâce au drop.</p>
+  </div>
+
+  <div class="card blue">
+    <h3>Les trois exceptions légitimes</h3>
     <ul class="clean" style="margin-bottom:0">
-      <li><b>Ça comble un vrai trou.</b> Baguettes, arcs et bâtons sont totalement absents de la team. Vous ne doublez rien, et vous arrêtez d'acheter des armes magiques à des inconnus.</li>
-      <li><b>Ça vous donne deux files de craft en parallèle.</b> Natsugoffy porte déjà six métiers d'artisanat et ne peut en faire tourner qu'un à la fois. Poser Sculpteur sur un <i>autre</i> personnage — Conviict est le candidat naturel, il n'a qu'un métier — c'est du temps de craft gagné, surtout quand vous êtes connectés tous les deux.</li>
+      <li><b>Monter un métier de craft.</b> Là, vous payez sciemment pour de l'XP. C'est incompressible et c'est un investissement, pas un revenu — mais sachez que c'est ce que vous êtes en train de faire. Et <b>brisez systématiquement les objets invendables</b>&nbsp;: les runes récupérées remboursent une bonne part du coût.</li>
+      <li><b>Une ressource introuvable en vente.</b> Si l'ingrédient n'est pas achetable en quantité, le calcul ne s'applique pas&nbsp;: votre stock a une valeur de rareté que le prix affiché ne reflète pas.</li>
+      <li><b>L'objet vaut plus brisé que vendu.</b> Comparez toujours le prix de vente au prix des runes qu'il rend. Pour certains objets, la casse est la vraie sortie.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <p style="margin-bottom:0"><b>Ne faites pas ce calcul à la main.</b> Plusieurs outils communautaires le font à partir des prix de votre serveur — DofuCraft, Doradins, l'atelier de Dafous ou le calculateur de DofusGadgets. Saisissez vos prix une fois, et vous saurez en un coup d'œil ce qui mérite d'être crafté. C'est cinq minutes d'installation pour une décision que vous prendrez des centaines de fois.</p>
+  </div>
+
+  <h2>Les trois façons de gagner sa vie avec un métier de craft</h2>
+  <div class="grid g3">
+    <div class="card green">
+      <h3>1. Le craft à la commande</h3>
+      <p style="margin-bottom:0"><b>Le client apporte les ressources, vous facturez le service.</b> Coût matière&nbsp;: zéro. Risque de stock&nbsp;: zéro. Risque de marge négative&nbsp;: zéro. C'est le modèle des métiers à haut niveau, et de loin le plus sûr — c'est <i>la</i> réponse à «&nbsp;j'ai un bijoutier 200, j'en fais quoi&nbsp;». Il faut juste se faire connaître&nbsp;: canal commerce, discord du serveur, guilde.</p>
+    </div>
+    <div class="card gold">
+      <h3>2. Le brisage</h3>
+      <p style="margin-bottom:0"><b>On craft pour casser, pas pour vendre.</b> On compare le coût des ressources au HDV à la valeur moyenne des runes obtenues après brisage. Sur les paliers intermédiaires, c'est souvent le seul modèle qui tient — et c'est ce qui permet de monter un métier <i>en gagnant</i> des kamas au lieu d'en perdre. Visez les objets qui rendent des runes recherchées&nbsp;: Vitalité, Puissance, Sagesse.</p>
+    </div>
+    <div class="card blue">
+      <h3>3. La vente d'objets finis</h3>
+      <p style="margin-bottom:0"><b>Le modèle évident, et le plus risqué.</b> Vous achetez ou farmez les ressources, vous craftez, vous vendez. Ça ne marche que si la marge nette dépasse 10&nbsp;% après la taxe — ce qui, en dehors des recettes proches de 200, est rarement le cas. À réserver aux objets à demande permanente, et à vérifier au calculateur avant chaque série.</p>
+    </div>
+  </div>
+
+  <h2>Vos filières, métier par métier</h2>
+  <p class="muted">Recalculé depuis l'onglet Personnages&nbsp;: seuls vos métiers réellement portés apparaissent, avec le conseil correspondant à leur niveau actuel.</p>
+  <div id="filieres"></div>
+
+  <h2>Carnet de prix</h2>
+  <p class="muted">La base de tout le reste, et <b>ça se périme vite</b>&nbsp;: un prix de HDV vaut une trentaine de minutes, pas une journée. Le carnet suit l'heure exacte de chaque relevé et vous dit lesquels ne sont plus exploitables. Saisir un prix vaut relevé&nbsp;; le bouton <b>↻</b> sert à confirmer qu'un prix n'a pas bougé sans le retaper. <b>Partagé entre vous deux.</b></p>
+  <div id="prixAlerte"></div>
+  <div class="card" style="padding:14px 16px">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button class="btn" onclick="addPrice()">+ Ajouter une ligne</button>
+      <span class="muted" style="font-size:12.5px">Ressources <i>et</i> objets finis&nbsp;: le calculateur a besoin des deux.</span>
+    </div>
+  </div>
+  <div style="overflow-x:auto"><table id="priceTable"></table></div>
+
+  <h2>Calculateur de marge</h2>
+  <p class="muted">Pour chaque objet que vous envisagez de crafter&nbsp;: son prix de vente, ses ingrédients et leurs quantités. La marge se calcule toute seule, <b>taxe HDV de 2&nbsp;% comprise</b>. Les prix viennent du carnet ci-dessus.</p>
+  <div class="card" style="padding:14px 16px">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button class="btn" onclick="addCraft()">+ Ajouter un objet</button>
+      <span class="muted" style="font-size:12.5px">Ingrédients au format <code>Nom × quantité</code>, un par ligne.</span>
+    </div>
+  </div>
+  <div id="craftCalc"></div>
+  <h2>Faire des kamas avec 8 personnages 200</h2>
+  <p class="muted">Classé par ce qui rapporte le plus pour <i>ta</i> configuration. Les montants sont des ordres de grandeur à recalibrer sur ton serveur — la première chose à faire est de relever tes propres prix au HDV.</p>
+
+  <table>
+    <thead><tr><th>Source</th><th>Pour toi</th><th>Effort</th><th>Quand</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Tour de ressources</b></td>
+        <td>Votre revenu de fond. Un personnage par ressource sur une boucle de 6-10 maps THL, avec une mule derrière pour les pods. Comme les métiers sont répartis, les deux joueurs peuvent farmer deux ressources différentes en même temps — sans avoir payé des mois de montée sur 7 personnages de plus.</td>
+        <td><span class="pill p-green">Faible</span></td>
+        <td>Tous les jours, dès l'étape 1 et de plus en plus fort à mesure que les métiers montent</td>
+      </tr>
+      <tr>
+        <td><b>Vente d'équipement fabriqué maison</b></td>
+        <td>La plus grosse marge du plan. Un premier set partiel arrive dès l'étape 4 (bijoux + coiffe/cape), le set complet à l'étape 6 quand cordonnier et forgeron sont finis.</td>
+        <td><span class="pill p-gold">Moyen</span></td>
+        <td>Partiel dès l'étape 4</td>
+      </tr>
+      <tr>
+        <td><b>Donjons 150+ en boucle (drop)</b></td>
+        <td><b>C'est là que les 8 personnages servent vraiment.</b> Vous enchaînez sans attendre personne, les ressources de boss se vendent <i>et</i> alimentent vos crafts, et chaque perso équipé d'un outil de chasse fait son propre jet de viande sur chaque combat.</td>
+        <td><span class="pill p-gold">Moyen</span></td>
+        <td>1 h/jour, en bloc kamas</td>
+      </tr>
+      <tr>
+        <td><b>Potions de téléportation / rappel</b></td>
+        <td>Natsugoffy est déjà Alchimiste 200. Consommable acheté par tout le serveur en permanence, marge stable, zéro compétence requise. À lancer <b>dès l'étape 1</b>.</td>
+        <td><span class="pill p-green">Faible</span></td>
+        <td>Immédiatement</td>
+      </tr>
+      <tr>
+        <td><b>Services de forgemagie</b></td>
+        <td>Le vrai jackpot à terme, mais il faut être 200 en magie. Objectif fin de plan / extension.</td>
+        <td><span class="pill p-red">Élevé</span></td>
+        <td>Étape 7 et après</td>
+      </tr>
+      <tr>
+        <td><b>Élevage (métier Éleveur)</b></td>
+        <td>Depuis la refonte 3.5, c'est un métier à part entière et un vrai atelier de production, plus un revenu d'appoint. Le seul de la liste qui ne dépend ni de vos récoltes ni du cours des ressources. En contrepartie il faut l'amorcer en kamas et le piloter&nbsp;: ce n'est plus du tout passif.</td>
+        <td><span class="pill p-gold">Moyen</span></td>
+        <td>À partir de l'étape 5</td>
+      </tr>
+      <tr>
+        <td><b>Quotidiennes (chasses au trésor, Almanax, dopeuls)</b></td>
+        <td>Ça rapporte, mais multiplié par 8 personnages ça mange ta soirée pour un revenu moyen. <b>Limite-toi à 2-3 personnages</b> et garde le temps pour la récolte.</td>
+        <td><span class="pill p-gold">Moyen</span></td>
+        <td>En remplissage</td>
+      </tr>
+      <tr>
+        <td><b>Spéculation HDV</b></td>
+        <td>Uniquement sur les 10 ressources dont tu connais le prix par cœur parce que tu les récoltes. Ne joue pas au trader sur ce que tu ne produis pas.</td>
+        <td><span class="pill p-green">Faible</span></td>
+        <td>En continu, opportuniste</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Les erreurs qui coûtent cher</h2>
+  <div class="card red">
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Éparpiller plusieurs métiers sur le même personnage.</b> Un métier à la fois par porteur, jusqu'à 200. Sinon vous vous retrouvez avec six métiers à 90 qui ne débloquent aucune ressource intéressante — un métier à 90 ne rapporte rien, il ne compte que fini. Deux métiers en parallèle, oui, mais sur <b>deux personnages différents</b>, pilotés par deux joueurs différents.</li>
+      <li><b>Ouvrir un métier que quelqu'un a déjà.</b> Regardez l'onglet Personnages avant. C'est l'erreur que ce plan a commise lui-même : faire monter Alchimiste de 101 à 200 alors qu'un autre personnage l'avait déjà à 200. Cinq semaines pour rien.</li>
+      <li><b>Ouvrir un métier de récolte sur un deuxième personnage «&nbsp;pour aller plus vite&nbsp;».</b> Ça n'accélère rien&nbsp;: l'XP n'est pas partagée, vous repartez de 1 pour 60 heures. Un seul récolteur.</li>
+      <li><b>Farmer du drop sans panoplie de prospection.</b> À 100 PP vous tirez au taux de base&nbsp;: vous divisez par deux ou trois le rendement du seul bloc où vos 8 comptes servent vraiment. Et un perso oublié en panoplie de combat, ça ne se voit pas — d'où la colonne PP dans l'onglet Personnages.</li>
+      <li><b>Farmer du contenu trop bas niveau.</b> Plus de 50 niveaux d'écart et la prospection n'est plus comptée du tout. Vos panoplies de drop ne servent qu'à partir du niveau 150.</li>
+      <li><b>Vendre à l'unité.</b> Toujours par lots de 10 ou 100. Le temps que tu perds à gérer 200 annonces n'est jamais compensé.</li>
+      <li><b>Brader pour vendre vite.</b> Regarde le prix moyen, place-toi légèrement en dessous, et attends. Casser le prix d'une ressource que tu produis en masse, c'est te tirer une balle dans le pied pour les mois suivants.</li>
+      <li><b>Acheter des ressources au HDV pour monter un craft sans calculer.</b> Fais le calcul du palier complet avant, pas après.</li>
+      <li><b>Jeter les objets ratés ou invendables.</b> Brise-les. Toujours.</li>
+      <li><b>Attaquer la magie sans trésorerie.</b> C'est l'erreur qui bloque le plus de joueurs&nbsp;: bloqué à mi-parcours, avec un métier qui ne rapporte rien tant qu'il n'est pas fini.</li>
     </ul>
   </div>
 </section>
 
-<!-- ============ PLAN PAR ÉTAPES ============ -->
-<section class="tab" id="tab-plan">
-  <h2>Le plan, étape par étape</h2>
-  <p class="muted">Base ~20&nbsp;h/semaine, soit environ 3&nbsp;h/jour. Chaque ligne porte son type&nbsp;: <span class="tag t-rec">récolte</span> <span class="tag t-craft">craft</span> <span class="tag t-fm">magie</span> <span class="tag t-kamas">kamas</span> <span class="tag t-setup">setup</span>. Le mélange est volontaire&nbsp;: le revenu ne s'arrête jamais pendant que les métiers montent.</p>
-  <div class="card blue">
-    <p style="margin-bottom:0"><b>Deux sortes de lignes.</b> Celles qui portent une <b>case à cocher</b> sont des tâches manuelles&nbsp;: vous les cochez vous-mêmes. Celles qui portent une <b>pastille</b> <span class="auto ok" style="display:inline-flex;margin:0 2px;vertical-align:-3px">✓</span> sont des objectifs chiffrés — niveaux de métier et prospection&nbsp;: leur libellé, ce qu'il reste à faire et leur état sont <b>calculés en direct depuis l'onglet Personnages</b>. Vous ne pouvez pas les cocher, et vous n'avez pas à le faire — dès que vous mettez un niveau à jour, la ligne se met à jour et se barre toute seule si l'objectif est atteint. C'est ce qui évite d'avoir un objectif qui dit encore «&nbsp;163 → 185&nbsp;» alors que le métier est déjà à 190.</p>
-  </div>
-  <div class="card gold">
-    <p style="margin-bottom:0"><b>Une étape n'est pas une semaine.</b> L'estimation affichée sur chaque étape est une fourchette large&nbsp;: elle bouge selon votre serveur, la concurrence sur les spots et les jours où vous jouez moins. Vous passez à l'étape suivante quand la précédente est cochée, pas quand le dimanche arrive. Bout à bout, les estimations affichées totalisent <b>23 à 33 semaines, soit 5 à 8 mois à 20&nbsp;h/semaine</b> — c'est normal, et c'est mieux de le savoir maintenant que de se croire en retard à la troisième semaine. Les tests de rentabilité peuvent raccourcir ça&nbsp;: une étape de récolte qui échoue au seuil, c'est cinq à sept semaines rendues. Le rythme réellement hebdomadaire, c'est la routine&nbsp;: onglet <b>Routine</b>.</p>
-  </div>
-  <div id="weeks"></div>
-
-  <h2>Après l'étape 7 — l'extension</h2>
-  <div class="card">
-    <p>À ce stade&nbsp;: les 6 métiers de récolte sont couverts, les 8 personnages ont Chasseur 200 et 300 de prospection, l'élevage tourne sur 6 enclos, et la chaîne de craft est complète. Il ne manque plus que <b>quatre métiers de magie sur les six</b>. La suite se joue sans urgence, en régime de croisière — et chacun de ces métiers va sur <b>un personnage libre différent</b>, jamais sur Natsugoffy qui est déjà saturé&nbsp;:</p>
-    <ul class="clean">
-      <li><b>Joaillomage 160 → 200</b>, le seul qui reste sur Natsugoffy puisqu'il le porte déjà. Vendre des bijoux finis plutôt que bruts, c'est le meilleur ratio effort/gain de tout ce qui reste.</li>
-      <li><b>Forgemage 1 → 200</b>, le gros morceau et le service FM le plus demandé du jeu. Vous avez déjà Forgeron 200 pour vous auto-alimenter en armes à briser et à monter.</li>
-      <li><b>Sculptemage</b>, à poser sur le personnage qui porte déjà Sculpteur 200 — il fabrique et magie ses propres baguettes, arcs et bâtons.</li>
-      <li><b>Cordomage</b> (bottes et ceintures) puis <b>Façomage</b> (boucliers), pour fermer complètement la boucle équipement. Façomage en dernier&nbsp;: le marché des boucliers est le plus petit des six.</li>
-      <li><b>Un second porteur sur une ressource</b>, seulement si l'une d'elles est devenue votre gagne-pain — pour la farmer à deux. Jamais avant d'en avoir la preuve chiffrée.</li>
-    </ul>
-    <p style="margin-bottom:0" class="muted">À partir de là, votre revenu ne vient plus du temps passé mais de la chaîne&nbsp;: vous récoltez vos propres ressources, vous dropez vos propres ingrédients rares, vous craftez l'équipement, vous le magiez vous-mêmes et vous vendez le produit fini. C'est le seul montage où vous captez 100&nbsp;% de la marge.</p>
-  </div>
-</section>
-
-<!-- ============ FICHES MÉTIERS ============ -->
 <section class="tab" id="tab-metiers">
   <h2>Fiches métiers</h2>
 
@@ -612,265 +823,10 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
     </ul>
     <p style="margin-bottom:0" class="muted">Ton ordre&nbsp;: Costumage (156, déjà bien avancé, et coiffes/capes = grosse demande) → Joaillomage (121) → Forgemage (à ouvrir de zéro, mais c'est le plus rentable des trois à l'arrivée).</p>
   </div>
-</section>
-
-<!-- ============ FARM KAMAS ============ -->
-<section class="tab" id="tab-kamas">
-  <h2>Faire des kamas avec 8 personnages 200</h2>
-  <p class="muted">Classé par ce qui rapporte le plus pour <i>ta</i> configuration. Les montants sont des ordres de grandeur à recalibrer sur ton serveur — la première chose à faire est de relever tes propres prix au HDV.</p>
-
-  <table>
-    <thead><tr><th>Source</th><th>Pour toi</th><th>Effort</th><th>Quand</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><b>Tour de ressources</b></td>
-        <td>Votre revenu de fond. Un personnage par ressource sur une boucle de 6-10 maps THL, avec une mule derrière pour les pods. Comme les métiers sont répartis, les deux joueurs peuvent farmer deux ressources différentes en même temps — sans avoir payé des mois de montée sur 7 personnages de plus.</td>
-        <td><span class="pill p-green">Faible</span></td>
-        <td>Tous les jours, dès l'étape 1 et de plus en plus fort à mesure que les métiers montent</td>
-      </tr>
-      <tr>
-        <td><b>Vente d'équipement fabriqué maison</b></td>
-        <td>La plus grosse marge du plan. Un premier set partiel arrive dès l'étape 4 (bijoux + coiffe/cape), le set complet à l'étape 6 quand cordonnier et forgeron sont finis.</td>
-        <td><span class="pill p-gold">Moyen</span></td>
-        <td>Partiel dès l'étape 4</td>
-      </tr>
-      <tr>
-        <td><b>Donjons 150+ en boucle (drop)</b></td>
-        <td><b>C'est là que les 8 personnages servent vraiment.</b> Vous enchaînez sans attendre personne, les ressources de boss se vendent <i>et</i> alimentent vos crafts, et chaque perso équipé d'un outil de chasse fait son propre jet de viande sur chaque combat.</td>
-        <td><span class="pill p-gold">Moyen</span></td>
-        <td>1 h/jour, en bloc kamas</td>
-      </tr>
-      <tr>
-        <td><b>Potions de téléportation / rappel</b></td>
-        <td>Natsugoffy est déjà Alchimiste 200. Consommable acheté par tout le serveur en permanence, marge stable, zéro compétence requise. À lancer <b>dès l'étape 1</b>.</td>
-        <td><span class="pill p-green">Faible</span></td>
-        <td>Immédiatement</td>
-      </tr>
-      <tr>
-        <td><b>Services de forgemagie</b></td>
-        <td>Le vrai jackpot à terme, mais il faut être 200 en magie. Objectif fin de plan / extension.</td>
-        <td><span class="pill p-red">Élevé</span></td>
-        <td>Étape 7 et après</td>
-      </tr>
-      <tr>
-        <td><b>Élevage (métier Éleveur)</b></td>
-        <td>Depuis la refonte 3.5, c'est un métier à part entière et un vrai atelier de production, plus un revenu d'appoint. Le seul de la liste qui ne dépend ni de vos récoltes ni du cours des ressources. En contrepartie il faut l'amorcer en kamas et le piloter&nbsp;: ce n'est plus du tout passif.</td>
-        <td><span class="pill p-gold">Moyen</span></td>
-        <td>À partir de l'étape 5</td>
-      </tr>
-      <tr>
-        <td><b>Quotidiennes (chasses au trésor, Almanax, dopeuls)</b></td>
-        <td>Ça rapporte, mais multiplié par 8 personnages ça mange ta soirée pour un revenu moyen. <b>Limite-toi à 2-3 personnages</b> et garde le temps pour la récolte.</td>
-        <td><span class="pill p-gold">Moyen</span></td>
-        <td>En remplissage</td>
-      </tr>
-      <tr>
-        <td><b>Spéculation HDV</b></td>
-        <td>Uniquement sur les 10 ressources dont tu connais le prix par cœur parce que tu les récoltes. Ne joue pas au trader sur ce que tu ne produis pas.</td>
-        <td><span class="pill p-green">Faible</span></td>
-        <td>En continu, opportuniste</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h2>Le drop — là où vos 8 comptes valent vraiment quelque chose</h2>
-  <p class="muted">C'est le pendant exact du principe 1. La récolte ne se parallélise pas&nbsp;; le drop, si. Et contrairement à la récolte, il n'y a <b>aucun métier à monter</b> pour en profiter.</p>
-
-  <div class="card green">
-    <h3>La règle qui change tout&nbsp;: pas de malus de groupe</h3>
-    <p>À la fin d'un combat, <b>chaque personnage fait son propre jet de drop, simultanément et sans ordre de priorité</b>. Être 8 ne divise rien. Le même combat, mené une seule fois, vous donne huit chances au lieu d'une.</p>
-    <p style="margin-bottom:0">La formule est simple&nbsp;: <b>taux final = taux de base × (PP / 100)</b>. Toutes les classes démarrent à 100 PP (120 pour un Enutrof), donc 100 PP = le taux affiché sur la ressource, 300 PP = trois fois ce taux.</p>
-  </div>
-
-  <div class="card red">
-    <h3>Le piège&nbsp;: le plafond d'exemplaires par monstre</h3>
-    <p>Chaque monstre ne lâche qu'un nombre limité d'exemplaires d'une même ressource — de l'ordre de <b>2 pour une ressource commune de monstre normal</b>, un peu plus sur les boss. Si vos 8 personnages réussissent tous leur jet, seuls les 2 premiers tirés au sort repartent avec.</p>
-    <p style="margin-bottom:0"><b>Conséquence directe, et c'est elle qui doit décider de vos circuits&nbsp;:</b> sur une ressource commune, 8 comptes ne valent guère mieux que 2 — vous tapez le plafond en permanence. Sur un <b>drop rare</b> (taux de base sous 1&nbsp;%&nbsp;: ressources de boss, ingrédients de craft THL, équipements, Dofus), la probabilité que deux persos réussissent le même jet est négligeable&nbsp;: là, vos 8 jets indépendants valent réellement 8 fois vos chances. <b>Farmez du rare avec les 8, pas du commun.</b></p>
-  </div>
-
-  <div class="card gold">
-    <h3>Deux réglages à faire avant de farmer</h3>
-    <ul class="clean" style="margin-bottom:0">
-      <li><b>Chaque personnage a besoin de SA prospection.</b> C'est le seul vrai investissement de cette partie du plan, et il est souvent négligé&nbsp;: un perso resté à 100 PP tire au taux de base pendant que les autres tirent double ou triple. Comptez <b>~200 PP pour du farm courant, 300+ pour viser des drops rares</b>. La PP vient de l'équipement et de la Chance (10 Chance = 1 PP)&nbsp;: une panoplie de drop dédiée, qu'on enfile pour le bloc donjon et qu'on retire ensuite. Saisissez la PP de chacun dans l'onglet <b>Personnages</b>, le plan la suit.</li>
-      <li><b>Ne farmez pas trop bas.</b> Au-delà de <b>50 niveaux d'écart</b> entre le personnage et le monstre, la prospection n'est tout simplement plus prise en compte. À 200, ça veut dire viser du contenu <b>niveau 150 et plus</b> — en dessous, votre panoplie de drop ne sert à rien.</li>
-    </ul>
-  </div>
-
-  <div class="card blue">
-    <h3>Les idoles, une fois que le reste tourne</h3>
-    <p style="margin-bottom:0">Les idoles se posent avant le combat&nbsp;: elles renforcent les monstres et donnent en échange un pourcentage de bonus d'XP et/ou de drop. C'est le multiplicateur le plus rentable une fois que votre prospection est en place — mais la seule erreur qui coûte cher, c'est d'en mettre trop et de <b>perdre le combat</b>, ce qui annule tout. Montez la difficulté par paliers, et gardez une combinaison orientée drop (pas XP) puisque vous êtes déjà 200.</p>
-  </div>
-
+  <h2>Un réflexe à prendre tout de suite</h2>
   <div class="card">
-    <p style="margin-bottom:0"><b>Et ça se cumule avec Chasseur.</b> Le même combat vous donne le drop <i>et</i> un jet de viande par personnage équipé d'un outil de chasse. C'est pour ça que le bloc donjon est le meilleur usage de vos 8 comptes&nbsp;: trois revenus sur une seule action.</p>
+    <p style="margin-bottom:0">Aucune liste de ressources trouvée sur internet n'est fiable à 100&nbsp;% et les prix bougent d'un serveur à l'autre. L'outil de référence, c'est <b>l'encyclopédie in-game</b>&nbsp;: onglet <i>Ressources</i> → filtre par métier et par niveau → clique sur une ressource pour voir la liste exacte des maps où elle pousse. Fais-le au début de chaque nouveau palier de métier, ça prend 30 secondes et ça t'évite de courir après une info périmée. Même logique pour les prix&nbsp;: relève toi-même 10 ressources clés au HDV de ton serveur en début de plan, c'est ta seule vraie boussole.</p>
   </div>
-
-  <h2>Crafter ou vendre brut — la décision qui décide de tout</h2>
-  <p class="muted">C'est l'étape que la plupart des joueurs sautent, et celle qui sépare un artisanat rentable d'un artisanat qui coûte de l'argent sans qu'on s'en aperçoive. Elle se fait <b>après le bloc de drop</b>, sur le butin, avant de lancer le moindre craft.</p>
-
-  <div class="card red">
-    <h3>Le calcul, en trois lignes</h3>
-    <p style="font-size:15px;margin:10px 0"><b>Prix de vente de l'objet × 0,98</b> <span class="muted">(la taxe HDV est de 2&nbsp;%)</span><br>
-    <b>− la somme des prix HDV de TOUS les ingrédients</b><br>
-    <b>= votre marge nette</b></p>
-    <p style="margin-bottom:0"><b>Marge sous 10&nbsp;% du coût&nbsp;: ne craftez pas.</b> Vendez les ressources brutes, vous gagnerez plus en faisant moins. Au-dessus, craftez — et refaites le calcul de temps en temps, les prix bougent.</p>
-  </div>
-
-  <div class="card gold">
-    <h3>La règle qu'on oublie toujours</h3>
-    <p style="margin-bottom:0"><b>Comptez vos propres ressources à leur prix HDV, pas à zéro.</b> Une bûche que vous avez coupée vaut exactement ce qu'elle vaut au marché&nbsp;: en la mettant dans un craft, vous renoncez à la vendre. C'est un coût réel. Un artisan qui compte ses ressources gratuites croit gagner sur chaque objet alors qu'il détruit de la valeur à chaque fois — et il ne s'en rend jamais compte, parce que son compte en banque monte quand même grâce au drop.</p>
-  </div>
-
-  <div class="card blue">
-    <h3>Les trois exceptions légitimes</h3>
-    <ul class="clean" style="margin-bottom:0">
-      <li><b>Monter un métier de craft.</b> Là, vous payez sciemment pour de l'XP. C'est incompressible et c'est un investissement, pas un revenu — mais sachez que c'est ce que vous êtes en train de faire. Et <b>brisez systématiquement les objets invendables</b>&nbsp;: les runes récupérées remboursent une bonne part du coût.</li>
-      <li><b>Une ressource introuvable en vente.</b> Si l'ingrédient n'est pas achetable en quantité, le calcul ne s'applique pas&nbsp;: votre stock a une valeur de rareté que le prix affiché ne reflète pas.</li>
-      <li><b>L'objet vaut plus brisé que vendu.</b> Comparez toujours le prix de vente au prix des runes qu'il rend. Pour certains objets, la casse est la vraie sortie.</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <p style="margin-bottom:0"><b>Ne faites pas ce calcul à la main.</b> Plusieurs outils communautaires le font à partir des prix de votre serveur — DofuCraft, Doradins, l'atelier de Dafous ou le calculateur de DofusGadgets. Saisissez vos prix une fois, et vous saurez en un coup d'œil ce qui mérite d'être crafté. C'est cinq minutes d'installation pour une décision que vous prendrez des centaines de fois.</p>
-  </div>
-
-  <h2>Trois circuits types</h2>
-  <div class="grid g2">
-    <div class="card green">
-      <h3>Circuit A — Céréales &amp; plantes (45-60 min)</h3>
-      <p style="margin-bottom:0">Champs de Cania (chanvre, lin, malt) → Champs des Ingalsses → Frigost pour le Frostiz. Boucle fermée, tu reviens sur des nœuds repoussés. C'est le circuit «&nbsp;je suis fatigué mais je veux des kamas&nbsp;»&nbsp;: aucun risque, aucune réflexion, rendement propre.</p>
-    </div>
-    <div class="card gold">
-      <h3>Circuit B — Bois &amp; minerais (60-75 min)</h3>
-      <p style="margin-bottom:0">Une grande mine multi-salles puis une forêt THL. Plus lent à cause de la repousse et de la concurrence, mais les ressources valent nettement plus cher à l'unité. À faire en heures creuses, et à alterner avec le circuit A pour laisser repousser.</p>
-    </div>
-    <div class="card blue">
-      <h3>Circuit C — Donjons &amp; drop (60-90 min)</h3>
-      <p style="margin-bottom:0"><b>Le meilleur usage de vos 8 comptes.</b> 3 à 4 donjons niveau 150+ enchaînés, panoplies de prospection sur les 8, idoles orientées drop, outils de chasse équipés. Vous encaissez en une seule passe&nbsp;: les ressources rares de boss (×8 jets), la viande (×8 jets), et les ingrédients de vos propres crafts. C'est le bloc à ne pas sacrifier.</p>
-    </div>
-  </div>
-
-  <h2>Les erreurs qui coûtent cher</h2>
-  <div class="card red">
-    <ul class="clean" style="margin-bottom:0">
-      <li><b>Éparpiller plusieurs métiers sur le même personnage.</b> Un métier à la fois par porteur, jusqu'à 200. Sinon vous vous retrouvez avec six métiers à 90 qui ne débloquent aucune ressource intéressante — un métier à 90 ne rapporte rien, il ne compte que fini. Deux métiers en parallèle, oui, mais sur <b>deux personnages différents</b>, pilotés par deux joueurs différents.</li>
-      <li><b>Ouvrir un métier que quelqu'un a déjà.</b> Regardez l'onglet Personnages avant. C'est l'erreur que ce plan a commise lui-même : faire monter Alchimiste de 101 à 200 alors qu'un autre personnage l'avait déjà à 200. Cinq semaines pour rien.</li>
-      <li><b>Ouvrir un métier de récolte sur un deuxième personnage «&nbsp;pour aller plus vite&nbsp;».</b> Ça n'accélère rien&nbsp;: l'XP n'est pas partagée, vous repartez de 1 pour 60 heures. Un seul récolteur.</li>
-      <li><b>Farmer du drop sans panoplie de prospection.</b> À 100 PP vous tirez au taux de base&nbsp;: vous divisez par deux ou trois le rendement du seul bloc où vos 8 comptes servent vraiment. Et un perso oublié en panoplie de combat, ça ne se voit pas — d'où la colonne PP dans l'onglet Personnages.</li>
-      <li><b>Farmer du contenu trop bas niveau.</b> Plus de 50 niveaux d'écart et la prospection n'est plus comptée du tout. Vos panoplies de drop ne servent qu'à partir du niveau 150.</li>
-      <li><b>Vendre à l'unité.</b> Toujours par lots de 10 ou 100. Le temps que tu perds à gérer 200 annonces n'est jamais compensé.</li>
-      <li><b>Brader pour vendre vite.</b> Regarde le prix moyen, place-toi légèrement en dessous, et attends. Casser le prix d'une ressource que tu produis en masse, c'est te tirer une balle dans le pied pour les mois suivants.</li>
-      <li><b>Acheter des ressources au HDV pour monter un craft sans calculer.</b> Fais le calcul du palier complet avant, pas après.</li>
-      <li><b>Jeter les objets ratés ou invendables.</b> Brise-les. Toujours.</li>
-      <li><b>Attaquer la magie sans trésorerie.</b> C'est l'erreur qui bloque le plus de joueurs&nbsp;: bloqué à mi-parcours, avec un métier qui ne rapporte rien tant qu'il n'est pas fini.</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ============ FILIÈRES ============ -->
-<section class="tab" id="tab-filieres">
-  <h2>Quoi farmer, quoi crafter, quoi en faire</h2>
-  <p class="muted">Cette page répond à une seule question&nbsp;: <b>j'ai ce métier à ce niveau, je fais quoi maintenant pour gagner des kamas&nbsp;?</b> Les modèles ci-dessous se recalculent depuis vos niveaux réels. Le carnet de prix et le calculateur, en bas, sont à vous de les remplir — ce sont vos prix, sur votre serveur, qui décident.</p>
-
-  <div class="card red">
-    <p style="margin-bottom:0"><b>Ce que je ne peux pas faire à votre place.</b> Une liste d'objets rentables nommément vieillit en quelques semaines et dépend de votre serveur. Ce qui ne vieillit pas, c'est le <b>modèle économique de chaque métier</b> et le <b>calcul de marge</b>. Vous trouverez les objets vous-mêmes en dix minutes avec le calculateur, et vous aurez la bonne réponse plutôt qu'une réponse d'il y a six mois.</p>
-  </div>
-
-  <h2>Les trois façons de gagner sa vie avec un métier de craft</h2>
-  <div class="grid g3">
-    <div class="card green">
-      <h3>1. Le craft à la commande</h3>
-      <p style="margin-bottom:0"><b>Le client apporte les ressources, vous facturez le service.</b> Coût matière&nbsp;: zéro. Risque de stock&nbsp;: zéro. Risque de marge négative&nbsp;: zéro. C'est le modèle des métiers à haut niveau, et de loin le plus sûr — c'est <i>la</i> réponse à «&nbsp;j'ai un bijoutier 200, j'en fais quoi&nbsp;». Il faut juste se faire connaître&nbsp;: canal commerce, discord du serveur, guilde.</p>
-    </div>
-    <div class="card gold">
-      <h3>2. Le brisage</h3>
-      <p style="margin-bottom:0"><b>On craft pour casser, pas pour vendre.</b> On compare le coût des ressources au HDV à la valeur moyenne des runes obtenues après brisage. Sur les paliers intermédiaires, c'est souvent le seul modèle qui tient — et c'est ce qui permet de monter un métier <i>en gagnant</i> des kamas au lieu d'en perdre. Visez les objets qui rendent des runes recherchées&nbsp;: Vitalité, Puissance, Sagesse.</p>
-    </div>
-    <div class="card blue">
-      <h3>3. La vente d'objets finis</h3>
-      <p style="margin-bottom:0"><b>Le modèle évident, et le plus risqué.</b> Vous achetez ou farmez les ressources, vous craftez, vous vendez. Ça ne marche que si la marge nette dépasse 10&nbsp;% après la taxe — ce qui, en dehors des recettes proches de 200, est rarement le cas. À réserver aux objets à demande permanente, et à vérifier au calculateur avant chaque série.</p>
-    </div>
-  </div>
-
-  <h2>Vos filières, métier par métier</h2>
-  <p class="muted">Recalculé depuis l'onglet Personnages&nbsp;: seuls vos métiers réellement portés apparaissent, avec le conseil correspondant à leur niveau actuel.</p>
-  <div id="filieres"></div>
-
-  <h2>Carnet de prix</h2>
-  <p class="muted">La base de tout le reste, et <b>ça se périme vite</b>&nbsp;: un prix de HDV vaut une trentaine de minutes, pas une journée. Le carnet suit l'heure exacte de chaque relevé et vous dit lesquels ne sont plus exploitables. Saisir un prix vaut relevé&nbsp;; le bouton <b>↻</b> sert à confirmer qu'un prix n'a pas bougé sans le retaper. <b>Partagé entre vous deux.</b></p>
-  <div id="prixAlerte"></div>
-  <div class="card" style="padding:14px 16px">
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-      <button class="btn" onclick="addPrice()">+ Ajouter une ligne</button>
-      <span class="muted" style="font-size:12.5px">Ressources <i>et</i> objets finis&nbsp;: le calculateur a besoin des deux.</span>
-    </div>
-  </div>
-  <div style="overflow-x:auto"><table id="priceTable"></table></div>
-
-  <h2>Calculateur de marge</h2>
-  <p class="muted">Pour chaque objet que vous envisagez de crafter&nbsp;: son prix de vente, ses ingrédients et leurs quantités. La marge se calcule toute seule, <b>taxe HDV de 2&nbsp;% comprise</b>. Les prix viennent du carnet ci-dessus.</p>
-  <div class="card" style="padding:14px 16px">
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-      <button class="btn" onclick="addCraft()">+ Ajouter un objet</button>
-      <span class="muted" style="font-size:12.5px">Ingrédients au format <code>Nom × quantité</code>, un par ligne.</span>
-    </div>
-  </div>
-  <div id="craftCalc"></div>
-</section>
-
-<!-- ============ ROUTINE ============ -->
-<section class="tab" id="tab-routine">
-  <h2>La journée type (~3 h)</h2>
-  <p class="muted">L'ordre n'est pas une préférence, c'est une dépendance&nbsp;: <b>chaque bloc a besoin du précédent</b>. On ne peut pas trier un butin qu'on n'a pas encore, ni décider quoi crafter sans prix à jour. Suivez-le dans cet ordre et vous n'aurez jamais à vous demander quoi faire en vous connectant.</p>
-
-  <div class="card">
-    <h3>0:00 – 0:05 · Les prix, avant tout le reste</h3>
-    <p style="margin-bottom:0">Cinq minutes, et elles conditionnent toutes les décisions de la session. Relevez les ressources de votre carnet et le prix des 2-3 objets que vous fabriquez en ce moment. <b>Sans prix à jour, le tri du butin et la décision de crafter se font à l'aveugle</b> — et c'est comme ça qu'on craft à perte pendant des semaines sans le voir.</p>
-  </div>
-  <div class="card">
-    <h3>0:05 – 0:15 · Ouverture</h3>
-    <p style="margin-bottom:0">Connexion des 8 comptes → relève des ventes HDV et remise en vente de ce qui n'est pas parti → percepteurs → bonus Almanax → passage sur les enclos. Rythme de démarrage, rien de plus.</p>
-  </div>
-  <div class="card blue">
-    <h3>0:15 – 1:15 · Bloc drop — le cœur</h3>
-    <p style="margin-bottom:0"><b>C'est le bloc sur lequel vous ne transigez pas</b>, celui qui produit la matière première de tout le reste. Panoplies de prospection sur les 8, idoles orientées drop, outils de chasse équipés, donjons niveau 150 et plus. Une seule action vous donne trois revenus&nbsp;: les ressources rares (8 jets indépendants), la viande pour Chasseur (8 jets), et les ingrédients de vos propres crafts. Les autres blocs peuvent sauter, pas celui-ci.</p>
-  </div>
-  <div class="card red">
-    <h3>1:15 – 1:25 · Tri du butin</h3>
-    <p style="margin-bottom:0">Dix minutes, et c'est l'étape que presque personne ne fait. Pour chaque ressource ramenée&nbsp;: <b>vendre brut, ou garder pour crafter&nbsp;?</b> Appliquez la règle de l'onglet <b>Farm kamas</b> — prix de vente × 0,98 moins la somme des ingrédients, et en dessous de 10&nbsp;% de marge on ne craft pas. Ce tri de dix minutes vaut plus que l'heure de craft qui suit.</p>
-  </div>
-  <div class="card gold">
-    <h3>1:25 – 2:10 · Bloc craft</h3>
-    <p style="margin-bottom:0">Uniquement ce qui a passé le tri. Le reste part en vente brute, sans état d'âme. Deux artisans peuvent tourner en parallèle sur deux personnages différents&nbsp;; l'artisan principal reste parqué près de ses ateliers en ville. Si vous êtes en train de monter un métier de craft, c'est ici — en sachant que vous payez pour de l'XP, pas que vous gagnez des kamas.</p>
-  </div>
-  <div class="card green">
-    <h3>2:10 – 2:50 · Bloc métier — secondaire</h3>
-    <p style="margin-bottom:0">La progression de l'étape en cours&nbsp;: récolte du métier neuf, sur son porteur. <b>C'est le bloc qui saute quand la journée est courte</b>, et c'est normal — un métier qui monte pendant que le flux de ressources est à l'arrêt ne vous rapproche de rien. Quand vous êtes deux connectés, c'est le moment de faire tourner les deux récolteurs en parallèle sur deux ressources différentes.</p>
-  </div>
-  <div class="card">
-    <h3>2:50 – 3:00 · Clôture</h3>
-    <p style="margin-bottom:0">Dépôt en banque et centralisation → mise en vente par lots → <b>mise à jour des niveaux et de la prospection dans l'onglet Personnages</b> → note de ce qui a bougé. Cette dernière ligne est ce qui garde le plan juste&nbsp;: des niveaux périmés, et tous les objectifs affichés deviennent faux.</p>
-  </div>
-
-  <h2>La semaine type</h2>
-  <p class="muted">Le bloc drop est quotidien et ne bouge pas. Ce qui change d'un jour à l'autre, c'est le bloc métier — et le circuit de récolte, qu'on alterne pour laisser repousser.</p>
-  <table>
-    <thead><tr><th>Jour</th><th>Bloc drop (1 h)</th><th>Bloc métier (40 min)</th></tr></thead>
-    <tbody>
-      <tr><td><b>Lundi</b></td><td>Donjons 150+</td><td>Circuit A — céréales &amp; plantes</td></tr>
-      <tr><td><b>Mardi</b></td><td>Donjons 150+</td><td>Circuit B — bois &amp; minerais</td></tr>
-      <tr><td><b>Mercredi</b></td><td>Donjons 150+</td><td>Métier neuf de l'étape en cours</td></tr>
-      <tr><td><b>Jeudi</b></td><td>Donjons 150+</td><td>Circuit A</td></tr>
-      <tr><td><b>Vendredi</b></td><td>Donjons 150+</td><td>Craft en gros, sur les recettes qui passent le tri</td></tr>
-      <tr><td><b>Samedi</b></td><td colspan="2">Session longue (4-6 h) — chaîne de donjons étendue, gros tri, gros batch de craft, et les deux récolteurs en parallèle</td></tr>
-      <tr><td><b>Dimanche</b></td><td colspan="2">Bilan&nbsp;: relevé complet des prix, recalcul des marges de craft, point sur l'étape en cours. Session courte, ou repos si la semaine a été bonne.</td></tr>
-    </tbody>
-  </table>
-
-  <h2>Checklist quotidienne</h2>
-  <p class="muted">Celle-ci est <b>personnelle et locale</b>&nbsp;: elle ne se synchronise pas avec ton pote, et elle se remet à zéro toute seule au changement de jour. Le bouton sert juste à repartir de zéro en cours de journée.</p>
-  <div class="card" id="daily"></div>
-  <button class="btn" onclick="resetDaily()">Nouvelle journée</button>
 </section>
 
 <footer>
@@ -1491,7 +1447,37 @@ function renderCraftCov(){
   document.getElementById("craftcov").innerHTML = h + `</tbody></table>`;
 }
 
-/* --- onglet Filières --- */
+/* --- « Aujourd'hui » : la seule page à lire pour jouer ---
+   On affiche l'étape en cours (la première qui n'est pas terminée) et ce qui
+   lui reste, pour ne pas avoir à parcourir le plan entier à chaque connexion. */
+function renderFocus(){
+  const el = document.getElementById("focus");
+  if(!el) return;
+  let etape = null, restants = [];
+  for(const w of WEEKS){
+    const r = w.items.map((it,i)=>resolveItem(w,it,i)).filter(x=>!x.done);
+    if(r.length){ etape = w; restants = r; break; }
+  }
+  if(!etape){
+    el.innerHTML = `<div class="card green"><h3 style="margin-top:0">Le plan est terminé</h3>
+      <p style="margin-bottom:0">Tous les objectifs sont atteints. Passez à l'extension, en bas de l'onglet <b>Le plan</b>.</p></div>`;
+    return;
+  }
+  const faits = etape.items.length - restants.length;
+  const apercu = restants.slice(0,4);
+  el.innerHTML = `<div class="card gold">
+    <h3 style="margin-top:0">Étape ${etape.n} · ${esc(etape.t)}
+      <span class="muted" style="font-weight:400;font-size:12.5px"> · ${faits}/${etape.items.length} fait${faits>1?"s":""} · ${esc(etape.d||"")}</span></h3>
+    <p class="muted" style="margin:0 0 10px">${esc(etape.s||"")}</p>
+    <ul class="clean" style="margin-bottom:${restants.length>apercu.length?"6px":"0"}">
+      ${apercu.map(r=>`<li>${r.title}${r.prog?` <span class="prog ${r.progCls}">${r.prog}</span>`:""}</li>`).join("")}
+    </ul>
+    ${restants.length>apercu.length?`<p class="muted" style="margin:0">…et ${restants.length-apercu.length} autre${restants.length-apercu.length>1?"s":""}.</p>`:""}
+    <p style="margin:10px 0 0"><button class="btn" onclick="go('plan')">Ouvrir le plan</button></p>
+  </div>`;
+}
+
+/* --- onglet Argent : filières par métier --- */
 function renderFilieres(){
   const el = document.getElementById("filieres");
   if(!el) return;
@@ -1644,7 +1630,7 @@ function refreshAll(skipMatrix){
   if(!skipMatrix) renderMatrix();
   renderCoverage(); renderCraftCov(); renderFilieres();
   renderPrices(); renderCrafts();
-  renderWeeks(); refresh();
+  renderWeeks(); refresh(); renderFocus();
   persist();
 }
 
@@ -1890,14 +1876,11 @@ function doDownload(){
 
 /* ---------- onglets ---------- */
 const TABS = [
-  ["etat","Où vous en êtes"],
+  ["aujourdhui","Aujourd'hui"],
+  ["plan","Le plan"],
   ["persos","Personnages"],
-  ["duo","À deux"],
-  ["plan","Plan par étapes"],
-  ["filieres","Filières &amp; prix"],
-  ["metiers","Fiches métiers"],
-  ["kamas","Farm kamas"],
-  ["routine","Routine"]
+  ["argent","Argent"],
+  ["metiers","Fiches métiers"]
 ];
 function renderNav(){
   document.getElementById("nav").innerHTML = TABS.map(([id,lbl],i)=>
