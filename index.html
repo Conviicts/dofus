@@ -295,10 +295,10 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
       <tr><td><b>Forgemage</b></td><td>Magie</td><td>La FM d'armes est le service le plus demandé et le plus cher du jeu. Vous avez déjà Forgeron — les deux vont ensemble.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
       <tr><td><b>Cordomage</b></td><td>Magie</td><td>Complète Cordonnier (bottes / ceintures). Vous vendez alors l'objet <i>fini</i> et pas la pièce brute.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
       <tr><td><b>Sculpteur / Sculptemage</b></td><td>Craft + Magie</td><td>Baguettes, arcs, bâtons. Absents de la team, donc aucun doublon possible — et le plan les pose sur un personnage <i>autre</i> que Natsugoffy pour ouvrir une deuxième file de craft. Voir l'onglet « À deux ».</td><td><span class="pill p-gold">Moyenne</span></td></tr>
-      <tr><td><b>Bricomage</b></td><td>Magie</td><td>Complète Bricoleur, que Natsugoffy a déjà à 200. Fonctionne un peu à part des autres métiers de magie (on <i>fortifie</i> le bouclier au lieu d'y appliquer des runes). Petit marché&nbsp;: à ouvrir en dernier, quand tout le reste tourne.</td><td><span class="pill p-blue">Basse</span></td></tr>
+      <tr><td><b>Façomage</b></td><td>Magie</td><td>La magie des boucliers. Complète Bricoleur, que Natsugoffy a déjà à 200. Petit marché comparé à la FM d'armes&nbsp;: à ouvrir en dernier, quand tout le reste tourne.</td><td><span class="pill p-blue">Basse</span></td></tr>
     </tbody>
   </table>
-  <p class="muted">Ça fait bien les <b>7 métiers absents</b> comptés par la carte ci-dessus&nbsp;: Bûcheron, Pêcheur, Sculpteur, Sculptemage, Forgemage, Cordomage, Bricomage.</p>
+  <p class="muted">Ça fait bien les <b>7 métiers absents</b> comptés par la carte ci-dessus&nbsp;: Bûcheron, Pêcheur, Sculpteur, Sculptemage, Forgemage, Cordomage, Façomage.</p>
 
   <h2>Les principes du plan</h2>
 
@@ -729,7 +729,7 @@ const JOB_LIST = [
   {k:"forgemage",  n:"Forgemage",   c:"fm",    note:"Magie des armes — le service le plus demandé"},
   {k:"sculptemage",n:"Sculptemage", c:"fm",    note:"Magie des baguettes, arcs, bâtons"},
   {k:"cordomage",  n:"Cordomage",   c:"fm",    note:"Magie des bottes et ceintures"},
-  {k:"bricomage",  n:"Bricomage",   c:"fm",    note:"Magie des boucliers — on fortifie, on n'applique pas de runes"}
+  {k:"facomage",   n:"Façomage",    c:"fm",    note:"Magie des boucliers — complète Bricoleur"}
 ];
 
 /* Index du récolteur principal dans CHARS. Les métiers de récolte se montent
@@ -1229,7 +1229,14 @@ function readChars(list){
   // la valeur est absente ou illisible — un 0 saisi volontairement est conservé.
   return list.map(c=>{
     const pp = Number(c.pp);
-    return {name:c.name||"Perso", pp:Number.isFinite(pp)?pp:100, jobs:c.jobs||{}};
+    const jobs = Object.assign({}, c.jobs||{});
+    /* La magie des boucliers s'appelle Façomage, pas Bricomage : on récupère
+       les niveaux saisis sous l'ancienne clé au lieu de les perdre. */
+    if(jobs.bricomage != null){
+      if(jobs.facomage == null) jobs.facomage = jobs.bricomage;
+      delete jobs.bricomage;
+    }
+    return {name:c.name||"Perso", pp:Number.isFinite(pp)?pp:100, jobs:jobs};
   });
 }
 function applyData(d, silent){
