@@ -1220,8 +1220,12 @@ function persist(){
   if(window.__push) window.__push();
 }
 function readChars(list){
-  // `who` (v3 et avant) est ignoré ; `pp` retombe sur la base 100 si absent.
-  return list.map(c=>({name:c.name||"Perso", pp:Number(c.pp)||100, jobs:c.jobs||{}}));
+  // `who` (v3 et avant) est ignoré ; `pp` retombe sur la base 100 seulement si
+  // la valeur est absente ou illisible — un 0 saisi volontairement est conservé.
+  return list.map(c=>{
+    const pp = Number(c.pp);
+    return {name:c.name||"Perso", pp:Number.isFinite(pp)?pp:100, jobs:c.jobs||{}};
+  });
 }
 function applyData(d, silent){
   if(!d) return;
@@ -1489,6 +1493,12 @@ function toggleSync(){ document.getElementById("syncPanel").classList.toggle("on
         at: Date.now()
       }).catch(e => status("err", "Écriture refusée : " + e.message));
 
+      /* Une faute de frappe dans le code d'équipe mène à un chemin vide : la page
+         y crée alors une équipe toute neuve, et sans ce drapeau elle affichait
+         « Synchronisé » comme si tout allait bien. On le signale tant que dure
+         la session, sinon on ne s'en aperçoit qu'en comparant les écrans. */
+      let creee = false;
+
       if(unsub){ try{ unsub(); }catch(e){} unsub = null; }
       unsub = dbApi.onValue(dbRef, snap => {
         const v = snap.val();
@@ -1500,9 +1510,15 @@ function toggleSync(){ document.getElementById("syncPanel").classList.toggle("on
           /* Base vide : on y dépose immédiatement l'état local. Sans ça, le
              premier des deux qui coche une case écrasait la progression de
              l'autre, qui n'avait encore rien envoyé. */
+          creee = true;
           pushNow();
         }
-        status("ok", "Synchronisé · équipe « " + code + " »" + (v && v.by ? " · dernière modif : " + v.by : ""));
+        if(creee){
+          status("wait", "Équipe « " + code + " » créée vide par ce navigateur. "
+            + "Si tu attendais les données de ton pote, c'est que le code n'est pas exactement le même — comparez-le lettre par lettre.");
+        } else {
+          status("ok", "Synchronisé · équipe « " + code + " »" + (v.by ? " · dernière modif : " + v.by : ""));
+        }
       }, err => status("err", "Lecture refusée : " + err.message + " — vérifie les règles de la base."));
 
       window.__push = () => {
@@ -1518,7 +1534,9 @@ function toggleSync(){ document.getElementById("syncPanel").classList.toggle("on
   window.connectTeam = function(){
     const raw  = document.getElementById("fbCfg").value.trim();
     const url  = document.getElementById("fbUrl").value.trim();
-    const code = document.getElementById("teamCode").value.trim();
+    /* Minuscules forcées : le chemin Firebase est sensible à la casse, donc
+       « Natsu » et « natsu » créaient deux équipes distinctes sans prévenir. */
+    const code = document.getElementById("teamCode").value.trim().toLowerCase();
     if(!raw){ alert("Colle d'abord le bloc firebaseConfig (étape 1)."); return; }
     if(code.length < 8){ alert("Le code d'équipe doit faire au moins 8 caractères, et être exactement le même pour vous deux."); return; }
     let cfg;
