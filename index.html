@@ -543,7 +543,7 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
       <tbody>
         <tr><td>Pêcheur</td><td><span class="pill p-green">Rapide</span></td><td>Les coins de pêche sont regroupés sur peu de maps, boucle très courte. Le plus facile après paysan.</td></tr>
         <tr><td>Bûcheron</td><td><span class="pill p-gold">Moyen</span></td><td>Repousse lente. Il faut une boucle plus longue, sinon tu attends devant des souches.</td></tr>
-        <tr><td>Mineur</td><td><span class="pill p-gold">Moyen</span></td><td>Nœuds espacés dans les galeries, et c'est le métier le plus disputé du serveur. Privilégie les mines à plusieurs salles et les heures creuses.</td></tr>
+        <tr><td>Mineur</td><td><span class="pill p-gold">Moyen</span></td><td>Nœuds espacés dans les galeries, et <b>le métier le plus disputé du serveur</b> — comptez un temps de récolte réel bien supérieur à la théorie. Mines à plusieurs salles et heures creuses. Revers de la médaille utile&nbsp;: si tout le monde le farme, c'est que le minerai se vend, et il est souvent introuvable en quantité au HDV.</td></tr>
         <tr><td>Alchimiste</td><td><span class="pill p-red">Lent</span></td><td>Les plantes sont éparpillées sur beaucoup de maps, 1 à 3 par map. Le plus long du lot. <b>Chez vous il est déjà à 200 sur Natsugoffy</b> — donc rien à faire, et c'est autant de semaines économisées.</td></tr>
       </tbody>
     </table>
@@ -833,8 +833,15 @@ const WEEKS = [
        d:"Avant d'engager quoi que ce soit : regardez l'onglet Personnages. Plusieurs métiers sont déjà à 200 sans que vous y pensiez.",
        why:"C'est l'erreur que ce plan a lui-même commise pendant des semaines : il faisait monter Alchimiste de 101 à 200 sur Convict alors que Natsugoffy est Alchimiste 200 depuis le début. Cinq à sept semaines pour dupliquer un métier déjà au maximum. Le tableau « Couverture de l'équipe » existe pour que ça ne se reproduise pas.",
        ok:"Vous savez nommer, pour chacun des 6 métiers de récolte, qui le porte et à quel niveau — et vous avez rayé du plan tout ce qui est déjà couvert."},
-      {t:"one", job:"mineur", to:200, d:"Petit palier déjà bien avancé : les derniers niveaux sur les minerais les plus hauts que le niveau autorise. Le moins cher en temps de tout le plan.",
-       why:"Convict porte déjà Mineur ET Bijoutier : finir le minerai, c'est alimenter ses propres bijoux sans passer par le HDV. La filière la plus courte du plan."},
+      {t:"one", job:"mineur", to:200,
+       d:"Le seul objectif du plan dont la valeur est discutable. À passer au test avant de s'y mettre.",
+       why:"Ce que les 16 derniers niveaux débloquent : <b>Obsidienne</b> (mines de Frigost, sert à fabriquer l'Ardonite) et <b>Écume de Mer</b> (profondeurs abyssales de Sufokia, plus lente à récolter mais meilleure marge). La <b>Dolomite</b>, elle, est déjà accessible depuis le niveau 180.<br><br><b>Et surtout : le minerai est le métier le plus disputé du serveur.</b> C'est ce qui rend l'objectif intéressant malgré tout, et pour une raison qui n'a rien à voir avec les kamas. Une ressource que tout le monde farme est une ressource qu'on ne trouve pas toujours en vente : posséder son propre mineur, ce n'est pas seulement une économie, c'est une <b>sécurité d'approvisionnement</b>. Vos crafts de bijoux ne s'arrêtent pas parce que le HDV est vide.<br><br>La concurrence joue aussi dans l'autre sens : les nœuds contestés, c'est du temps de récolte réel bien supérieur à ce qu'annonce n'importe quelle table d'XP. Les deux effets ne s'annulent pas, ils se répondent — et c'est à vous de dire lequel pèse le plus sur votre serveur.",
+       how:["Vérifiez le coût exact : l'outil <b>XP Métier de DofusDB</b> vous dit combien d'XP il reste de 184 à 200. Trente secondes, et ça remplace toutes les estimations.",
+            "<b>Regardez les quantités en vente au HDV</b>, pas seulement les prix. Si l'Obsidienne ou la Dolomite sont régulièrement introuvables, l'argument de la sécurité d'approvisionnement l'emporte sur le calcul de rentabilité.",
+            "<b>Frigost et les abysses de Sufokia sont des zones de fin de jeu</b>, moins fréquentées que les mines classiques. Passer 200, c'est aussi une façon de sortir des spots où tout le monde se marche dessus — vérifiez-le en allant y faire un tour avant de décider.",
+            "Privilégiez les mines à plusieurs salles et les heures creuses tant que vous restez sur les minerais disputés."],
+       ok:"Soit vous avez la preuve chiffrée que ça vaut le coup, soit vous constatez que le minerai est introuvable en vente — dans les deux cas, on monte. Si ni l'un ni l'autre, rayez l'objectif et gardez Convict en Dolomite.",
+       cost:"Je n'ai pas pu vérifier la courbe d'XP métier de 184 à 200 : les tables complètes ne sont accessibles que dans les outils interactifs. J'avais écrit ici que c'était « le palier le moins cher en temps du plan » — c'était une supposition, pas une mesure, et elle a été retirée."},
       {t:"todo", tag:"setup", txt:"Répartir les métiers de récolte manquants sur deux personnages différents",
        d:"Bûcheron et Pêcheur ne sont portés par personne. Donnez-les à DEUX persos distincts, pas au même.",
        why:"C'est le point qui change tout. Monter le même métier sur plusieurs personnages coûte autant de fois plus cher, ça c'est toujours vrai. Mais mettre des métiers <i>différents</i> sur des personnages <i>différents</i> ne coûte rien de plus — et pendant que l'un pêche, l'autre coupe du bois. Vous êtes deux joueurs : deux récolteurs, c'est deux fois moins de temps calendaire pour le même travail.",
@@ -873,11 +880,13 @@ const WEEKS = [
       {t:"todo", tag:"kamas", txt:"Test de rentabilité : est-ce que ces deux métiers valent leurs 60 heures ?",
        d:"À faire AVANT d'engager le bloc, une fois pour chacun des deux. Ces heures passées en donjon rapporteraient aussi, et tout de suite.",
        why:"C'est la question que ce plan ne posait pas. Un métier de récolte à 200, c'est une soixantaine d'heures de votre vie. Rien ne garantit d'avance que ça bat le simple fait de farmer des donjons et d'acheter la ressource. On vérifie une fois, ça prend une heure, et si un des deux échoue au seuil, vous venez d'économiser des mois.",
-       how:["<b>D</b> — Mesure <b>une heure</b> de ton bloc donjon, panoplies de prospection équipées : additionne les kamas ramassés et la valeur HDV de ce qui tombe.",
+       how:["<b>Vérification préalable, et elle prime sur tout le reste :</b> est-ce que la ressource est <b>réellement disponible en quantité au HDV</b> ? Si elle est régulièrement introuvable — c'est le cas du minerai sur beaucoup de serveurs — <b>arrêtez-vous là et montez le métier</b>. Le calcul ci-dessous mesure une économie, pas une pénurie : une ressource que vous ne pouvez pas acheter ne figure pas dans vos dépenses, et le test vous dirait de sauter l'étape précisément quand il ne faut pas.",
+            "<b>D</b> — Mesure <b>une heure</b> de ton bloc donjon, panoplies de prospection équipées : additionne les kamas ramassés et la valeur HDV de ce qui tombe.",
             "<b>A</b> — Regarde ce que vous <b>achetez</b> de cette ressource par semaine, en kamas. C'est ce que le métier vous ferait économiser.",
             "<b>V</b> — Estime ce que vous en <b>revendriez</b> par semaine une fois à 200. Si tu n'en as aucune idée, mets <b>0</b> : le calcul devient le pire cas, et s'il passe quand même, l'étape est sûre.",
-            "Calcule <b>60 × D ÷ (A + V)</b>. Le résultat est le nombre de semaines qu'il faut pour rembourser les 60 heures."],
-       ok:"Sous 20 semaines : le métier est rentable, on y va. Au-delà : on le saute et on continue d'acheter la ressource. Le plan complet fait 23 à 33 semaines — un métier qui met plus de 20 semaines à se rembourser ne vous aura rien rapporté avant la fin."},
+            "Calcule <b>60 × D ÷ (A + V)</b>. Le résultat est le nombre de semaines qu'il faut pour rembourser les 60 heures.",
+            "<b>Correctif de concurrence :</b> si la ressource est très disputée sur les spots, le temps réel de récolte dépasse largement les 60 heures théoriques. Comptez plutôt 80 à 90 et refaites le calcul — sinon vous vous décidez sur un chiffre optimiste."],
+       ok:"Ressource introuvable en vente : on monte, quel que soit le calcul. Sinon, sous 20 semaines de remboursement : on monte. Au-delà : on saute et on continue d'acheter. Le plan complet fait 23 à 33 semaines — un métier qui met plus de 20 semaines à se rembourser ne vous aura rien rapporté avant la fin."},
       {t:"one", job:"pecheur", to:200,
        d:"Le plus rapide des deux : boucles courtes, coins de pêche regroupés.",
        why:"Confié à un joueur pendant que l'autre coupe du bois. Les deux métiers avancent sur le même créneau de jeu au lieu de se suivre — c'est ce qui fait passer cette étape de treize semaines à sept.",
@@ -906,7 +915,7 @@ const WEEKS = [
     items:[
       {t:"one", job:"bijoutier", to:200,
        d:"Dernier palier, le plus cher. Sur Convict, donc en parallèle de Natsugoffy.",
-       why:"Convict porte Bijoutier ET Mineur : ses propres minerais alimentent ses propres bijoux. La seule filière entièrement bouclée sur un personnage unique du plan — et elle avance sans bloquer Natsugoffy.",
+       why:"Convict porte Bijoutier ET Mineur : ses propres minerais alimentent ses propres bijoux. La seule filière entièrement bouclée sur un personnage unique du plan — et elle avance sans bloquer Natsugoffy.<br><br>C'est aussi là que la sécurité d'approvisionnement paie&nbsp;: le minerai étant le métier le plus disputé du serveur, il est régulièrement introuvable en quantité au HDV. Un bijoutier dépendant du marché s'arrête&nbsp;; le vôtre non.",
        cost:"Le palier 185 → 200 est le plus cher en ressources de toute la chaîne bijoux. Videz le coffre de minerais avant d'acheter quoi que ce soit."},
       {t:"one", job:"tailleur", to:200,
        d:"Palier final. Vous pouvez maintenant sortir des coiffes et capes THL.",
