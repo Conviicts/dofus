@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan Métiers &amp; Farm — Team 8 (Dofus 3 Unity)</title>
+<style>
+:root{
+  --bg:#0e1116;
+  --bg2:#151a22;
+  --bg3:#1c232d;
+  --line:#2a3340;
+  --txt:#e6ebf2;
+  --txt2:#9aa7b8;
+  --gold:#e0b455;
+  --gold2:#f5d68a;
+  --green:#4fbf8b;
+  --blue:#5aa9e6;
+  --red:#e06c6c;
+  --purple:#a98be0;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px;line-height:1.6;
+}
+a{color:var(--blue)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px}
+
+header{
+  background:linear-gradient(180deg,#161c25 0%,#0e1116 100%);
+  border-bottom:1px solid var(--line);padding:34px 0 26px;margin-bottom:26px;
+}
+header .wrap{padding-bottom:0}
+h1{margin:0 0 6px;font-size:27px;letter-spacing:-.3px}
+h1 .accent{color:var(--gold)}
+.sub{color:var(--txt2);margin:0 0 18px;font-size:14px}
+
+.globalbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.gb-track{flex:1;min-width:220px;height:10px;background:var(--bg3);border-radius:6px;overflow:hidden}
+.gb-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .3s}
+.gb-label{font-size:13px;color:var(--txt2);white-space:nowrap}
+.btn{
+  background:var(--bg3);border:1px solid var(--line);color:var(--txt);
+  padding:7px 13px;border-radius:7px;cursor:pointer;font-size:13px;font-family:inherit;
+}
+.btn:hover{border-color:var(--gold);color:var(--gold2)}
+
+nav{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 0}
+nav button{
+  background:transparent;border:1px solid transparent;border-bottom:2px solid transparent;
+  color:var(--txt2);padding:9px 14px;cursor:pointer;font-size:14px;font-family:inherit;border-radius:6px 6px 0 0;
+}
+nav button:hover{color:var(--txt)}
+nav button.on{color:var(--gold2);border-bottom-color:var(--gold);background:rgba(224,180,85,.06)}
+
+section.tab{display:none}
+section.tab.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+h2{font-size:20px;margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+h2:first-child{margin-top:6px}
+h3{font-size:16px;margin:22px 0 8px;color:var(--gold2)}
+p{margin:0 0 12px}
+.muted{color:var(--txt2);font-size:13.5px}
+
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:11px;padding:18px 20px;margin:0 0 16px}
+.card.gold{border-left:3px solid var(--gold)}
+.card.green{border-left:3px solid var(--green)}
+.card.red{border-left:3px solid var(--red)}
+.card.blue{border-left:3px solid var(--blue)}
+.card h3{margin-top:0}
+
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--gold2);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px}
+tbody tr:hover{background:rgba(255,255,255,.02)}
+td.num{white-space:nowrap;color:var(--txt2)}
+/* Sur mobile, les tableaux à 4 colonnes dépassent la largeur de l'écran : on les
+   rend défilables sur eux-mêmes plutôt que de faire scroller la page entière.
+   (.mtx est déjà dans son propre conteneur défilable.) */
+@media (max-width:640px){
+  section.tab table:not(.mtx){display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
+
+.jobrow{display:flex;align-items:center;gap:10px;margin:0 0 7px}
+.jobrow .nm{width:120px;font-size:13px;flex-shrink:0}
+.jobrow .tr{flex:1;height:7px;background:var(--bg3);border-radius:4px;overflow:hidden}
+.jobrow .fl{height:100%;border-radius:4px}
+.jobrow .lv{width:52px;text-align:right;font-size:12px;color:var(--txt2);flex-shrink:0}
+
+.pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11.5px;font-weight:600;letter-spacing:.3px}
+.p-gold{background:rgba(224,180,85,.15);color:var(--gold2)}
+.p-green{background:rgba(79,191,139,.15);color:var(--green)}
+.p-red{background:rgba(224,108,108,.15);color:var(--red)}
+.p-blue{background:rgba(90,169,230,.15);color:var(--blue)}
+.p-purple{background:rgba(169,139,224,.15);color:var(--purple)}
+
+.week{background:var(--bg2);border:1px solid var(--line);border-radius:11px;margin:0 0 14px;overflow:hidden}
+.week-h{
+  display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;
+  background:var(--bg3);border-bottom:1px solid transparent;
+}
+.week-h:hover{background:#212a35}
+.week.open .week-h{border-bottom-color:var(--line)}
+.week-h .no{
+  width:50px;height:44px;flex-shrink:0;border-radius:9px;background:var(--bg);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  border:1px solid var(--line);
+}
+.week-h .no b{font-size:16px;color:var(--gold2);line-height:1}
+.week-h .no span{font-size:8.5px;color:var(--txt2);letter-spacing:.4px}
+.week-h .ti{flex:1;min-width:0}
+.week-h .ti b{display:block;font-size:15px}
+.week-h .ti span{font-size:12.5px;color:var(--txt2)}
+.week-h .dur{
+  font-size:11px;color:var(--gold2);background:rgba(224,180,85,.12);
+  border-radius:20px;padding:2px 9px;white-space:nowrap;font-weight:600;
+}
+.week-h .cnt{font-size:12px;color:var(--txt2);white-space:nowrap}
+.week-h .arw{color:var(--txt2);transition:transform .2s}
+.week.open .week-h .arw{transform:rotate(90deg)}
+.week-b{display:none;padding:16px 18px 6px}
+.week.open .week-b{display:block}
+/* Sur écran étroit, le titre de l'étape passe sur sa propre ligne : sinon il est
+   comprimé à quelques dizaines de pixels entre le numéro et la durée. */
+@media (max-width:560px){
+  .week-h{flex-wrap:wrap;gap:10px}
+  .week-h .dur,.week-h .cnt,.week-h .arw{order:2}
+  .week-h .arw{margin-left:auto}
+  .week-h .ti{order:3;flex:1 0 100%}
+}
+
+.chk{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed rgba(42,51,64,.6)}
+.chk:last-child{border-bottom:none}
+.chk input{margin:5px 0 0;width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
+.chk label{cursor:pointer;font-size:14px;flex:1}
+.chk label .d{display:block;color:var(--txt2);font-size:12.5px;margin-top:2px}
+.chk.done label{opacity:.45;text-decoration:line-through}
+.chk.done label .d{text-decoration:none}
+
+.tag{font-size:10.5px;padding:1px 7px;border-radius:4px;margin-left:7px;vertical-align:middle;font-weight:600}
+.t-rec{background:rgba(79,191,139,.14);color:var(--green)}
+.t-craft{background:rgba(224,180,85,.14);color:var(--gold2)}
+.t-fm{background:rgba(169,139,224,.14);color:var(--purple)}
+.t-kamas{background:rgba(90,169,230,.14);color:var(--blue)}
+.t-setup{background:rgba(154,167,184,.14);color:var(--txt2)}
+/* Objectifs automatiques : pas de case à cocher, l'état vient des niveaux saisis
+   dans l'onglet Personnages. */
+.auto{
+  width:16px;height:16px;flex-shrink:0;margin-top:5px;border-radius:50%;
+  border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;
+  font-size:10px;line-height:1;color:var(--txt2);cursor:help;
+}
+.auto.ok{border-color:var(--green);background:rgba(79,191,139,.16);color:var(--green)}
+.auto.part{border-color:var(--gold);color:var(--gold2)}
+.chk .prog{
+  display:inline-block;margin-left:7px;font-size:11.5px;font-weight:600;
+  padding:1px 7px;border-radius:20px;background:var(--bg3);color:var(--txt2);vertical-align:middle;
+}
+.chk .prog.ok{background:rgba(79,191,139,.15);color:var(--green)}
+.chk .prog.part{background:rgba(224,180,85,.15);color:var(--gold2)}
+.chk .prog.none{background:rgba(224,108,108,.14);color:var(--red)}
+.chk.done label .prog,.chk.done label .tag{text-decoration:none}
+.chk.auto-row label{cursor:default}
+
+table.mtx{font-size:13px}
+table.mtx th{vertical-align:bottom;padding:8px 6px}
+table.mtx td{padding:5px 6px}
+table.mtx tr.grp td{
+  background:var(--bg3);color:var(--gold2);font-size:11.5px;font-weight:700;
+  letter-spacing:.6px;text-transform:uppercase;padding:6px 10px;border-bottom:1px solid var(--line);
+}
+table.mtx td .d2{display:block;color:var(--txt2);font-size:11px;font-weight:400;margin-top:1px}
+td .d2{display:block;color:var(--txt2);font-size:11px;margin-top:2px}
+input.cname{
+  width:100%;background:var(--bg);border:1px solid var(--line);color:var(--gold2);
+  border-radius:6px;padding:5px 7px;font-size:12.5px;font-family:inherit;font-weight:600;margin-bottom:4px;
+}
+select.cwho{
+  width:100%;background:var(--bg);border:1px solid var(--line);color:var(--txt2);
+  border-radius:6px;padding:3px 5px;font-size:11px;font-family:inherit;
+}
+td.cell input{
+  width:100%;background:var(--bg);border:1px solid var(--line);
+  border-radius:6px;padding:5px;font-size:13px;font-family:inherit;text-align:center;font-weight:600;
+}
+td.cell input:focus{outline:none;border-color:var(--gold)}
+input.cname:focus,select.cwho:focus{outline:none;border-color:var(--gold)}
+
+.syncbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;
+  background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:9px 13px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--txt2);flex-shrink:0}
+.dot.ok{background:var(--green);box-shadow:0 0 8px rgba(79,191,139,.6)}
+.dot.wait{background:var(--gold)}
+.dot.err{background:var(--red)}
+#syncTxt{font-size:13px;color:var(--txt2);flex:1;min-width:180px}
+.io input.tx,.io textarea.tx{width:100%;background:var(--bg);border:1px solid var(--line);
+  color:var(--txt);border-radius:8px;padding:9px 11px;font-family:ui-monospace,Menlo,monospace;
+  font-size:12px;margin-bottom:9px}
+.io label.fl{display:block;font-size:12.5px;color:var(--gold2);margin:10px 0 5px;font-weight:600}
+.io textarea.tx{height:130px}
+
+ul.clean{margin:0 0 12px;padding-left:20px}
+ul.clean li{margin-bottom:5px}
+
+.kpi{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi b{display:block;font-size:22px;color:var(--gold2);line-height:1.2}
+.kpi span{font-size:12.5px;color:var(--txt2)}
+
+.io{display:none;margin-top:14px}
+.io.on{display:block}
+.io textarea{
+  width:100%;height:110px;background:var(--bg);border:1px solid var(--line);
+  color:var(--txt);border-radius:8px;padding:10px;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;
+}
+footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);color:var(--txt2);font-size:12.5px}
+code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Plan Métiers &amp; Farm — <span class="accent">Team de 8</span></h1>
+    <p class="sub">Dofus 3 (Unity) · 2 joueurs, accès partagé aux 8 comptes · 8 personnages 200 · ~20 h / semaine</p>
+    <div class="globalbar">
+      <div class="gb-track"><div class="gb-fill" id="gbFill"></div></div>
+      <div class="gb-label" id="gbLabel">0 / 0 objectifs</div>
+      <button class="btn" onclick="toggleIO()">Sauvegarder / charger</button>
+      <button class="btn" onclick="resetAll()">Réinitialiser</button>
+    </div>
+    <div class="io" id="io">
+      <p class="muted" style="margin:10px 0 6px">Copie ce texte quelque part pour garder ta progression. Pour la restaurer&nbsp;: colle-la ici puis clique «&nbsp;Charger&nbsp;».</p>
+      <textarea id="ioBox"></textarea>
+      <div style="margin-top:8px;display:flex;gap:8px">
+        <button class="btn" onclick="doExport()">Générer ma sauvegarde</button>
+        <button class="btn" onclick="doImport()">Charger</button>
+        <button class="btn" onclick="doDownload()">Télécharger le fichier</button>
+      </div>
+    </div>
+    <div class="syncbar">
+      <span class="dot" id="syncDot"></span>
+      <span id="syncTxt">Mode local — ta progression est enregistrée sur ce navigateur</span>
+      <button class="btn" onclick="toggleSync()">Configurer l'équipe</button>
+    </div>
+    <div class="io" id="syncPanel">
+      <p class="muted" style="margin:12px 0 4px">Une fois configuré, toi et ton pote voyez <b>les mêmes données en direct</b>. Suis le fichier <code>MODE-EMPLOI.md</code> pour obtenir ces deux informations — c'est gratuit et ça prend 10 minutes, une seule fois.</p>
+      <label class="fl">1 · Configuration Firebase (colle le bloc <code>firebaseConfig</code> tel quel)</label>
+      <textarea class="tx" id="fbCfg" placeholder='const firebaseConfig = {
+  apiKey: "...",
+  databaseURL: "https://....firebasedatabase.app",
+  projectId: "..."
+};'></textarea>
+      <label class="fl">2 · URL de la base <span style="color:var(--txt2);font-weight:400">— seulement si <code>databaseURL</code> n'apparaît pas au-dessus</span></label>
+      <input class="tx" id="fbUrl" placeholder="https://mon-projet-default-rtdb.europe-west1.firebasedatabase.app">
+      <label class="fl">3 · Code d'équipe <span style="color:var(--txt2);font-weight:400">— identique pour vous deux, 8 caractères minimum, long et pas devinable</span></label>
+      <input class="tx" id="teamCode" placeholder="convict-natsu-k7x9p2">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" onclick="connectTeam()">Connecter</button>
+        <button class="btn" onclick="disconnectTeam()">Repasser en mode local</button>
+      </div>
+    </div>
+    <nav id="nav"></nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ VUE D'ENSEMBLE ============ -->
+<section class="tab on" id="tab-etat">
+  <h2>Où vous en êtes</h2>
+
+  <div class="grid g3" id="kpis" style="margin-bottom:20px"></div>
+
+  <p class="muted">Ces cartes se mettent à jour toutes seules à partir de l'onglet <b>Personnages</b> — c'est là que vous saisissez les niveaux de métier et la prospection au fur et à mesure.</p>
+  <div class="grid g2" id="teamCards"></div>
+
+  <h2>Ce qui manque à la team</h2>
+  <table>
+    <thead><tr><th>Métier absent</th><th>Type</th><th>Pourquoi ça compte</th><th>Priorité</th></tr></thead>
+    <tbody>
+      <tr><td><b>Bûcheron</b></td><td>Récolte</td><td>Le bois est la base de tous les crafts d'armes, arcs, baguettes, boucliers. Vous en achetez en ce moment — c'est de la marge perdue sur chaque craft. À monter <b>sur le récolteur principal uniquement</b>.</td><td><span class="pill p-red">Haute</span></td></tr>
+      <tr><td><b>Pêcheur</b></td><td>Récolte</td><td>Poissons THL demandés et plats qui se vendent en continu. Boucle courte, donc le métier neuf le plus rapide à monter. <b>Sur le récolteur principal uniquement.</b></td><td><span class="pill p-red">Haute</span></td></tr>
+      <tr><td><b>Forgemage</b></td><td>Magie</td><td>La FM d'armes est le service le plus demandé et le plus cher du jeu. Vous avez déjà Forgeron — les deux vont ensemble.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
+      <tr><td><b>Cordomage</b></td><td>Magie</td><td>Complète Cordonnier (bottes / ceintures). Vous vendez alors l'objet <i>fini</i> et pas la pièce brute.</td><td><span class="pill p-gold">Moyenne</span></td></tr>
+      <tr><td><b>Sculpteur / Sculptemage</b></td><td>Craft + Magie</td><td>Baguettes, arcs, bâtons. Absents de la team, donc aucun doublon possible — et le plan les pose sur un personnage <i>autre</i> que Natsugoffy pour ouvrir une deuxième file de craft. Voir l'onglet « À deux ».</td><td><span class="pill p-gold">Moyenne</span></td></tr>
+      <tr><td><b>Bricomage</b></td><td>Magie</td><td>Complète Bricoleur, que Natsugoffy a déjà à 200. Fonctionne un peu à part des autres métiers de magie (on <i>fortifie</i> le bouclier au lieu d'y appliquer des runes). Petit marché&nbsp;: à ouvrir en dernier, quand tout le reste tourne.</td><td><span class="pill p-blue">Basse</span></td></tr>
+    </tbody>
+  </table>
+  <p class="muted">Ça fait bien les <b>7 métiers absents</b> comptés par la carte ci-dessus&nbsp;: Bûcheron, Pêcheur, Sculpteur, Sculptemage, Forgemage, Cordomage, Bricomage.</p>
+
+  <h2>Les principes du plan</h2>
+
+  <div class="card green">
+    <h3>1. Un récolteur dédié, pas une meute</h3>
+    <p>Deux règles du jeu à connaître&nbsp;: un personnage n'a <b>aucune limite du nombre de métiers</b> (la limite des 3 n'existe plus sur Dofus PC — elle ne subsiste que sur Dofus Touch), et la récolte prend <b>3 secondes fixes</b> quel que soit le niveau, depuis la refonte des métiers de récolte. Autrement dit&nbsp;: <b>un seul personnage peut porter les 6 métiers de récolte</b>, et il récolte aussi vite qu'un autre.</p>
+    <p>La tentation, avec 8 comptes, c'est de monter chaque métier sur les 8 pour récolter 8 nœuds à la fois. C'est un mauvais calcul, pour trois raisons qui s'additionnent&nbsp;:</p>
+    <ul class="clean">
+      <li><b>L'XP de métier n'est jamais partagée.</b> Chaque personnage ne gagne que ce qu'il récolte lui-même&nbsp;: monter un métier sur 8 persos demande <b>8 fois plus de récoltes</b> que sur un seul. Ce n'est pas un bonus, c'est une facture.</li>
+      <li><b>Les ressources qui paient sont justement les plus rares.</b> Millet, Maïs, bois et minerais THL&nbsp;: quelques nœuds par map, dispersés, et disputés. Une meute de 8 ne peut pas récolter en parallèle là où ça compte — elle s'attend. Le gain de parallélisme n'existe vraiment que sur les champs de blé, c'est-à-dire là où la ressource ne vaut rien.</li>
+      <li><b>Le déplacement de groupe n'aide pas autant qu'on croit.</b> Il amène les 8 sur <b>la même case</b>&nbsp;: il faut ensuite passer fenêtre par fenêtre pour envoyer chaque perso sur son nœud. Ce sont des clics en plus, pas en moins.</li>
+    </ul>
+    <p style="margin-bottom:0">D'où le choix du plan&nbsp;: <b>un seul personnage porte les 6 métiers de récolte et fait les tours de ressources</b>. Vous divisez le temps de montée par 8, un tour de récolte devient une activité tranquille qu'on peut faire en discutant, et les 7 autres personnages restent disponibles pour ce qu'ils font vraiment mieux à 8 — les donjons, la viande, les files de craft et les étals au HDV. <b>Une seule exception, voir le principe 2.</b></p>
+  </div>
+
+  <div class="card green">
+    <h3>2. L'exception&nbsp;: Chasseur sur les 8</h3>
+    <p style="margin-bottom:0">Chasseur ne se récolte pas sur une map&nbsp;: la viande tombe des <b>combats que vous faites déjà</b>, et chaque personnage qui a un outil de chasse équipé fait <b>son propre jet sur le même combat</b>. Là, les 8 personnages rapportent vraiment 8 fois plus, pour zéro seconde de récolte supplémentaire. C'est le seul métier de récolte où la team entière se paie toute seule — et vous êtes déjà à 5 sur 8. Le seul coût réel est ailleurs&nbsp;: l'XP ne vient pas du ramassage mais de la <b>transformation en viandes conservées à l'atelier</b>, et ça, c'est bien 8 fois plus de passages. À prévoir comme un bloc de craft, pas comme un bonus gratuit.</p>
+  </div>
+
+  <div class="card gold">
+    <h3>3. Un pôle craft concentré, pas éparpillé</h3>
+    <p style="margin-bottom:0">Même logique que pour la récolte, et même conclusion&nbsp;: aucun intérêt à avoir 8 forgerons. Gardez la répartition actuelle, elle est déjà bonne — <b>Natsugoffy = équipement + magie</b> (tailleur, cordonnier, forgeron, bricoleur, costumage, joaillomage), <b>Convict = bijoux</b> (bijoutier, alimenté par son propre mineur). La seule chose à ajouter, c'est un <b>troisième porteur</b> pour Sculpteur&nbsp;: un artisan ne peut faire tourner qu'une file de craft à la fois, donc répartir les métiers sur plusieurs personnages, c'est du débit en plus — contrairement à la récolte, où répartir ne sert à rien.</p>
+  </div>
+
+  <div class="card blue">
+    <h3>4. L'ordre de financement</h3>
+    <p style="margin-bottom:0">La récolte est gratuite et paie tout. Le craft coûte des ressources mais tu les auras. La magie (costumage, joaillomage, plus tard forgemage) coûte des <b>kamas secs</b> en runes — plusieurs dizaines de millions pour aller de 120 à 200. C'est pour ça que la magie est en fin de plan&nbsp;: elle est financée par les deux étages du dessous. Ne l'attaque pas avant d'avoir un matelas confortable, tu bloquerais à mi-chemin.</p>
+  </div>
+
+  <div class="card">
+    <h3>5. Le tempo réel — à lire avant de commencer</h3>
+    <p>Les guides récents comptent <b>une soixantaine d'heures de récolte pour amener un métier à 200 sur un personnage</b>, Paysan étant le plus rapide&nbsp;; Bûcheron et Alchimiste sont nettement plus longs. Avec un récolteur unique, il reste trois métiers neufs ou presque à monter — c'est déjà quelques mois de blocs métier. En le faisant sur 8 personnages, on multipliait ça par 8&nbsp;: c'était plusieurs années.</p>
+    <p style="margin-bottom:0">C'est pour ça que le plan est découpé en <b>étapes et pas en semaines calendaires</b>. Chaque étape a une estimation en semaines, volontairement large&nbsp;: elle dépend de votre serveur, de la concurrence sur les spots et des jours où vous jouez moins. Tu avances quand l'étape est finie, pas quand la semaine est finie. La seule cadence fixe du plan, c'est la routine quotidienne et le bilan du dimanche — ça, c'est l'onglet <b>Routine</b>.</p>
+  </div>
+
+  <h2>Un réflexe à prendre tout de suite</h2>
+  <div class="card">
+    <p style="margin-bottom:0">Aucune liste de ressources trouvée sur internet n'est fiable à 100&nbsp;% et les prix bougent d'un serveur à l'autre. L'outil de référence, c'est <b>l'encyclopédie in-game</b>&nbsp;: onglet <i>Ressources</i> → filtre par métier et par niveau → clique sur une ressource pour voir la liste exacte des maps où elle pousse. Fais-le au début de chaque nouveau palier de métier, ça prend 30 secondes et ça t'évite de courir après une info périmée. Même logique pour les prix&nbsp;: relève toi-même 10 ressources clés au HDV de ton serveur en début de plan, c'est ta seule vraie boussole.</p>
+  </div>
+</section>
+
+<!-- ============ PERSONNAGES ============ -->
+<section class="tab" id="tab-persos">
+  <h2>Fiche personnages</h2>
+  <p class="muted"><b>C'est la seule page où on saisit quelque chose, et tout le reste en découle.</b> Renommez les personnages et tenez les niveaux de métier à jour&nbsp;: les cartes d'état, la couverture d'équipe, les métiers manquants <i>et surtout les objectifs du plan</i> se recalculent à chaque modification. Un objectif déjà atteint se coche tout seul&nbsp;; un objectif en cours affiche le niveau réel et ce qu'il reste. Si ces chiffres sont faux, le plan l'est aussi.</p>
+
+  <div class="card gold" style="padding:14px 16px">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <b style="font-size:14px">Récolteur principal&nbsp;:</b>
+      <select id="mainPick" onchange="setMain(this.value)"
+        style="background:var(--bg);border:1px solid var(--line);color:var(--gold2);border-radius:6px;padding:5px 8px;font-family:inherit;font-size:13px;font-weight:600"></select>
+      <span class="muted" style="font-size:12.5px;flex:1;min-width:220px">C'est lui qui porte les 6 métiers de récolte et qui fait les tours de ressources, seul. Les objectifs de récolte du plan sont calculés sur son niveau à lui.</span>
+    </div>
+  </div>
+
+  <div class="card" style="padding:14px 16px">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button class="btn" onclick="fillCol()">Remplir une colonne d'un coup</button>
+      <button class="btn" onclick="clearCol()">Vider une colonne</button>
+      <span class="muted" style="font-size:12.5px">Astuce&nbsp;: laisse une case vide ou à 0 si le métier n'est pas appris.</span>
+    </div>
+  </div>
+
+  <div style="overflow-x:auto">
+    <table id="matrix" class="mtx"></table>
+  </div>
+
+  <h2>Couverture de l'équipe</h2>
+  <p class="muted">Pour les métiers de récolte, seul compte le niveau du <b>récolteur principal</b> — c'est lui qui fait les tours de ressources. Le maillon faible de la team n'a d'importance que pour <b>Chasseur</b>, où les 8 personnages contribuent réellement.</p>
+  <div id="coverage"></div>
+
+  <h2>Métiers de craft et de magie</h2>
+  <p class="muted">Ici la logique est inverse&nbsp;: un seul porteur suffit, et un doublon est une perte sèche puisque vous partagez tout.</p>
+  <div id="craftcov"></div>
+</section>
+
+<!-- ============ À DEUX ============ -->
+<section class="tab" id="tab-duo">
+  <h2>Jouer à deux sur un parc commun</h2>
+  <p class="muted">Vous avez tous les deux accès aux 8 comptes, et tout est commun. Il n'y a donc rien à répartir par personne&nbsp;: celui qui est connecté fait avancer le plan, point. Ce qui compte, c'est de ne pas se marcher dessus.</p>
+
+  <div class="card green">
+    <h3>Le tour de ressources se fait à un seul personnage</h3>
+    <p style="margin-bottom:0">C'est le récolteur principal qui le fait, et il n'a besoin de personne. Concrètement, ça veut dire que <b>l'un peut farmer les ressources pendant que l'autre fait tourner les crafts ou les donjons</b> — vous n'êtes plus obligés d'être synchronisés sur le même bloc. Quand vous voulez quand même farmer ensemble, prenez deux boucles différentes plutôt que la même map&nbsp;: vous doublez le rendement au lieu de vous disputer les nœuds.</p>
+  </div>
+
+  <div class="card blue">
+    <h3>Le vrai risque du parc partagé&nbsp;: la double manip</h3>
+    <p style="margin-bottom:0">Comme n'importe lequel de vous peut ouvrir n'importe quel compte, l'erreur qui coûte cher n'est plus «&nbsp;qui fait quoi&nbsp;» mais <b>faire deux fois la même chose sans le savoir</b>&nbsp;: racheter au HDV une ressource déjà en coffre, lancer un batch de craft que l'autre a déjà lancé, ouvrir un métier qui existe ailleurs. D'où les règles ci-dessous, et d'où ce tracker&nbsp;: <b>ce que vous cochez ici, c'est votre point de vérité commun</b>.</p>
+  </div>
+
+  <h2>Les règles d'une économie commune</h2>
+  <div class="card">
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Un seul prix, pas forcément un seul vendeur.</b> Le vrai risque, c'est de vous sous-coter mutuellement sans le savoir sur une ressource que vous produisez en masse — et ça se règle en s'accordant sur le prix, pas en centralisant. D'ailleurs chaque personnage a un nombre limité d'emplacements de vente&nbsp;: à 8 persos, tout faire passer par un seul vendeur finit par vous brider. En pratique&nbsp;: un carnet de prix commun, et vous répartissez les étals quand le volume le demande.</li>
+      <li><b>Coffre de guilde = banque unique.</b> Tout y transite, personne ne garde de stock en perso. Sinon vous rachetez au HDV une ressource déjà en stock — c'est l'erreur classique du parc partagé.</li>
+      <li><b>Zéro métier de craft en double.</b> Vous partagez tout, donc un deuxième forgeron ne sert à rien et coûte cher à monter. Chaque nouveau métier ouvert doit combler un trou&nbsp;: l'onglet <b>Personnages</b> vous dit lesquels sont encore absents.</li>
+      <li><b>Le budget s'écrit avant, pas pendant.</b> Avant un gros palier de craft ou avant d'attaquer la magie, vous fixez un chiffre à deux. C'est ce qui vous évitera de vous retrouver bloqués à 170 en Costumage avec la banque vide.</li>
+      <li><b>Carnet de prix partagé, mis à jour le dimanche.</b> Dix ressources, cinq minutes. C'est ce qui vous fera repérer les bonnes affaires avant les autres.</li>
+      <li><b>Mettez les niveaux à jour dans l'onglet Personnages au fil de l'eau.</b> Tout le plan se recalcule dessus&nbsp;: si les chiffres sont faux, les objectifs affichés le sont aussi.</li>
+    </ul>
+  </div>
+
+  <h2>Quand vous jouez chacun de votre côté</h2>
+  <div class="card">
+    <p>Puisque vous avez les mêmes accès, celui qui joue seul peut tout faire&nbsp;: le tour de ressources ne demande qu'un personnage, et même le bloc donjon se mène seul avec les 8. Il n'y a rien d'interdit. Deux réflexes suffisent&nbsp;:</p>
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Coche ce que tu avances</b> dans le plan, et mets les niveaux à jour. C'est ce qui évite que l'autre refasse le même bloc le lendemain.</li>
+      <li><b>N'ouvre pas un métier de récolte sur un autre personnage «&nbsp;pour aider&nbsp;».</b> C'est le réflexe naturel quand on a 8 comptes sous la main, et c'est exactement ce que le plan cherche à éviter&nbsp;: ça n'accélère rien et ça repart pour 60 heures. Un seul récolteur.</li>
+    </ul>
+  </div>
+
+  <h2>Pourquoi ouvrir Sculpteur</h2>
+  <div class="card gold">
+    <p>Le plan ouvre <b>Sculpteur</b> à l'étape 6, puis Sculptemage dans l'extension. Deux raisons&nbsp;:</p>
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Ça comble un vrai trou.</b> Baguettes, arcs et bâtons sont totalement absents de la team. Vous ne doublez rien, et vous arrêtez d'acheter des armes magiques à des inconnus.</li>
+      <li><b>Ça vous donne deux files de craft en parallèle.</b> Natsugoffy porte déjà six métiers d'artisanat et ne peut en faire tourner qu'un à la fois. Poser Sculpteur sur un <i>autre</i> personnage — Conviict est le candidat naturel, il n'a qu'un métier — c'est du temps de craft gagné, surtout quand vous êtes connectés tous les deux.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PLAN PAR ÉTAPES ============ -->
+<section class="tab" id="tab-plan">
+  <h2>Le plan, étape par étape</h2>
+  <p class="muted">Base ~20&nbsp;h/semaine, soit environ 3&nbsp;h/jour. Chaque ligne porte son type&nbsp;: <span class="tag t-rec">récolte</span> <span class="tag t-craft">craft</span> <span class="tag t-fm">magie</span> <span class="tag t-kamas">kamas</span> <span class="tag t-setup">setup</span>. Le mélange est volontaire&nbsp;: le revenu ne s'arrête jamais pendant que les métiers montent.</p>
+  <div class="card blue">
+    <p style="margin-bottom:0"><b>Deux sortes de lignes.</b> Celles qui portent une <b>case à cocher</b> sont des tâches manuelles&nbsp;: vous les cochez vous-mêmes. Celles qui portent une <b>pastille</b> <span class="auto ok" style="display:inline-flex;margin:0 2px;vertical-align:-3px">✓</span> sont des objectifs chiffrés — niveaux de métier et prospection&nbsp;: leur libellé, ce qu'il reste à faire et leur état sont <b>calculés en direct depuis l'onglet Personnages</b>. Vous ne pouvez pas les cocher, et vous n'avez pas à le faire — dès que vous mettez un niveau à jour, la ligne se met à jour et se barre toute seule si l'objectif est atteint. C'est ce qui évite d'avoir un objectif qui dit encore «&nbsp;163 → 185&nbsp;» alors que le métier est déjà à 190.</p>
+  </div>
+  <div class="card gold">
+    <p style="margin-bottom:0"><b>Une étape n'est pas une semaine.</b> L'estimation affichée sur chaque étape est une fourchette large&nbsp;: elle bouge selon votre serveur, la concurrence sur les spots et les jours où vous jouez moins. Vous passez à l'étape suivante quand la précédente est cochée, pas quand le dimanche arrive. Bout à bout, l'ensemble représente <b>plusieurs mois à 20&nbsp;h/semaine</b> — c'est normal, et c'est mieux de le savoir maintenant que de se croire en retard à la troisième semaine. Le rythme réellement hebdomadaire, c'est la routine&nbsp;: onglet <b>Routine</b>.</p>
+  </div>
+  <div id="weeks"></div>
+
+  <h2>Après l'étape 8 — l'extension</h2>
+  <div class="card">
+    <p>À ce stade votre récolteur a les 6 métiers de récolte à 200, les 8 personnages ont Chasseur 200 et une panoplie de prospection, et la chaîne de craft est complète sauf les armes magiques. La suite se joue sans urgence, en régime de croisière&nbsp;:</p>
+    <ul class="clean">
+      <li><b>Joaillomage 160 → 200</b> sur Natsu, pour vendre des bijoux finis plutôt que bruts. Le meilleur ratio effort/gain de tout ce qui reste.</li>
+      <li><b>Forgemage 1 → 200</b>, le gros morceau. C'est le service FM le plus demandé du jeu, et vous avez déjà Forgeron pour vous auto-alimenter en armes à briser et à monter.</li>
+      <li><b>Cordomage</b> puis <b>Sculptemage</b> (Sculpteur est déjà à 200 à la fin de l'étape 8), pour fermer complètement la boucle équipement.</li>
+      <li><b>Élevage de dragodindes</b>&nbsp;: enclos dans le havre-sac, une passe quotidienne courte mais obligatoire (nourrissage + sorties). Revenu régulier, à condition de ne pas sauter des jours.</li>
+      <li><b>Les 6 métiers de récolte déjà à 200 sur le récolteur</b> → vous basculez en mode «&nbsp;tour de ressources rentable&nbsp;» pur les jours où vous n'avez pas envie de vous prendre la tête. C'est là aussi que se pose la seule vraie question d'un deuxième récolteur&nbsp;: si les tours deviennent votre activité principale, monter un second perso sur les 2-3 métiers les plus denses (Paysan, Pêcheur) peut se défendre. Pas avant.</li>
+    </ul>
+    <p style="margin-bottom:0" class="muted">À partir de là, votre revenu ne vient plus du temps passé mais de la chaîne&nbsp;: vous récoltez vos propres ressources, vous dropez vos propres ingrédients rares, vous craftez l'équipement, vous le magiez vous-mêmes et vous vendez le produit fini. C'est le seul montage où vous captez 100&nbsp;% de la marge.</p>
+  </div>
+</section>
+
+<!-- ============ FICHES MÉTIERS ============ -->
+<section class="tab" id="tab-metiers">
+  <h2>Fiches métiers</h2>
+
+  <h3>Paysan 1 → 200 (le plus rapide, à faire en premier)</h3>
+  <p class="muted">Le seul métier où la route est parfaitement balisée&nbsp;: les champs sont denses, les nœuds nombreux, la boucle est courte. C'est pour ça qu'il vient en premier sur le récolteur — et normalement il est déjà à 200 chez vous.</p>
+  <table>
+    <thead><tr><th>Palier</th><th>Ressource</th><th>Où</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 – 19</td><td>Blé</td><td>Champs d'Astrub, Champs de Cania, Champs des Ingalsses</td></tr>
+      <tr><td class="num">20 – 39</td><td>Orge</td><td>Champs d'Astrub / Cania / Ingalsses, Plaine des Scarafeuilles</td></tr>
+      <tr><td class="num">40 – 59</td><td>Avoine</td><td>Champs d'Astrub / Cania / Ingalsses</td></tr>
+      <tr><td class="num">60 – 79</td><td>Houblon</td><td>Champs d'Astrub, Champs de Cania</td></tr>
+      <tr><td class="num">80 – 99</td><td>Lin</td><td>Champs de Cania, Champs des Ingalsses</td></tr>
+      <tr><td class="num">100 – 119</td><td>Seigle, Riz</td><td>Seigle&nbsp;: Cania / Ingalsses · Riz&nbsp;: <b>uniquement Village d'Akwadala</b></td></tr>
+      <tr><td class="num">120 – 139</td><td>Malt</td><td>Champs de Cania, Champs des Ingalsses</td></tr>
+      <tr><td class="num">140 – 159</td><td>Chanvre</td><td>Champs de Cania, Champs des Ingalsses</td></tr>
+      <tr><td class="num">160 – 179</td><td>Maïs</td><td>Dispersé hors des champs classiques — relève les maps dans l'encyclopédie</td></tr>
+      <tr><td class="num">180 – 199</td><td>Millet</td><td>Dents de Pierre de Cania, île de Moon, Jungle Sombre (Otomaï), Frigost (Pins Perdus / forêt Pétrifiée)</td></tr>
+      <tr><td class="num">200</td><td>Frostiz</td><td>Frigost (champs gelés)</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">Les trois ressources qui paient vraiment sont <b>Maïs, Millet et Frostiz</b> — pas le Chanvre, qui n'est plus qu'un palier de milieu de parcours depuis que la table va jusqu'à 200. Tant que la team n'a pas dépassé 160, ton tour de champs sert à monter le métier&nbsp;; c'est au-dessus qu'il devient une source de revenu.</p>
+  <div class="card gold">
+    <p style="margin-bottom:0"><b>Le piège des deux derniers paliers.</b> Jusqu'à 160 tu es sur des champs denses et la boucle tourne toute seule. À partir du Maïs et surtout du <b>Millet — rare et très dispersé</b>, sur des zones qui n'ont plus rien de champs — tu tombes à quelques nœuds par map. Compte que <b>160 → 200 prendra à lui seul autant de temps que 1 → 160</b>, et prévois d'alterner avec un autre bloc pour ne pas t'écœurer. C'est aussi la meilleure illustration du principe&nbsp;: c'est précisément là qu'une meute de 8 se serait mise à s'attendre.</p>
+  </div>
+
+  <h3>Chasseur — les 3 personnages restants</h3>
+  <div class="card red">
+    <p><b>Attention, ce métier ne monte pas comme on le croit.</b> Récupérer la viande sur les monstres ne donne <b>aucune XP de métier</b>. L'XP vient <b>uniquement de la transformation des viandes en viandes conservées</b>, à l'atelier. Autrement dit&nbsp;: la chasse te fournit la matière première, mais le métier ne bouge que quand tu passes à l'atelier et que tu transformes. Ce n'est pas un métier qui «&nbsp;monte tout seul&nbsp;» en fond de tâche.</p>
+    <ul class="clean">
+      <li><b>Il faut équiper un outil de chasse</b> sur chaque personnage concerné. Ce n'est pas réservé au corps-à-corps&nbsp;: certaines armes le sont d'origine (arcs compris), et n'importe quelle arme peut le devenir avec une <b>rune de chasse</b> appliquée en forgemagie. Il suffit de l'avoir équipé — tu n'as pas besoin de t'en servir en combat.</li>
+      <li><b>Le drop n'est pas systématique</b>&nbsp;: compte grossièrement 20 à 60&nbsp;% de chance de récupérer de la viande selon le monstre. Sur 8 personnages équipés, ça compense.</li>
+      <li><b>Le vrai coût, c'est l'atelier.</b> Prévois un bloc dédié à la conservation, exactement comme un bloc de craft — et fais-le sur les 3 persos concernés, pas seulement sur un.</li>
+      <li>Route&nbsp;: enchaîne les zones dont les viandes correspondent à ton palier. Comme vous êtes 200 en combat, vous pouvez viser directement les viandes hautes dès que le métier suit.</li>
+      <li>Les viandes THL se vendent en continu (plats, pains, potions). Ne brade pas, vends par lots de 100.</li>
+    </ul>
+    <p style="margin-bottom:0" class="muted">Ce qui reste vrai&nbsp;: la <i>collecte</i> est gratuite puisque vous farmez déjà ces monstres. C'est l'étape de conservation qui coûte du temps, et c'est elle qu'il faut planifier.</p>
+  </div>
+
+  <h3>Bûcheron, Mineur, Pêcheur, Alchimiste — la méthode commune</h3>
+  <div class="card">
+    <p>Ces quatre métiers se montent exactement de la même façon, <b>sur le récolteur principal seulement</b>&nbsp;:</p>
+    <ul class="clean">
+      <li><b>Apprends le métier chez le PNJ</b> — gratuit et instantané, et il n'y a aucune limite du nombre de métiers par personnage. Un seul perso a besoin de l'apprendre.</li>
+      <li><b>Ouvre l'encyclopédie in-game</b>, filtre Ressources par ce métier, note les 3-4 ressources correspondant à ton palier actuel et leurs maps.</li>
+      <li><b>Fais des boucles courtes et denses.</b> Une bonne boucle fait 6 à 10 maps et revient à son point de départ&nbsp;: quand tu reviens, les premiers nœuds ont repoussé. Avec un seul récolteur, c'est bien plus facile à calibrer — tu consommes les nœuds huit fois moins vite, donc la repousse suit presque toujours.</li>
+      <li><b>Sers-toi des autres persos comme mules.</b> Ils n'ont pas besoin du métier pour porter&nbsp;: amène-en un ou deux sur la boucle, transfère-leur les ressources quand tu satures, et tu doubles ou triples la longueur du tour sans repasser en banque.</li>
+    </ul>
+    <p><b>Les particularités à connaître</b>&nbsp;:</p>
+    <table>
+      <thead><tr><th>Métier</th><th>Vitesse de montée</th><th>Le piège</th></tr></thead>
+      <tbody>
+        <tr><td>Pêcheur</td><td><span class="pill p-green">Rapide</span></td><td>Les coins de pêche sont regroupés sur peu de maps, boucle très courte. Le plus facile après paysan.</td></tr>
+        <tr><td>Bûcheron</td><td><span class="pill p-gold">Moyen</span></td><td>Repousse lente. Il faut une boucle plus longue, sinon tu attends devant des souches.</td></tr>
+        <tr><td>Mineur</td><td><span class="pill p-gold">Moyen</span></td><td>Nœuds espacés dans les galeries, et c'est le métier le plus disputé du serveur. Privilégie les mines à plusieurs salles et les heures creuses.</td></tr>
+        <tr><td>Alchimiste</td><td><span class="pill p-red">Lent</span></td><td>Les plantes sont éparpillées sur beaucoup de maps, 1 à 3 par map. Le plus long du lot — mais aussi celui qui ouvre le business des potions, et celui où un récolteur unique ne perd strictement rien.</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-bottom:0" class="muted">Note pour Alchimiste&nbsp;: tu as déjà Natsugoffy à 200. Il peut fabriquer les <b>potions de téléportation et de rappel</b> dès maintenant — c'est un revenu régulier et sans effort, tout le monde en consomme. Lance ça à l'étape 1 sans attendre le reste.</p>
+  </div>
+
+  <h3>Métiers de craft — Bijoutier, Tailleur, Cordonnier, Forgeron</h3>
+  <div class="card">
+    <p>Depuis la refonte, <b>l'XP de craft dépend du niveau de l'objet fabriqué</b>, pas du nombre d'ingrédients. La règle est simple et ne souffre pas d'exception&nbsp;:</p>
+    <p style="font-size:16px;color:var(--gold2);margin:14px 0"><b>Crafte toujours la recette la plus haute que ton niveau de métier autorise.</b></p>
+    <p>Fabriquer 500 objets niveau 20 quand ton métier est à 160, c'est jeter des ressources. Et à l'inverse, dès que tu passes un palier, change immédiatement de recette.</p>
+    <ul class="clean">
+      <li><b>Brise tout ce qui ne se vend pas.</b> Un objet crafté invendable n'est pas une perte&nbsp;: brisé, il te rend des runes, que tu revends ou que tu gardes pour ta magie plus tard. Ça récupère une bonne part du coût de montée.</li>
+      <li><b>Installe les ateliers dans ton havre-sac.</b> Tu crafts sans faire un aller-retour à Bonta à chaque fois. Sur la durée du plan, c'est des heures gagnées.</li>
+      <li><b>Ordre de priorité</b>&nbsp;: Bijoutier → Tailleur → Cordonnier → Forgeron. Les bijoux et les coiffes/capes sont les pièces les plus achetées du jeu&nbsp;; le Forgeron est le plus cher à monter et ne prend toute sa valeur qu'avec le Forgemage, qui viendra après.</li>
+      <li><b>Calcule avant d'acheter.</b> Avant de racheter une ressource au HDV pour monter un métier, regarde le coût total du palier. Parfois attendre une semaine que ta propre récolte fournisse le stock est largement plus rentable que d'acheter.</li>
+    </ul>
+    <p style="margin-bottom:0" class="muted">Vise le moment où tu peux sortir un <b>set complet fabriqué en interne</b> (bijoux par Convict, coiffe/cape/bottes/ceinture par Natsu) — c'est là que la marge devient sérieuse, parce que tu ne paies rien à personne sur toute la chaîne.</p>
+  </div>
+
+  <h3>Métiers de magie — Costumage, Joaillomage (et Forgemage plus tard)</h3>
+  <div class="card red">
+    <p>Ce sont les métiers qui rapportent le plus… et qui coûtent le plus cher à monter. L'XP vient de l'<b>application de runes sur des objets</b>, donc chaque niveau se paie en kamas secs. C'est la raison pour laquelle ils sont en fin de plan.</p>
+    <ul class="clean">
+      <li><b>Fixe-toi un budget avant de commencer</b> et n'y touche pas. Monter un métier de magie de 120 à 200 se compte en dizaines de millions selon ton serveur. Commencer sans matelas, c'est se retrouver bloqué à 170 avec un métier inutile.</li>
+      <li><b>Utilise des objets bas niveau et des runes bon marché.</b> L'objectif au début n'est pas de réussir la FM, c'est d'accumuler des tentatives. Achète les runes en gros pendant les heures creuses.</li>
+      <li><b>Auto-alimente-toi.</b> Ton Forgeron et ton Bijoutier crafteront les objets à briser&nbsp;: tu génères tes propres runes au lieu de les acheter. C'est exactement pour ça que le plan monte les métiers de craft <i>avant</i> la magie.</li>
+      <li><b>Le retour sur investissement se fait sur les services.</b> Une fois à 200, la FM à façon est un revenu récurrent, sans coût de matière première pour toi.</li>
+    </ul>
+    <p style="margin-bottom:0" class="muted">Ton ordre&nbsp;: Costumage (156, déjà bien avancé, et coiffes/capes = grosse demande) → Joaillomage (121) → Forgemage (à ouvrir de zéro, mais c'est le plus rentable des trois à l'arrivée).</p>
+  </div>
+</section>
+
+<!-- ============ FARM KAMAS ============ -->
+<section class="tab" id="tab-kamas">
+  <h2>Faire des kamas avec 8 personnages 200</h2>
+  <p class="muted">Classé par ce qui rapporte le plus pour <i>ta</i> configuration. Les montants sont des ordres de grandeur à recalibrer sur ton serveur — la première chose à faire est de relever tes propres prix au HDV.</p>
+
+  <table>
+    <thead><tr><th>Source</th><th>Pour toi</th><th>Effort</th><th>Quand</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Tour de ressources</b></td>
+        <td>Votre revenu de fond. Un récolteur unique sur une boucle de 6-10 maps THL, avec une mule derrière pour les pods. Moins spectaculaire qu'une meute de 8, mais disponible tout de suite, sans fatigue et sans investissement — et ça ne coûte pas des mois de montée sur 7 personnages de plus.</td>
+        <td><span class="pill p-green">Faible</span></td>
+        <td>Tous les jours, dès l'étape 1 et de plus en plus fort à mesure que les métiers montent</td>
+      </tr>
+      <tr>
+        <td><b>Vente d'équipement fabriqué maison</b></td>
+        <td>La plus grosse marge du plan, mais elle n'arrive qu'aux étapes 6-7, quand bijoutier + tailleur + cordonnier sont à 200 et que tu fabriques le set complet sans rien acheter. Compte plusieurs mois avant d'y arriver.</td>
+        <td><span class="pill p-gold">Moyen</span></td>
+        <td>À partir de l'étape 6</td>
+      </tr>
+      <tr>
+        <td><b>Donjons 150+ en boucle (drop)</b></td>
+        <td><b>C'est là que les 8 personnages servent vraiment.</b> Vous enchaînez sans attendre personne, les ressources de boss se vendent <i>et</i> alimentent vos crafts, et chaque perso équipé d'un outil de chasse fait son propre jet de viande sur chaque combat.</td>
+        <td><span class="pill p-gold">Moyen</span></td>
+        <td>1 h/jour, en bloc kamas</td>
+      </tr>
+      <tr>
+        <td><b>Potions de téléportation / rappel</b></td>
+        <td>Natsugoffy est déjà Alchimiste 200. Consommable acheté par tout le serveur en permanence, marge stable, zéro compétence requise. À lancer <b>dès l'étape 1</b>.</td>
+        <td><span class="pill p-green">Faible</span></td>
+        <td>Immédiatement</td>
+      </tr>
+      <tr>
+        <td><b>Services de forgemagie</b></td>
+        <td>Le vrai jackpot à terme, mais il faut être 200 en magie. Objectif fin de plan / extension.</td>
+        <td><span class="pill p-red">Élevé</span></td>
+        <td>Étape 8 et après</td>
+      </tr>
+      <tr>
+        <td><b>Élevage de dragodindes</b></td>
+        <td>Enclos dans le havre-sac. Ce n'est <b>pas</b> passif&nbsp;: les dragodindes doivent être nourries et sorties régulièrement, sinon l'élevage stagne. Compte un vrai passage quotidien, court mais non négociable, pour un rendement modeste.</td>
+        <td><span class="pill p-green">Faible</span></td>
+        <td>À installer aux étapes 1-2</td>
+      </tr>
+      <tr>
+        <td><b>Quotidiennes (chasses au trésor, Almanax, dopeuls)</b></td>
+        <td>Ça rapporte, mais multiplié par 8 personnages ça mange ta soirée pour un revenu moyen. <b>Limite-toi à 2-3 personnages</b> et garde le temps pour la récolte.</td>
+        <td><span class="pill p-gold">Moyen</span></td>
+        <td>En remplissage</td>
+      </tr>
+      <tr>
+        <td><b>Spéculation HDV</b></td>
+        <td>Uniquement sur les 10 ressources dont tu connais le prix par cœur parce que tu les récoltes. Ne joue pas au trader sur ce que tu ne produis pas.</td>
+        <td><span class="pill p-green">Faible</span></td>
+        <td>En continu, opportuniste</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Le drop — là où vos 8 comptes valent vraiment quelque chose</h2>
+  <p class="muted">C'est le pendant exact du principe 1. La récolte ne se parallélise pas&nbsp;; le drop, si. Et contrairement à la récolte, il n'y a <b>aucun métier à monter</b> pour en profiter.</p>
+
+  <div class="card green">
+    <h3>La règle qui change tout&nbsp;: pas de malus de groupe</h3>
+    <p>À la fin d'un combat, <b>chaque personnage fait son propre jet de drop, simultanément et sans ordre de priorité</b>. Être 8 ne divise rien. Le même combat, mené une seule fois, vous donne huit chances au lieu d'une.</p>
+    <p style="margin-bottom:0">La formule est simple&nbsp;: <b>taux final = taux de base × (PP / 100)</b>. Toutes les classes démarrent à 100 PP (120 pour un Enutrof), donc 100 PP = le taux affiché sur la ressource, 300 PP = trois fois ce taux.</p>
+  </div>
+
+  <div class="card red">
+    <h3>Le piège&nbsp;: le plafond d'exemplaires par monstre</h3>
+    <p>Chaque monstre ne lâche qu'un nombre limité d'exemplaires d'une même ressource — de l'ordre de <b>2 pour une ressource commune de monstre normal</b>, un peu plus sur les boss. Si vos 8 personnages réussissent tous leur jet, seuls les 2 premiers tirés au sort repartent avec.</p>
+    <p style="margin-bottom:0"><b>Conséquence directe, et c'est elle qui doit décider de vos circuits&nbsp;:</b> sur une ressource commune, 8 comptes ne valent guère mieux que 2 — vous tapez le plafond en permanence. Sur un <b>drop rare</b> (taux de base sous 1&nbsp;%&nbsp;: ressources de boss, ingrédients de craft THL, équipements, Dofus), la probabilité que deux persos réussissent le même jet est négligeable&nbsp;: là, vos 8 jets indépendants valent réellement 8 fois vos chances. <b>Farmez du rare avec les 8, pas du commun.</b></p>
+  </div>
+
+  <div class="card gold">
+    <h3>Deux réglages à faire avant de farmer</h3>
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Chaque personnage a besoin de SA prospection.</b> C'est le seul vrai investissement de cette partie du plan, et il est souvent négligé&nbsp;: un perso resté à 100 PP tire au taux de base pendant que les autres tirent double ou triple. Comptez <b>~200 PP pour du farm courant, 300+ pour viser des drops rares</b>. La PP vient de l'équipement et de la Chance (10 Chance = 1 PP)&nbsp;: une panoplie de drop dédiée, qu'on enfile pour le bloc donjon et qu'on retire ensuite. Saisissez la PP de chacun dans l'onglet <b>Personnages</b>, le plan la suit.</li>
+      <li><b>Ne farmez pas trop bas.</b> Au-delà de <b>50 niveaux d'écart</b> entre le personnage et le monstre, la prospection n'est tout simplement plus prise en compte. À 200, ça veut dire viser du contenu <b>niveau 150 et plus</b> — en dessous, votre panoplie de drop ne sert à rien.</li>
+    </ul>
+  </div>
+
+  <div class="card blue">
+    <h3>Les idoles, une fois que le reste tourne</h3>
+    <p style="margin-bottom:0">Les idoles se posent avant le combat&nbsp;: elles renforcent les monstres et donnent en échange un pourcentage de bonus d'XP et/ou de drop. C'est le multiplicateur le plus rentable une fois que votre prospection est en place — mais la seule erreur qui coûte cher, c'est d'en mettre trop et de <b>perdre le combat</b>, ce qui annule tout. Montez la difficulté par paliers, et gardez une combinaison orientée drop (pas XP) puisque vous êtes déjà 200.</p>
+  </div>
+
+  <div class="card">
+    <p style="margin-bottom:0"><b>Et ça se cumule avec Chasseur.</b> Le même combat vous donne le drop <i>et</i> un jet de viande par personnage équipé d'un outil de chasse. C'est pour ça que le bloc donjon est le meilleur usage de vos 8 comptes&nbsp;: trois revenus sur une seule action.</p>
+  </div>
+
+  <h2>Trois circuits types</h2>
+  <div class="grid g2">
+    <div class="card green">
+      <h3>Circuit A — Céréales &amp; plantes (45-60 min)</h3>
+      <p style="margin-bottom:0">Champs de Cania (chanvre, lin, malt) → Champs des Ingalsses → Frigost pour le Frostiz. Boucle fermée, tu reviens sur des nœuds repoussés. C'est le circuit «&nbsp;je suis fatigué mais je veux des kamas&nbsp;»&nbsp;: aucun risque, aucune réflexion, rendement propre.</p>
+    </div>
+    <div class="card gold">
+      <h3>Circuit B — Bois &amp; minerais (60-75 min)</h3>
+      <p style="margin-bottom:0">Une grande mine multi-salles puis une forêt THL. Plus lent à cause de la repousse et de la concurrence, mais les ressources valent nettement plus cher à l'unité. À faire en heures creuses, et à alterner avec le circuit A pour laisser repousser.</p>
+    </div>
+    <div class="card blue">
+      <h3>Circuit C — Donjons &amp; drop (60-90 min)</h3>
+      <p style="margin-bottom:0"><b>Le meilleur usage de vos 8 comptes.</b> 3 à 4 donjons niveau 150+ enchaînés, panoplies de prospection sur les 8, idoles orientées drop, outils de chasse équipés. Vous encaissez en une seule passe&nbsp;: les ressources rares de boss (×8 jets), la viande (×8 jets), et les ingrédients de vos propres crafts. C'est le bloc à ne pas sacrifier.</p>
+    </div>
+  </div>
+
+  <h2>Les erreurs qui coûtent cher</h2>
+  <div class="card red">
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Monter plusieurs métiers de récolte en même temps.</b> Un métier à la fois sur le récolteur, jusqu'à 200. Sinon vous vous retrouvez avec six métiers à 90 qui ne débloquent aucune ressource intéressante — un métier à 90 ne rapporte rien, il ne compte que fini.</li>
+      <li><b>Ouvrir un métier de récolte sur un deuxième personnage «&nbsp;pour aller plus vite&nbsp;».</b> Ça n'accélère rien&nbsp;: l'XP n'est pas partagée, vous repartez de 1 pour 60 heures. Un seul récolteur.</li>
+      <li><b>Farmer du drop sans panoplie de prospection.</b> À 100 PP vous tirez au taux de base&nbsp;: vous divisez par deux ou trois le rendement du seul bloc où vos 8 comptes servent vraiment. Et un perso oublié en panoplie de combat, ça ne se voit pas — d'où la colonne PP dans l'onglet Personnages.</li>
+      <li><b>Farmer du contenu trop bas niveau.</b> Plus de 50 niveaux d'écart et la prospection n'est plus comptée du tout. Vos panoplies de drop ne servent qu'à partir du niveau 150.</li>
+      <li><b>Vendre à l'unité.</b> Toujours par lots de 10 ou 100. Le temps que tu perds à gérer 200 annonces n'est jamais compensé.</li>
+      <li><b>Brader pour vendre vite.</b> Regarde le prix moyen, place-toi légèrement en dessous, et attends. Casser le prix d'une ressource que tu produis en masse, c'est te tirer une balle dans le pied pour les mois suivants.</li>
+      <li><b>Acheter des ressources au HDV pour monter un craft sans calculer.</b> Fais le calcul du palier complet avant, pas après.</li>
+      <li><b>Jeter les objets ratés ou invendables.</b> Brise-les. Toujours.</li>
+      <li><b>Attaquer la magie sans trésorerie.</b> C'est l'erreur qui bloque le plus de joueurs&nbsp;: bloqué à mi-parcours, avec un métier qui ne rapporte rien tant qu'il n'est pas fini.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ ROUTINE ============ -->
+<section class="tab" id="tab-routine">
+  <h2>La journée type (~3 h)</h2>
+  <p class="muted">Voilà la partie du plan qui, elle, est <b>vraiment hebdomadaire</b>&nbsp;: le même squelette tous les jours, seul le contenu du bloc métier change selon l'étape en cours. L'idée est que tu n'aies jamais à te demander quoi faire en te connectant.</p>
+
+  <div class="card">
+    <h3>0:00 – 0:15 · Ouverture</h3>
+    <p style="margin-bottom:0">Connexion des 8 comptes → relève des ventes HDV et remise en vente de ce qui n'est pas parti → percepteurs → bonus Almanax → coup d'œil aux enclos. Rythme de démarrage, rien de plus.</p>
+  </div>
+  <div class="card gold">
+    <h3>0:15 – 1:45 · Bloc métier (le cœur)</h3>
+    <p style="margin-bottom:0">Le métier de l'étape en cours, en groupe de 8. C'est le bloc sur lequel tu ne transiges pas&nbsp;: c'est lui qui fait avancer le plan. Les autres blocs peuvent sauter, pas celui-ci.</p>
+  </div>
+  <div class="card blue">
+    <h3>1:45 – 2:45 · Bloc kamas</h3>
+    <p style="margin-bottom:0">Circuit A, B ou C selon l'envie et l'heure. Alterne pour laisser les ressources repousser&nbsp;: en pratique, A un jour, B le lendemain, C le soir où tu as de l'énergie. Les circuits A et B se font au récolteur seul&nbsp;; le <b>circuit C mobilise les 8</b>, panoplies de prospection équipées — c'est le seul bloc où sortir toute la team change quelque chose.</p>
+  </div>
+  <div class="card green">
+    <h3>2:45 – 3:00 · Clôture</h3>
+    <p style="margin-bottom:0">Dépôt en banque et centralisation → lancement des crafts en havre-sac (ils tournent pendant que tu fais autre chose) → mise en vente → note rapide des prix qui ont bougé. Cette dernière ligne, c'est ce qui te fait repérer les bonnes affaires avant les autres.</p>
+  </div>
+
+  <h2>La semaine type</h2>
+  <table>
+    <thead><tr><th>Jour</th><th>Bloc métier</th><th>Bloc kamas</th></tr></thead>
+    <tbody>
+      <tr><td><b>Lundi</b></td><td>Métier de l'étape</td><td>Circuit A — céréales &amp; plantes</td></tr>
+      <tr><td><b>Mardi</b></td><td>Métier de l'étape</td><td>Circuit B — bois &amp; minerais</td></tr>
+      <tr><td><b>Mercredi</b></td><td>Métier de l'étape</td><td>Circuit C — donjons</td></tr>
+      <tr><td><b>Jeudi</b></td><td>Métier de l'étape</td><td>Circuit A</td></tr>
+      <tr><td><b>Vendredi</b></td><td>Craft en gros (Natsu + Convict en parallèle)</td><td>Circuit B</td></tr>
+      <tr><td><b>Samedi</b></td><td colspan="2">Session longue (4-6 h) — grosse boucle de récolte + chaîne de donjons + gros batch de craft</td></tr>
+      <tr><td><b>Dimanche</b></td><td colspan="2">Bilan&nbsp;: relevé des prix, mise en vente de la semaine, point sur ce qui reste à cocher dans l'étape en cours. Session courte, ou repos si tu as bien bossé.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Checklist quotidienne</h2>
+  <p class="muted">Celle-ci est <b>personnelle et locale</b>&nbsp;: elle ne se synchronise pas avec ton pote, et elle se remet à zéro toute seule au changement de jour. Le bouton sert juste à repartir de zéro en cours de journée.</p>
+  <div class="card" id="daily"></div>
+  <button class="btn" onclick="resetDaily()">Nouvelle journée</button>
+</section>
+
+<footer>
+  Plan construit pour&nbsp;: 8 personnages 200, comptes partagés entre 2 joueurs · Natsugoffy (artisan) + Convict (récolte/bijoux) + 6 personnages · ~20 h/semaine · Dofus 3 Unity.<br>
+  Les prix et les rendements varient fortement d'un serveur à l'autre&nbsp;: relève tes propres chiffres au HDV avant de t'engager sur un palier de craft ou de magie.
+</footer>
+
+</div>
+
+<script>
+/* ---------- données ---------- */
+const JOB_LIST = [
+  {k:"paysan",     n:"Paysan",      c:"rec",   note:"Céréales, farines, pains"},
+  {k:"chasseur",   n:"Chasseur",    c:"rec",   note:"Viandes — monte pendant les combats"},
+  {k:"mineur",     n:"Mineur",      c:"rec",   note:"Minerais"},
+  {k:"bucheron",   n:"Bûcheron",    c:"rec",   note:"Bois — base de tous les crafts d'armes"},
+  {k:"pecheur",    n:"Pêcheur",     c:"rec",   note:"Poissons, plats"},
+  {k:"alchimiste", n:"Alchimiste",  c:"rec",   note:"Plantes, potions de téléportation"},
+  {k:"bijoutier",  n:"Bijoutier",   c:"craft", note:"Anneaux, amulettes"},
+  {k:"tailleur",   n:"Tailleur",    c:"craft", note:"Coiffes, capes"},
+  {k:"cordonnier", n:"Cordonnier",  c:"craft", note:"Bottes, ceintures"},
+  {k:"forgeron",   n:"Forgeron",    c:"craft", note:"Armes"},
+  {k:"bricoleur",  n:"Bricoleur",   c:"craft", note:"Boucliers"},
+  {k:"sculpteur",  n:"Sculpteur",   c:"craft", note:"Baguettes, arcs, bâtons"},
+  {k:"costumage",  n:"Costumage",   c:"fm",    note:"Magie des coiffes et capes"},
+  {k:"joaillomage",n:"Joaillomage", c:"fm",    note:"Magie des bijoux"},
+  {k:"forgemage",  n:"Forgemage",   c:"fm",    note:"Magie des armes — le service le plus demandé"},
+  {k:"sculptemage",n:"Sculptemage", c:"fm",    note:"Magie des baguettes, arcs, bâtons"},
+  {k:"cordomage",  n:"Cordomage",   c:"fm",    note:"Magie des bottes et ceintures"},
+  {k:"bricomage",  n:"Bricomage",   c:"fm",    note:"Magie des boucliers — on fortifie, on n'applique pas de runes"}
+];
+
+/* Index du récolteur principal dans CHARS. Les métiers de récolte se montent
+   sur lui seul : c'est modifiable dans l'onglet Personnages. */
+let MAIN = 0;
+function mainChar(){ return CHARS[MAIN] || CHARS[0] || {name:"?", jobs:{}}; }
+
+/* pp = prospection affichée sur la fiche du personnage. 100 est la base de
+   départ de toutes les classes (120 pour un Enutrof) : c'est un plancher, pas
+   une valeur mesurée — à corriger depuis le jeu. */
+let CHARS = [
+  {name:"Convict",    pp:100, jobs:{paysan:200,chasseur:200,mineur:184,bijoutier:163,alchimiste:101}},
+  {name:"Conviict",   pp:100, jobs:{paysan:200}},
+  {name:"Natsugoffy", pp:100, jobs:{paysan:200,chasseur:200,alchimiste:200,bricoleur:200,costumage:156,tailleur:155,forgeron:126,joaillomage:121,cordonnier:110}},
+  {name:"Perso 4",    pp:100, jobs:{chasseur:200}},
+  {name:"Perso 5",    pp:100, jobs:{chasseur:200}},
+  {name:"Perso 6",    pp:100, jobs:{chasseur:200}},
+  {name:"Perso 7",    pp:100, jobs:{}},
+  {name:"Perso 8",    pp:100, jobs:{}}
+];
+const PP_CIBLE = 200;   // seuil « farm correct » ; 300+ pour les drops rares
+
+/* ---------- objectifs du plan ----------
+   Quatre formes possibles :
+     {t:"main", job:"bucheron",  to:200}  → sur le récolteur principal uniquement
+     {t:"all",  job:"chasseur",  to:200}  → sur TOUS les persos (réservé à Chasseur)
+     {t:"one",  job:"bijoutier", to:185}  → sur son porteur, détecté automatiquement
+     {t:"pp",   to:200}                   → prospection minimale sur TOUS les persos
+     {t:"todo", tag:"setup",     txt:"…"} → tâche manuelle, cochée à la main
+   Les deux premières sont entièrement recalculées à partir de l'onglet Personnages :
+   le libellé affiche le niveau réel, et l'objectif se marque terminé tout seul.
+   Rien n'est écrit en dur, donc rien ne peut devenir faux en cours de route. */
+
+const WEEKS = [
+  {
+    n:1, t:"Fondations + désigner le récolteur", d:"~1 à 2 semaines",
+    s:"Poser l'infrastructure commune et finir les petits paliers déjà entamés",
+    items:[
+      {t:"todo", tag:"setup", txt:"Choisir le récolteur principal et le noter dans l'onglet Personnages", d:"Un seul personnage porte les 6 métiers de récolte. Prenez celui qui en a déjà le plus : c'est lui qui fera les tours de ressources, seul. Les 7 autres n'ont pas besoin de ces métiers."},
+      {t:"main", job:"mineur", to:200, d:"Petit palier déjà bien avancé : les derniers niveaux sur les minerais les plus hauts que le niveau autorise. À faire en premier parce que c'est le moins cher en temps."},
+      {t:"todo", tag:"setup", txt:"Apprendre les 6 métiers de récolte sur le récolteur — et Chasseur sur les 7 autres", d:"Sur le récolteur : Paysan, Chasseur, Mineur, Bûcheron, Pêcheur, Alchimiste. Sur les 7 autres : Chasseur, et rien d'autre. Gratuit et instantané chez les PNJ, aucune limite du nombre de métiers par personnage."},
+      {t:"todo", tag:"setup", txt:"Créer / utiliser une guilde et son coffre comme banque commune", d:"Tout transite par là, personne ne garde de stock en perso. C'est ce qui vous évitera de racheter au HDV une ressource déjà en coffre."},
+      {t:"todo", tag:"setup", txt:"Aménager les havres-sacs : ateliers + enclos", d:"Un atelier par métier de craft détenu, plus l'atelier de conservation des viandes — il servira pour Chasseur. Plus un seul aller-retour à Bonta ensuite."},
+      {t:"todo", tag:"setup", txt:"Équiper les 8 personnages d'un outil de chasse", d:"Là il faut vraiment les 8 : chaque perso équipé fait son propre jet de viande sur le même combat. Pas forcément du corps-à-corps, arcs compris, et n'importe quelle arme peut le devenir avec une rune de chasse en FM. Il suffit de l'avoir équipé, pas de s'en servir."},
+      {t:"todo", tag:"kamas", txt:"Relever la prospection des 8 personnages et la saisir ici", d:"Le chiffre est sur la fiche de chaque perso. Toutes les classes partent de 100 (120 pour un Enutrof). C'est la donnée qui manquait le plus : sans elle, impossible de savoir si votre bloc donjon rapporte ce qu'il devrait."},
+      {t:"todo", tag:"kamas", txt:"Relever les prix HDV de 10 ressources clés", d:"Maïs, Millet, Frostiz, une viande THL, un bois THL, un minerai THL, une plante THL. Ce carnet est la seule boussole fiable du plan."},
+      {t:"main", job:"paysan", to:200, d:"Normalement déjà acquis. Si le récolteur choisi n'est pas encore à 200, c'est le métier le plus rapide à finir : les champs sont denses et la route est balisée."},
+      {t:"todo", tag:"kamas", txt:"Lancer la production de potions de téléportation / rappel", d:"Natsugoffy est déjà Alchimiste 200. Revenu immédiat, à relancer régulièrement."},
+      {t:"todo", tag:"kamas", txt:"Installer 2-3 dragodindes en enclos", d:"Rapide à mettre en place, mais il faudra les nourrir et les sortir tous les jours — ce n'est pas du revenu passif."}
+    ]
+  },
+  {
+    n:2, t:"Chasseur sur les 8 + démarrage Bijoutier", d:"~2 à 3 semaines",
+    s:"Le seul métier de récolte qui mérite les 8 personnages",
+    items:[
+      {t:"all", job:"chasseur", to:200, d:"Le seul métier où la team entière se justifie : la viande tombe des combats que vous faites déjà, et chaque perso équipé fait son propre jet. 8 fois plus de viande pour zéro temps de récolte en plus. Attention en revanche : l'XP ne vient pas du ramassage mais de la transformation en viandes conservées à l'atelier — et ça, c'est 8 fois plus de passages. Prévoyez un vrai créneau."},
+      {t:"one", job:"bijoutier", to:185, d:"Crafte toujours la recette la plus haute que le niveau autorise. Brise tout ce qui ne part pas au HDV."},
+      {t:"pp", to:200, d:"Une panoplie de drop par personnage, à enfiler pour le bloc donjon et à retirer après. C'est le seul investissement qui multiplie tout le reste : chaque perso tire avec SA prospection, et le taux final vaut le taux de base × PP/100. Visez 300+ plus tard si vous chassez des drops rares."},
+      {t:"todo", tag:"kamas", txt:"Boucle de donjons niveau 150+, 1 h/jour", d:"Quadruple emploi : kamas, drops rares (8 jets indépendants sur le même combat), ingrédients de craft, et viande pour Chasseur. Restez au-dessus de 150 : au-delà de 50 niveaux d'écart la prospection n'est plus comptée."},
+      {t:"todo", tag:"kamas", txt:"Se mettre d'accord sur les prix de vente", d:"Le risque, ce n'est pas de vendre à deux, c'est de se sous-coter sans le savoir. Un carnet commun, et vous répartissez les étals selon le volume."},
+      {t:"todo", tag:"setup", txt:"Vérifier que les 8 ont bien Chasseur appris et un outil équipé", d:"Contrôle de routine — c'est le moment de rattraper un oubli de l'étape 1. Un perso sans outil ne fait aucun jet de viande, et ça peut passer inaperçu des semaines."}
+    ]
+  },
+  {
+    n:3, t:"Bûcheron sur le récolteur (métier neuf)", d:"~5 à 7 semaines",
+    s:"Le premier gros trou de la team se comble, sur un seul personnage",
+    items:[
+      {t:"main", job:"bucheron", to:200, d:"Métier neuf, donc 1 → 200 : c'est la plus grosse étape de récolte du plan. Repousse lente, donc boucle longue — 8 à 10 maps avant de revenir au départ, sinon vous attendez devant des souches. Un seul perso à déplacer, c'est un bloc peu fatigant qu'on peut faire en discutant."},
+      {t:"one", job:"bijoutier", to:200, d:"Dernier palier, le plus cher. Alimentez-vous au maximum avec vos propres minerais."},
+      {t:"todo", tag:"kamas", txt:"Vendre les premiers lots de bois THL", d:"Regardez le prix moyen avant de vous positionner. Ne cassez pas le marché d'une ressource que vous allez produire en masse."},
+      {t:"todo", tag:"kamas", txt:"Arrêter d'acheter du bois au HDV", d:"Les crafts d'armes et de boucliers sont désormais auto-alimentés. C'est de la marge récupérée sur chaque objet."}
+    ]
+  },
+  {
+    n:4, t:"Pêcheur sur le récolteur + Tailleur", d:"~4 à 6 semaines",
+    s:"Le métier de récolte le plus rapide, et Tailleur avance en parallèle",
+    items:[
+      {t:"main", job:"pecheur", to:200, d:"Le plus rapide des métiers neufs : les coins de pêche sont regroupés sur peu de maps, donc peu de déplacement. C'est aussi le seul endroit où avoir un deuxième pêcheur aurait du sens un jour — la densité le permet — mais ne le faites qu'une fois le reste bouclé."},
+      {t:"one", job:"tailleur", to:180, d:"Coiffes et capes : parmi les pièces les plus achetées du jeu."},
+      {t:"todo", tag:"kamas", txt:"Vendre poissons THL et plats", d:"Relevez d'abord la concurrence réelle sur votre serveur avant de vous positionner — c'est très variable."},
+      {t:"todo", tag:"kamas", txt:"Bilan mi-parcours : recalculer les prix HDV", d:"Vous êtes à la moitié du plan, vos prix de référence ont forcément bougé. Cinq minutes, un dimanche."}
+    ]
+  },
+  {
+    n:5, t:"Alchimiste sur le récolteur + Tailleur 200", d:"~5 à 7 semaines",
+    s:"Le métier le plus lent, et celui qui justifie le mieux le récolteur unique",
+    items:[
+      {t:"main", job:"alchimiste", to:200, d:"1 à 3 plantes par map : c'est exactement le métier où une meute de 8 n'aurait servi à rien. Un seul perso, boucle très large, l'encyclopédie in-game ouverte à côté. Long mais peu fatigant."},
+      {t:"one", job:"tailleur", to:200, d:"Palier final. Vous pouvez maintenant sortir des coiffes/capes THL."},
+      {t:"todo", tag:"kamas", txt:"Monter en régime sur les potions de téléportation", d:"Vos plantes viennent maintenant de votre propre récolteur au lieu du HDV : la marge sur chaque potion change complètement. Demande constante, à produire en lots."}
+    ]
+  },
+  {
+    n:6, t:"Cordonnier + ouverture de Sculpteur", d:"~3 à 4 semaines",
+    s:"La récolte est bouclée : tout le temps repart sur le craft",
+    items:[
+      {t:"todo", tag:"setup", txt:"Vérifier que le récolteur a bien les 6 métiers de récolte à 200", d:"Paysan, Chasseur, Mineur, Bûcheron, Pêcheur, Alchimiste. À partir d'ici, un seul personnage suffit pour un tour de ressources complet — le tableau de l'onglet Personnages vous le confirme d'un coup d'œil."},
+      {t:"one", job:"cordonnier", to:160, d:"Recette la plus haute autorisée, brisage systématique des invendus."},
+      {t:"one", job:"sculpteur", to:1, hint:"Prenez un personnage qui n'a pas déjà six métiers de craft — Conviict est le candidat naturel.", d:"Baguettes, arcs, bâtons : totalement absents de la team. Vous ne doublez rien, et ça vous donne une deuxième file de craft qui tourne en même temps que celle de Natsugoffy. Voir l'onglet « À deux »."},
+      {t:"todo", tag:"kamas", txt:"Premier set partiel fabriqué maison", d:"Bijoux + coiffe/cape : mesurez la marge réelle sur une vente complète."}
+    ]
+  },
+  {
+    n:7, t:"Cordonnier 200 + Forgeron", d:"~3 à 4 semaines",
+    s:"La chaîne d'équipement se ferme — c'est l'étape où la marge décolle",
+    items:[
+      {t:"one", job:"cordonnier", to:200, d:"Vous couvrez maintenant coiffe, cape, bottes, ceinture, bouclier et bijoux."},
+      {t:"one", job:"forgeron", to:170, d:"Le plus cher à monter. Brisez tout ce qui ne se vend pas : les runes récupérées serviront pour la magie."},
+      {t:"one", job:"sculpteur", to:100, d:"Alimenté par votre bois, donc quasi gratuit maintenant que Bûcheron est à 200."},
+      {t:"pp", to:300, d:"Deuxième palier de prospection, une fois la trésorerie confortable. À 300 PP vous triplez le taux de base : c'est le seuil à partir duquel les drops rares de boss deviennent réguliers plutôt qu'anecdotiques. C'est aussi le moment d'ajouter des idoles orientées drop."},
+      {t:"todo", tag:"kamas", txt:"Sortir des sets complets fabriqués en interne", d:"Aucune ressource achetée sur toute la chaîne : c'est ici que vous captez 100 % de la marge."},
+      {t:"todo", tag:"kamas", txt:"Constituer le matelas de trésorerie pour la magie", d:"Écrivez le chiffre à deux avant d'attaquer l'étape 8. C'est ce qui bloque le plus de joueurs à mi-parcours."}
+    ]
+  },
+  {
+    n:8, t:"Forgeron 200 + bascule sur la magie", d:"~4 à 6 semaines",
+    s:"Dernier métier de craft, puis on ouvre le chapitre rentable",
+    items:[
+      {t:"one", job:"forgeron", to:200, d:"Palier final. Ce Forgeron alimentera ensuite le futur Forgemage en armes."},
+      {t:"todo", tag:"fm", txt:"Fixer un budget runes chiffré, et s'y tenir", d:"L'ordre de grandeur souvent cité est la dizaine de millions pour amener un métier de magie de 120 à 200, mais ça dépend entièrement du prix des runes sur votre serveur : relevez-le vous-mêmes avant de fixer le chiffre. Et le chiffre s'écrit avant, pas pendant."},
+      {t:"one", job:"costumage", to:200, d:"Le plus avancé de vos métiers de magie, et coiffes/capes = grosse demande. À finir en premier."},
+      {t:"one", job:"joaillomage", to:160, d:"Objets bas niveau + runes bon marché achetées en gros en heures creuses."},
+      {t:"one", job:"sculpteur", to:200, d:"Vous devenez votre propre fournisseur d'armes magiques."},
+      {t:"todo", tag:"kamas", txt:"Ouvrir les premiers services de FM", d:"Même à niveau intermédiaire, vous pouvez prendre des commandes simples."},
+      {t:"todo", tag:"fm", txt:"Planifier l'extension : Joaillomage 200, Forgemage, Sculptemage", d:"Posez chaque nouveau métier de magie sur un porteur différent de Natsugoffy quand c'est possible : deux files qui tournent en parallèle valent mieux qu'une seule saturée."}
+    ]
+  }
+];
+const DAILY = [
+  ["Connexion des 8 comptes + relève des ventes HDV","Remettre en vente ce qui n'est pas parti."],
+  ["Percepteurs + bonus Almanax","2 minutes, revenu gratuit."],
+  ["Panoplies de prospection équipées avant le bloc donjon","Sur les 8. Un perso resté en stuff de combat tire au taux de base."],
+  ["Bloc métier de l'étape en cours (1 h 30)","Le bloc non négociable : c'est lui qui fait avancer le plan."],
+  ["Bloc kamas : circuit A, B ou C (1 h)","Alterner d'un jour à l'autre pour laisser repousser."],
+  ["Dépôt en banque + centralisation des ressources",""],
+  ["Lancement des crafts en havre-sac","Ils tournent pendant qu'on fait autre chose."],
+  ["Mise en vente par lots de 10 ou 100","Jamais à l'unité."],
+  ["Mettre à jour les niveaux dans l'onglet Personnages","C'est ce qui garde le plan juste — et ça évite que l'autre refasse le même bloc."],
+  ["Note des prix qui ont bougé","C'est ce qui fait repérer les bonnes affaires avant les autres."],
+  ["Passage sur les enclos (nourrissage + sorties)","Obligatoire tous les jours, sinon l'élevage stagne."]
+];
+
+const TAGS = {rec:["t-rec","récolte"],craft:["t-craft","craft"],fm:["t-fm","magie"],kamas:["t-kamas","kamas"],setup:["t-setup","setup"]};
+
+/* ---------- état ---------- */
+let state = {};
+let dailyState = {};
+
+/* ---------- rendu ---------- */
+function jobColor(lv){
+  if(lv>=200) return "var(--green)";
+  if(lv>=160) return "var(--gold)";
+  if(lv>=100) return "var(--blue)";
+  return "var(--red)";
+}
+/* Les noms de personnages sont saisis à la main et arrivent aussi par la synchro :
+   on les échappe avant de les injecter dans du HTML. */
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+/* ---------- résolution des objectifs ----------
+   Tout ce qui touche à un métier est recalculé ici à partir de CHARS.
+   Aucun niveau n'est écrit en dur dans le plan : un objectif déjà atteint
+   se marque terminé tout seul, et un objectif en cours affiche le niveau réel. */
+function holdersOf(k){
+  return CHARS.map(ch=>({name:ch.name, lv:ch.jobs[k]||0}))
+              .filter(x=>x.lv>0)
+              .sort((a,b)=>b.lv-a.lv);
+}
+
+function resolveItem(w, it, i){
+  const id = `w${w.n}-${i}`;
+  if(it.t === "todo"){
+    return {id, auto:false, done:!!state[id], title:esc(it.txt), tag:it.tag,
+            prog:"", progCls:"", live:"", note:it.d};
+  }
+
+  const N = CHARS.length;
+
+  if(it.t === "pp"){
+    const at = CHARS.filter(c=>(c.pp||0) >= it.to).length;
+    const low = CHARS.filter(c=>(c.pp||0) < it.to);
+    const done = N>0 && at === N;
+    return {
+      id, auto:true, done, tag:"kamas",
+      title:`Prospection ≥ ${it.to} sur les ${N} personnages`,
+      prog:`${at}/${N}`,
+      progCls: done ? "ok" : (at ? "part" : "none"),
+      live: done ? "" : `En retard&nbsp;: <b>${low.map(x=>esc(x.name)).join(", ")}</b>.`,
+      note: it.d
+    };
+  }
+
+  const j = JOB_LIST.find(x=>x.k===it.job) || {n:it.job, c:"craft"};
+
+  if(it.t === "main"){
+    const ch = mainChar();
+    const lv = ch.jobs[it.job] || 0;
+    const done = lv >= it.to;
+    return {
+      id, auto:true, done, tag:j.c,
+      /* lv vaut 0 quand le métier n'est pas appris : on écrit « 1 → 200 »,
+         comme on le dirait en jeu, plutôt qu'un « 0 → 200 » qui n'existe pas. */
+      title: done ? `${esc(j.n)} — palier ${it.to} atteint sur ${esc(ch.name)}`
+                  : `${esc(j.n)} ${lv||1} → ${it.to} sur ${esc(ch.name)}`,
+      prog: done ? `niveau ${lv}` : (lv ? `${it.to - lv} niveaux restants` : "métier à apprendre"),
+      progCls: done ? "ok" : (lv ? "part" : "none"),
+      live: `Récolteur principal — les autres personnages n'ont pas besoin de ce métier.`,
+      note: it.d
+    };
+  }
+
+  if(it.t === "all"){
+    const lvls = CHARS.map(ch=>ch.jobs[it.job]||0);
+    const at = lvls.filter(v=>v>=it.to).length;
+    const min = lvls.length ? Math.min(...lvls) : 0;
+    const weakest = CHARS[lvls.indexOf(min)];
+    const done = N>0 && at === N;
+    return {
+      id, auto:true, done, tag:j.c,
+      title:`${esc(j.n)} → ${it.to} sur les ${N} personnages`,
+      prog:`${at}/${N} à ${it.to}`,
+      progCls: done ? "ok" : (at ? "part" : "none"),
+      live: done ? "" : `Maillon faible&nbsp;: <b>${esc(weakest ? weakest.name : "?")}</b> (${min ? min : "métier pas encore appris"}).`,
+      note: it.d
+    };
+  }
+
+  /* it.t === "one" : le porteur est déduit des données, pas nommé en dur. */
+  const hs = holdersOf(it.job);
+  const lv = hs.length ? hs[0].lv : 0;
+  const who = hs.map(x=>esc(x.name)).join(", ");
+  const open = it.to <= 1;                       // objectif « ouvrir ce métier »
+  const done = open ? hs.length > 0 : lv >= it.to;
+
+  let title, prog, progCls, live;
+  if(open){
+    title = `Ouvrir ${esc(j.n)} sur un personnage`;
+    prog = done ? `appris (${lv})` : "pas encore appris";
+    progCls = done ? "ok" : "none";
+    live = done ? `Porté par <b>${who}</b>.` : (it.hint ? esc(it.hint) : "");
+  } else if(!hs.length){
+    title = `${esc(j.n)} → ${it.to}`;
+    prog = "métier absent";
+    progCls = "none";
+    live = `Personne ne porte encore ce métier${it.hint ? " — " + esc(it.hint) : ""}.`;
+  } else if(done){
+    /* Ne pas écrire « 190 → 185 » quand le palier est déjà dépassé. */
+    title = `${esc(j.n)} — palier ${it.to} atteint`;
+    prog = `niveau ${lv}`;
+    progCls = "ok";
+    live = `Porté par <b>${who}</b>${hs.length>1 ? " — doublon, un seul porteur suffit" : ""}.`;
+  } else {
+    title = `${esc(j.n)} ${lv} → ${it.to}`;
+    prog = `${it.to - lv} niveaux restants`;
+    progCls = "part";
+    live = `Porté par <b>${who}</b>${hs.length>1 ? " — doublon, un seul porteur suffit" : ""}.`;
+  }
+  return {id, auto:true, done, tag:j.c, title, prog, progCls, live, note:it.d};
+}
+
+/* --- cartes d'état (onglet 1) --- */
+function renderTeamCards(){
+  const el = document.getElementById("teamCards");
+  el.innerHTML = CHARS.map((ch,i)=>{
+    const list = JOB_LIST.filter(j=>(ch.jobs[j.k]||0)>0)
+                         .sort((a,b)=>(ch.jobs[b.k]||0)-(ch.jobs[a.k]||0));
+    const rows = list.length ? list.map(j=>{
+      const lv = ch.jobs[j.k];
+      return `<div class="jobrow">
+        <div class="nm">${j.n}</div>
+        <div class="tr"><div class="fl" style="width:${lv/2}%;background:${jobColor(lv)}"></div></div>
+        <div class="lv">${lv}</div></div>`;
+    }).join("") : `<p class="muted" style="margin:0">Aucun métier appris — c'est un récolteur gratuit qui n'attend qu'un clic chez le PNJ.</p>`;
+    const at200 = list.filter(j=>ch.jobs[j.k]>=200).length;
+    return `<div class="card ${at200 && at200===list.length ? "green" : list.length ? "gold" : ""}">
+      <h3 style="margin-top:0">${esc(ch.name)}
+        <span class="muted" style="font-weight:400;font-size:12.5px"> · ${list.length} métier${list.length>1?"s":""}${list.length?` · ${at200} à 200`:""}</span></h3>
+      ${rows}</div>`;
+  }).join("");
+}
+
+function renderKpis(){
+  const at200 = CHARS.reduce((a,ch)=>a+JOB_LIST.filter(j=>(ch.jobs[j.k]||0)>=200).length,0);
+  const absent = JOB_LIST.filter(j=>!CHARS.some(ch=>(ch.jobs[j.k]||0)>0)).length;
+  const empty = CHARS.filter(ch=>JOB_LIST.every(j=>!(ch.jobs[j.k]||0))).length;
+  document.getElementById("kpis").innerHTML = `
+    <div class="kpi"><b>${at200}</b><span>métier${at200>1?"s":""} à 200 dans toute la team</span></div>
+    <div class="kpi"><b>${absent}</b><span>métier${absent>1?"s":""} totalement absent${absent>1?"s":""} de la team</span></div>
+    <div class="kpi"><b>${empty}</b><span>personnage${empty>1?"s":""} sans aucun métier</span></div>
+    <div class="kpi"><b>${CHARS.filter(c=>(c.pp||0)>=PP_CIBLE).length}/${CHARS.length}</b><span>personnages à ${PP_CIBLE} prospection ou plus</span></div>`;
+}
+
+function renderMainPick(){
+  const el = document.getElementById("mainPick");
+  if(!el) return;
+  el.innerHTML = CHARS.map((ch,i)=>
+    `<option value="${i}"${i===MAIN?" selected":""}>${esc(ch.name)}</option>`).join("");
+}
+function setMain(i){ MAIN = Math.max(0, Math.min(CHARS.length-1, parseInt(i,10)||0)); refreshAll(); }
+
+/* --- matrice éditable (onglet Personnages) --- */
+function renderMatrix(){
+  const t = document.getElementById("matrix");
+  let h = `<thead><tr><th style="min-width:150px">Métier</th>` +
+    CHARS.map((ch,i)=>`<th style="min-width:104px">
+       <input class="cname" value="${esc(ch.name)}" onchange="setName(${i},this.value,this)">
+       </th>`).join("") +
+    `<th style="min-width:76px">Bilan</th></tr></thead><tbody>`;
+
+  /* La prospection n'est pas un métier mais elle se saisit ici : c'est la seule
+     autre donnée par personnage dont le plan a besoin (partie drop). */
+  h += `<tr class="grp"><td colspan="${CHARS.length+2}">Prospection</td></tr>` +
+    `<tr><td><b>Prospection (PP)</b><span class="d2">chiffre affiché sur la fiche du perso · base 100</span></td>` +
+    CHARS.map((ch,i)=>{
+      const pp = ch.pp||0;
+      return `<td class="cell"><input type="number" min="0" max="1000" value="${pp||""}"
+        id="pp-${i}"
+        style="color:${pp>=300?"var(--green)":pp>=PP_CIBLE?"var(--gold)":pp>100?"var(--blue)":"var(--red)"}"
+        onchange="setPP(${i},this.value)" placeholder="100"></td>`;
+    }).join("") +
+    `<td class="num" id="bilan-pp" style="text-align:center;font-size:12px">${ppBilanHtml()}</td></tr>`;
+
+  let lastC = null;
+  JOB_LIST.forEach(j=>{
+    if(j.c!==lastC){
+      const lbl = j.c==="rec"?"Récolte":j.c==="craft"?"Craft":"Magie";
+      h += `<tr class="grp"><td colspan="${CHARS.length+2}">${lbl}</td></tr>`;
+      lastC = j.c;
+    }
+    h += `<tr><td><b>${j.n}</b><span class="d2">${j.note}</span></td>` +
+      CHARS.map((ch,i)=>{
+        const lv = ch.jobs[j.k]||0;
+        return `<td class="cell"><input type="number" min="0" max="200" value="${lv||""}"
+          id="cell-${j.k}-${i}"
+          style="color:${lv?jobColor(lv):"var(--txt2)"}"
+          onchange="setLvl(${i},'${j.k}',this.value)" placeholder="—"></td>`;
+      }).join("") +
+      `<td class="num" id="bilan-${j.k}" style="text-align:center;font-size:12px">${bilanHtml(j)}</td></tr>`;
+  });
+  t.innerHTML = h + `</tbody>`;
+}
+
+function ppBilanHtml(){
+  const at = CHARS.filter(c=>(c.pp||0)>=PP_CIBLE).length;
+  const col = at===CHARS.length?"var(--green)":at?"var(--gold2)":"var(--red)";
+  return `<span style="color:${col}"><b>${at}</b>/${CHARS.length}<span class="d2">≥ ${PP_CIBLE} PP</span></span>`;
+}
+function setPP(i,v){
+  const n = parseInt(v,10);
+  CHARS[i].pp = isNaN(n)||n<0 ? 0 : Math.min(1000,n);
+  const el = document.getElementById("pp-"+i);
+  if(el){
+    el.value = CHARS[i].pp||"";
+    el.style.color = CHARS[i].pp>=300?"var(--green)":CHARS[i].pp>=PP_CIBLE?"var(--gold)":CHARS[i].pp>100?"var(--blue)":"var(--red)";
+  }
+  const b = document.getElementById("bilan-pp");
+  if(b) b.innerHTML = ppBilanHtml();
+  refreshAll(true);
+}
+
+function bilanHtml(j){
+  const n200 = CHARS.filter(ch=>(ch.jobs[j.k]||0)>=200).length;
+  const held = CHARS.filter(ch=>(ch.jobs[j.k]||0)>0).length;
+  if(j.c==="rec"){
+    const col = n200===CHARS.length?"var(--green)":n200?"var(--gold2)":"var(--txt2)";
+    return `<span style="color:${col}"><b>${n200}</b>/${CHARS.length}<span class="d2">à 200</span></span>`;
+  }
+  const col = held===0?"var(--red)":held>1?"var(--gold2)":n200?"var(--green)":"var(--gold2)";
+  const lbl = held===0?"absent":held>1?"porté 2×":n200?"terminé":"en cours";
+  return `<span style="color:${col}"><b>${held}</b> porteur<span class="d2">${lbl}</span></span>`;
+}
+
+function setName(i,v,el){
+  CHARS[i].name = v.trim()||("Perso "+(i+1));
+  if(el && el.value !== CHARS[i].name) el.value = CHARS[i].name;
+  refreshAll(true);
+}
+/* On ne re-rend PAS la matrice ici : elle contient le champ que l'utilisateur
+   vient de quitter, et la reconstruire casserait la tabulation vers le suivant.
+   On met à jour à la main la seule case et le seul bilan qui ont changé. */
+function setLvl(i,k,v){
+  let n = parseInt(v,10);
+  if(isNaN(n)||n<=0) delete CHARS[i].jobs[k];
+  else CHARS[i].jobs[k] = Math.min(200,n);
+  const lv = CHARS[i].jobs[k]||0;
+  const cell = document.getElementById(`cell-${k}-${i}`);
+  if(cell){
+    cell.value = lv||"";
+    cell.style.color = lv?jobColor(lv):"var(--txt2)";
+  }
+  const bilan = document.getElementById("bilan-"+k);
+  const job = JOB_LIST.find(x=>x.k===k);
+  if(bilan && job) bilan.innerHTML = bilanHtml(job);
+  refreshAll(true);
+}
+function fillCol(){
+  const nm = prompt("Nom exact du personnage à remplir ?"); if(!nm) return;
+  const i = CHARS.findIndex(c=>c.name.toLowerCase()===nm.trim().toLowerCase());
+  if(i<0){ alert("Personnage introuvable."); return; }
+  const s = prompt("Liste des métiers, format : paysan 200, mineur 184, bijoutier 163"); if(!s) return;
+  s.split(",").forEach(p=>{
+    const m = p.trim().match(/^(.+?)\s+(\d{1,3})$/); if(!m) return;
+    const key = m[1].trim().toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+    const j = JOB_LIST.find(x=>x.k===key || x.n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")===key);
+    if(j) CHARS[i].jobs[j.k] = Math.min(200,parseInt(m[2],10));
+  });
+  refreshAll();
+}
+function clearCol(){
+  const nm = prompt("Nom exact du personnage à vider ?"); if(!nm) return;
+  const i = CHARS.findIndex(c=>c.name.toLowerCase()===nm.trim().toLowerCase());
+  if(i<0){ alert("Personnage introuvable."); return; }
+  CHARS[i].jobs = {}; refreshAll();
+}
+
+/* --- couverture --- */
+function renderCoverage(){
+  const rec = JOB_LIST.filter(j=>j.c==="rec");
+  const ch = mainChar();
+  let h = `<table><thead><tr><th>Métier</th><th>Qui le porte</th><th>Niveau utile</th><th>État</th></tr></thead><tbody>`;
+  rec.forEach(j=>{
+    /* Chasseur est le seul métier de récolte où les 8 comptent : la viande tombe
+       des combats, chaque perso équipé fait son propre jet. Partout ailleurs,
+       seul le récolteur principal est pertinent. */
+    if(j.k === "chasseur"){
+      const at = CHARS.filter(c=>(c.jobs.chasseur||0)>=200).length;
+      const lack = CHARS.filter(c=>(c.jobs.chasseur||0)<200);
+      const cls = at===CHARS.length ? "p-green" : at ? "p-gold" : "p-red";
+      h += `<tr><td><b>${j.n}</b><span class="d2">le seul qui mérite les 8 personnages</span></td>
+        <td>Toute la team</td>
+        <td class="num">${at}/${CHARS.length} à 200</td>
+        <td><span class="pill ${cls}">${at===CHARS.length
+          ? "Complet — 8 jets de viande par combat"
+          : `${lack.length} perso${lack.length>1?"s":""} à finir : ${lack.map(x=>esc(x.name)).join(", ")}`}</span></td></tr>`;
+      return;
+    }
+    const lv = ch.jobs[j.k]||0;
+    const others = CHARS.filter((c,i)=>i!==MAIN && (c.jobs[j.k]||0)>0).length;
+    const cls = lv>=200 ? "p-green" : lv ? "p-gold" : "p-red";
+    const verdict = lv>=200 ? "Prêt pour les tours de ressources"
+                  : lv ? `${200-lv} niveaux avant la ressource haute`
+                       : "Pas encore appris";
+    h += `<tr><td><b>${j.n}</b></td>
+      <td>${esc(ch.name)}${others?` <span class="d2">${others} autre${others>1?"s l'ont":" l'a"} aussi — pas nécessaire</span>`:""}</td>
+      <td class="num" style="color:${lv?jobColor(lv):"var(--txt2)"}">${lv||"—"}</td>
+      <td><span class="pill ${cls}">${verdict}</span></td></tr>`;
+  });
+  document.getElementById("coverage").innerHTML = h + `</tbody></table>`;
+}
+
+function renderCraftCov(){
+  const other = JOB_LIST.filter(j=>j.c!=="rec");
+  let h = `<table><thead><tr><th>Métier</th><th>Porteur</th><th>Niveau</th><th>État</th></tr></thead><tbody>`;
+  other.forEach(j=>{
+    const holders = CHARS.map(ch=>({n:ch.name,lv:ch.jobs[j.k]||0}))
+                         .filter(x=>x.lv>0).sort((a,b)=>b.lv-a.lv);
+    let etat, cls;
+    if(!holders.length){ etat="Absent de la team"; cls="p-red"; }
+    else if(holders.length>1){ etat="Porté deux fois"; cls="p-gold"; }
+    else if(holders[0].lv>=200){ etat="Terminé"; cls="p-green"; }
+    else { etat="En cours"; cls="p-gold"; }
+    const who = holders.length ? holders.map(x=>esc(x.n)).join(", ") : "—";
+    h += `<tr><td><b>${j.n}</b><span class="d2">${j.note}</span></td><td>${who}</td>
+      <td class="num">${holders.length?holders.map(x=>x.lv).join(" / "):"—"}</td>
+      <td><span class="pill ${cls}">${etat}</span></td></tr>`;
+  });
+  document.getElementById("craftcov").innerHTML = h + `</tbody></table>`;
+}
+
+/* skipMatrix : à utiliser quand l'appel vient d'une saisie DANS la matrice,
+   pour ne pas détruire le champ qui a le focus.
+   Le plan, lui, est TOUJOURS reconstruit : c'est ce qui garantit qu'un objectif
+   ne reste jamais affiché avec un niveau périmé. */
+function refreshAll(skipMatrix){
+  if(MAIN >= CHARS.length) MAIN = 0;
+  renderKpis(); renderTeamCards(); renderMainPick();
+  if(!skipMatrix) renderMatrix();
+  renderCoverage(); renderCraftCov();
+  renderWeeks(); refresh();
+  persist();
+}
+
+/* ---------- persistance locale + synchro ---------- */
+const DATA_V = 5;   // v5 : récolteur principal, plus de `who`, objectifs calculés
+let SUSPEND = false;
+function getData(){ return {v:DATA_V, state:state, chars:CHARS, main:MAIN}; }
+function persist(){
+  if(SUSPEND) return;
+  try{ localStorage.setItem("dofus.plan.local", JSON.stringify(getData())); }catch(e){}
+  if(window.__push) window.__push();
+}
+function readChars(list){
+  // `who` (v3 et avant) est ignoré ; `pp` retombe sur la base 100 si absent.
+  return list.map(c=>({name:c.name||"Perso", pp:Number(c.pp)||100, jobs:c.jobs||{}}));
+}
+function applyData(d, silent){
+  if(!d) return;
+  SUSPEND = true;
+  /* Avant la v4 les objectifs étaient numérotés autrement : les anciennes coches
+     ne correspondent plus aux mêmes lignes, on repart des données de métier. */
+  state = (d.v && d.v >= DATA_V) ? (d.state || {}) : {};
+  if(Array.isArray(d.chars) && d.chars.length) CHARS = readChars(d.chars);
+  if(Number.isInteger(d.main)) MAIN = d.main;
+  refreshAll();
+  SUSPEND = false;
+  if(!silent) persist();
+}
+window.applyData = applyData;
+window.getData = getData;
+
+let openWeeks = new Set([1]);
+
+function renderWeeks(){
+  const c = document.getElementById("weeks");
+  c.innerHTML = WEEKS.map(w=>{
+    const body = w.items.map((it,ii)=>{
+      const r = resolveItem(w, it, ii);
+      const [cls,lbl] = TAGS[r.tag] || TAGS.setup;
+      const detail = [r.live, r.note ? esc(r.note) : ""].filter(Boolean).join(" ");
+      /* Objectif automatique : pastille en lecture seule, l'état vient des niveaux.
+         Objectif manuel : vraie case à cocher. */
+      const box = r.auto
+        ? `<span class="auto ${r.done?"ok":(r.progCls==="part"?"part":"")}"
+             title="Calculé depuis l'onglet Personnages — se coche tout seul quand les niveaux y sont à jour.">${r.done?"✓":""}</span>`
+        : `<input type="checkbox" id="${r.id}"${r.done?" checked":""} onchange="toggle('${r.id}')">`;
+      return `<div class="chk${r.done?" done":""}${r.auto?" auto-row":""}" id="row-${r.id}">
+        ${box}
+        <label${r.auto?"":` for="${r.id}"`}>${r.title}<span class="tag ${cls}">${lbl}</span>${r.prog?`<span class="prog ${r.progCls}">${r.prog}</span>`:""}
+        ${detail?`<span class="d">${detail}</span>`:""}</label>
+      </div>`;
+    }).join("");
+    return `<div class="week${openWeeks.has(w.n)?" open":""}" id="wk${w.n}">
+      <div class="week-h" onclick="toggleWeek(${w.n})">
+        <div class="no"><b>${w.n}</b><span>ÉTAPE</span></div>
+        <div class="ti"><b>${w.t}</b><span>${w.s}</span></div>
+        ${w.d?`<div class="dur" title="Estimation large, à ~20 h/semaine">${w.d}</div>`:""}
+        <div class="cnt" id="cnt${w.n}"></div>
+        <div class="arw">›</div>
+      </div>
+      <div class="week-b">${body}</div>
+    </div>`;
+  }).join("");
+}
+
+function renderDaily(){
+  document.getElementById("daily").innerHTML = DAILY.map((d,i)=>{
+    const id = `d-${i}`;
+    return `<div class="chk" id="row-${id}">
+      <input type="checkbox" id="${id}" onchange="toggleDaily('${id}')">
+      <label for="${id}">${d[0]}${d[1]?`<span class="d">${d[1]}</span>`:""}</label>
+    </div>`;
+  }).join("");
+}
+
+function toggleWeek(n){
+  const open = document.getElementById("wk"+n).classList.toggle("open");
+  if(open) openWeeks.add(n); else openWeeks.delete(n);
+}
+
+function toggle(id){
+  const box = document.getElementById(id);
+  state[id] = box.checked;
+  document.getElementById("row-"+id).classList.toggle("done", box.checked);
+  refresh(); persist();
+}
+/* La checklist quotidienne est locale (elle ne se synchronise pas : vous ne faites
+   pas la même journée). Elle est datée, donc elle se remet à zéro toute seule
+   au changement de jour. */
+function today(){ return new Date().toLocaleDateString("fr-CA"); }
+function persistDaily(){
+  try{ localStorage.setItem("dofus.plan.daily", JSON.stringify({day:today(), items:dailyState})); }catch(e){}
+}
+function loadDaily(){
+  try{
+    const d = JSON.parse(localStorage.getItem("dofus.plan.daily")||"null");
+    dailyState = (d && d.day === today() && d.items) ? d.items : {};
+  }catch(e){ dailyState = {}; }
+  DAILY.forEach((d,i)=>{
+    const id="d-"+i, box=document.getElementById(id);
+    if(!box) return;
+    const on = !!dailyState[id];
+    box.checked = on;
+    document.getElementById("row-"+id).classList.toggle("done", on);
+  });
+}
+function toggleDaily(id){
+  const box = document.getElementById(id);
+  dailyState[id] = box.checked;
+  document.getElementById("row-"+id).classList.toggle("done", box.checked);
+  persistDaily();
+}
+function resetDaily(){
+  dailyState = {};
+  DAILY.forEach((d,i)=>{
+    const id="d-"+i;
+    document.getElementById(id).checked=false;
+    document.getElementById("row-"+id).classList.remove("done");
+  });
+  persistDaily();
+}
+
+function refresh(){
+  let total=0, done=0;
+  WEEKS.forEach(w=>{
+    let t=0,d=0;
+    /* Les objectifs de métier comptent comme faits dès que les niveaux le disent,
+       sans qu'on ait à les cocher. */
+    w.items.forEach((it,ii)=>{ t++; if(resolveItem(w,it,ii).done) d++; });
+    const el = document.getElementById("cnt"+w.n);
+    if(el) el.textContent = `${d}/${t}`;
+    total+=t; done+=d;
+  });
+  document.getElementById("gbFill").style.width = total? (done/total*100)+"%" : "0%";
+  document.getElementById("gbLabel").textContent = `${done} / ${total} objectifs`;
+}
+
+function resetAll(){
+  /* Un clic à côté effaçait toute la progression — et la poussait aussitôt
+     à l'autre joueur, qui n'avait rien demandé. */
+  if(!confirm("Décocher toutes les tâches manuelles du plan ?\n\nSi vous êtes connectés en équipe, ça vaut pour vous deux. Les niveaux de métier ne sont pas touchés — et les objectifs de métier, qui se calculent dessus, resteront donc cochés.")) return;
+  state = {};
+  refreshAll();
+}
+
+/* ---------- sauvegarde manuelle (export / import) ----------
+   La progression est de toute façon enregistrée en continu dans le localStorage
+   par persist(). Ce bloc-ci sert à sortir un fichier : roue de secours, ou
+   transfert vers un autre navigateur. */
+function toggleIO(){ document.getElementById("io").classList.toggle("on"); }
+function doExport(){
+  document.getElementById("ioBox").value = JSON.stringify(getData());
+}
+function doImport(){
+  try{
+    const raw = JSON.parse(document.getElementById("ioBox").value);
+    /* Une très vieille sauvegarde était un simple objet d'état sans version. */
+    applyData((raw && raw.v) ? raw : {v:0, state:raw||{}}, false);
+  }catch(e){ alert("Sauvegarde illisible."); }
+}
+function doDownload(){
+  doExport();
+  const blob = new Blob([document.getElementById("ioBox").value],{type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "progression-dofus.json";
+  a.click();
+}
+
+/* ---------- onglets ---------- */
+const TABS = [
+  ["etat","Où vous en êtes"],
+  ["persos","Personnages"],
+  ["duo","À deux"],
+  ["plan","Plan par étapes"],
+  ["metiers","Fiches métiers"],
+  ["kamas","Farm kamas"],
+  ["routine","Routine"]
+];
+function renderNav(){
+  document.getElementById("nav").innerHTML = TABS.map(([id,lbl],i)=>
+    `<button id="nav-${id}" class="${i===0?"on":""}" onclick="go('${id}')">${lbl}</button>`).join("");
+}
+function go(id){
+  TABS.forEach(([t])=>{
+    document.getElementById("tab-"+t).classList.toggle("on", t===id);
+    document.getElementById("nav-"+t).classList.toggle("on", t===id);
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ---------- init ---------- */
+renderNav();
+renderDaily();
+loadDaily();
+SUSPEND = true;
+try{
+  const saved = localStorage.getItem("dofus.plan.local");
+  if(saved) applyData(JSON.parse(saved), true);
+}catch(e){}
+SUSPEND = false;
+refreshAll();   // rend aussi le plan et met à jour les compteurs
+
+function toggleSync(){ document.getElementById("syncPanel").classList.toggle("on"); }
+</script>
+
+<script>
+/* ---------- Synchro d'équipe (Firebase Realtime Database) ----------
+   Le SDK n'est téléchargé qu'au moment où l'on se connecte : si le réseau
+   est coupé ou le CDN bloqué, la page continue de fonctionner en mode local. */
+(function(){
+  let dbApi = null, dbRef = null, applying = false, timer = null, unsub = null;
+
+  /* Un navigateur qui bloque le stockage local fait lever une exception au
+     simple accès à localStorage. Tout passe par ces trois helpers pour que la
+     page reste utilisable dans ce cas. */
+  function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+
+  function status(cls, txt){
+    const d = document.getElementById("syncDot"), t = document.getElementById("syncTxt");
+    if(d) d.className = "dot " + (cls||"");
+    if(t) t.textContent = txt;
+  }
+
+  /* Retire les commentaires SANS toucher au contenu des chaînes
+     (sinon les // des URLs https:// sautent aussi). */
+  function stripComments(t){
+    let out = "", i = 0, q = null;
+    while(i < t.length){
+      const c = t[i], n = t[i+1];
+      if(q){
+        if(c === "\\") { out += c + (n||""); i += 2; continue; }
+        if(c === q) q = null;
+        out += c; i++; continue;
+      }
+      if(c === '"' || c === "'"){ q = c; out += c; i++; continue; }
+      if(c === "/" && n === "/"){ while(i < t.length && t[i] !== "\n") i++; continue; }
+      if(c === "/" && n === "*"){ i += 2; while(i < t.length && !(t[i] === "*" && t[i+1] === "/")) i++; i += 2; continue; }
+      out += c; i++;
+    }
+    return out;
+  }
+
+  function parseCfg(raw){
+    const a = raw.indexOf("{"), b = raw.lastIndexOf("}");
+    if(a < 0 || b < 0) throw new Error("bloc { … } introuvable");
+    let body = stripComments(raw.slice(a, b + 1))
+      .replace(/([{,]\s*)([A-Za-z_$][\w$]*)\s*:/g, '$1"$2":')
+      .replace(/'([^']*)'/g, '"$1"')
+      .replace(/,(\s*[}\]])/g, "$1");
+    return JSON.parse(body);
+  }
+  window.__parseCfg = parseCfg;
+
+  async function start(cfg, code){
+    status("wait", "Chargement du module de synchro…");
+    try{
+      if(!dbApi){
+        const [app, db] = await Promise.all([
+          import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),
+          import("https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js")
+        ]);
+        dbApi = {initializeApp: app.initializeApp, getDatabase: db.getDatabase, ref: db.ref, onValue: db.onValue, set: db.set};
+      }
+    }catch(e){
+      status("err", "Impossible de charger le module de synchro (réseau ou bloqueur de pub ?). La page reste utilisable en mode local.");
+      return;
+    }
+    try{
+      const application = dbApi.initializeApp(cfg);
+      const database = dbApi.getDatabase(application);
+      dbRef = dbApi.ref(database, "teams/" + code);
+      status("wait", "Connexion…");
+
+      const pushNow = () => dbApi.set(dbRef, {
+        payload: JSON.stringify(window.getData()),
+        by: lsGet("dofus.plan.me") || "?",
+        at: Date.now()
+      }).catch(e => status("err", "Écriture refusée : " + e.message));
+
+      if(unsub){ try{ unsub(); }catch(e){} unsub = null; }
+      unsub = dbApi.onValue(dbRef, snap => {
+        const v = snap.val();
+        if(v && v.payload){
+          applying = true;
+          try{ window.applyData(JSON.parse(v.payload), true); }catch(e){}
+          applying = false;
+        } else {
+          /* Base vide : on y dépose immédiatement l'état local. Sans ça, le
+             premier des deux qui coche une case écrasait la progression de
+             l'autre, qui n'avait encore rien envoyé. */
+          pushNow();
+        }
+        status("ok", "Synchronisé · équipe « " + code + " »" + (v && v.by ? " · dernière modif : " + v.by : ""));
+      }, err => status("err", "Lecture refusée : " + err.message + " — vérifie les règles de la base."));
+
+      window.__push = () => {
+        if(applying || !dbRef) return;
+        clearTimeout(timer);
+        timer = setTimeout(pushNow, 700);
+      };
+    }catch(e){
+      status("err", "Configuration invalide : " + e.message);
+    }
+  }
+
+  window.connectTeam = function(){
+    const raw  = document.getElementById("fbCfg").value.trim();
+    const url  = document.getElementById("fbUrl").value.trim();
+    const code = document.getElementById("teamCode").value.trim();
+    if(!raw){ alert("Colle d'abord le bloc firebaseConfig (étape 1)."); return; }
+    if(code.length < 8){ alert("Le code d'équipe doit faire au moins 8 caractères, et être exactement le même pour vous deux."); return; }
+    let cfg;
+    try{ cfg = parseCfg(raw); }
+    catch(e){ alert("Je n'arrive pas à lire cette configuration (" + e.message + "). Recopie tout le bloc, accolades comprises."); return; }
+    if(url) cfg.databaseURL = url;
+    if(!cfg.databaseURL){ alert("Il manque databaseURL. Recopie l'URL affichée en haut de ta page Realtime Database dans le champ 2."); return; }
+    lsSet("dofus.plan.cfg", JSON.stringify(cfg));
+    lsSet("dofus.plan.code", code);
+    const me = prompt("Ton pseudo (juste pour savoir qui a modifié en dernier) :", lsGet("dofus.plan.me") || "");
+    if(me) lsSet("dofus.plan.me", me);
+    start(cfg, code);
+    document.getElementById("syncPanel").classList.remove("on");
+  };
+
+  window.disconnectTeam = function(){
+    lsDel("dofus.plan.cfg");
+    lsDel("dofus.plan.code");
+    /* Il faut couper l'écoute, sinon les modifications de l'autre joueur
+       continuaient d'écraser cette page après le passage en mode local. */
+    if(unsub){ try{ unsub(); }catch(e){} unsub = null; }
+    clearTimeout(timer);
+    window.__push = null; dbRef = null;
+    status("", "Mode local — ta progression est enregistrée sur ce navigateur");
+  };
+
+  /* reconnexion automatique au chargement */
+  try{
+    const cfg  = JSON.parse(lsGet("dofus.plan.cfg") || "null");
+    const code = lsGet("dofus.plan.code");
+    if(cfg && code){
+      document.getElementById("fbCfg").value = JSON.stringify(cfg, null, 2);
+      document.getElementById("teamCode").value = code;
+      start(cfg, code);
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
