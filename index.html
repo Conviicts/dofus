@@ -797,7 +797,8 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   <div id="filieres"></div>
 
   <h2>Carnet de prix</h2>
-  <p class="muted">La base de tout le reste. Relevez le prix unitaire au HDV, notez la date, et le calculateur en dessous s'en sert automatiquement. <b>Partagé entre vous deux</b>, comme le reste du plan. Mettez-le à jour le dimanche&nbsp;: des prix vieux d'un mois donnent des décisions fausses.</p>
+  <p class="muted">La base de tout le reste, et <b>ça se périme vite</b>&nbsp;: un prix de HDV vaut une trentaine de minutes, pas une journée. Le carnet suit l'heure exacte de chaque relevé et vous dit lesquels ne sont plus exploitables. Saisir un prix vaut relevé&nbsp;; le bouton <b>↻</b> sert à confirmer qu'un prix n'a pas bougé sans le retaper. <b>Partagé entre vous deux.</b></p>
+  <div id="prixAlerte"></div>
   <div class="card" style="padding:14px 16px">
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
       <button class="btn" onclick="addPrice()">+ Ajouter une ligne</button>
@@ -1133,6 +1134,28 @@ let dailyState = {};   // checklist du jour, locale et datée
 
 const TAXE_HDV = 0.02;   // prélèvement à la vente
 const MARGE_MINI = 0.10; // en dessous, le craft n'est pas rentable
+
+/* Un prix de HDV vieillit vite. Passé ces seuils, une décision de craft prise
+   dessus n'a plus de valeur : on le dit au lieu de laisser croire au calcul. */
+const PRIX_FRAIS  = 30 * 60 * 1000;   // 30 min
+const PRIX_TIEDE  = 60 * 60 * 1000;   // 1 h
+function ageMs(r){ return r && r.t ? Date.now() - r.t : Infinity; }
+function fraicheur(r){
+  const a = ageMs(r);
+  if(a <= PRIX_FRAIS) return {k:"frais", cls:"p-green", txt:"frais"};
+  if(a <= PRIX_TIEDE) return {k:"tiede", cls:"p-gold",  txt:"à revérifier"};
+  return {k:"perime", cls:"p-red", txt:"périmé"};
+}
+function ageTexte(r){
+  const a = ageMs(r);
+  if(!isFinite(a)) return "jamais relevé";
+  const m = Math.floor(a/60000);
+  if(m < 1) return "à l'instant";
+  if(m < 60) return "il y a " + m + " min";
+  const h = Math.floor(m/60);
+  if(h < 24) return "il y a " + h + " h";
+  return "il y a " + Math.floor(h/24) + " j";
+}
 
 /* Modèle économique par métier, selon le niveau réellement atteint.
    C'est la réponse à « j'ai ce métier à ce niveau, je fais quoi ? ». */
@@ -1485,31 +1508,59 @@ function renderFilieres(){
 }
 
 /* --- carnet de prix --- */
+function ligneprix(nom){
+  return prices.find(x => x.n.trim().toLowerCase() === String(nom).trim().toLowerCase()) || null;
+}
 function prixDe(nom){
-  const e = prices.find(x => x.n.trim().toLowerCase() === String(nom).trim().toLowerCase());
+  const e = ligneprix(nom);
   return e ? Number(e.p)||0 : null;
 }
 function renderPrices(){
   const t = document.getElementById("priceTable");
   if(!t) return;
   if(!prices.length){
-    t.innerHTML = `<tbody><tr><td class="muted">Carnet vide. Ajoutez les ressources que vous achetez le plus, et les objets que vous envisagez de crafter.</td></tr></tbody>`;
+    t.innerHTML = `<tbody><tr><td class="muted">Carnet vide. Ajoutez les ressources qui entrent dans les crafts que vous étudiez, et les objets finis correspondants.</td></tr></tbody>`;
+    majAlertePrix();
     return;
   }
-  t.innerHTML = `<thead><tr><th style="min-width:170px">Ressource ou objet</th><th style="min-width:110px">Prix unitaire</th><th style="min-width:110px">Relevé le</th><th></th></tr></thead><tbody>` +
-    prices.map((r,i)=>`<tr>
+  t.innerHTML = `<thead><tr><th style="min-width:170px">Ressource ou objet</th><th style="min-width:110px">Prix unitaire</th><th style="min-width:150px">Fraîcheur</th><th></th></tr></thead><tbody>` +
+    prices.map((r,i)=>{
+      const f = fraicheur(r);
+      return `<tr>
       <td><input class="tx" style="margin:0;font-family:inherit" value="${esc(r.n)}" onchange="setPrice(${i},'n',this.value)" placeholder="Nom exact"></td>
       <td><input class="tx" style="margin:0" type="number" min="0" value="${r.p||""}" onchange="setPrice(${i},'p',this.value)" placeholder="0"></td>
-      <td><input class="tx" style="margin:0" type="date" value="${esc(r.d||"")}" onchange="setPrice(${i},'d',this.value)"></td>
-      <td><button class="btn" onclick="delPrice(${i})" title="Supprimer">×</button></td>
-    </tr>`).join("") + `</tbody>`;
+      <td><span class="pill ${f.cls}">${f.txt}</span> <span class="muted" style="font-size:12px">${ageTexte(r)}</span></td>
+      <td style="white-space:nowrap">
+        <button class="btn" onclick="touchPrice(${i})" title="Marquer comme revérifié à l'instant">↻</button>
+        <button class="btn" onclick="delPrice(${i})" title="Supprimer">×</button></td>
+    </tr>`;}).join("") + `</tbody>`;
+  majAlertePrix();
 }
-function addPrice(){ prices.push({n:"", p:0, d:today()}); refreshEco(); }
+/* Bandeau d'alerte : combien de prix ne sont plus exploitables. */
+function majAlertePrix(){
+  const el = document.getElementById("prixAlerte");
+  if(!el) return;
+  const utiles = prices.filter(r => r.n.trim());
+  const perimes = utiles.filter(r => fraicheur(r).k === "perime").length;
+  const tiedes  = utiles.filter(r => fraicheur(r).k === "tiede").length;
+  if(!utiles.length){ el.innerHTML = ""; return; }
+  if(perimes){
+    el.innerHTML = `<div class="card red"><p style="margin-bottom:0"><b>${perimes} prix périmé${perimes>1?"s":""}</b> (plus d'une heure). Les marges calculées à partir d'eux ne veulent plus rien dire — relevez-les à nouveau avant de décider d'un craft.</p></div>`;
+  } else if(tiedes){
+    el.innerHTML = `<div class="card gold"><p style="margin-bottom:0"><b>${tiedes} prix à revérifier</b> (plus de 30 minutes). Encore exploitables, mais un coup d'œil au HDV ne coûte rien avant de lancer une grosse série.</p></div>`;
+  } else {
+    el.innerHTML = `<div class="card green"><p style="margin-bottom:0">Tous vos prix ont moins de 30 minutes. Les marges affichées sont fiables.</p></div>`;
+  }
+}
+function addPrice(){ prices.push({n:"", p:0, t:0}); refreshEco(); }
 function delPrice(i){ prices.splice(i,1); refreshEco(); }
+function touchPrice(i){ if(prices[i]){ prices[i].t = Date.now(); refreshEco(); } }
 function setPrice(i,k,v){
   if(!prices[i]) return;
-  prices[i][k] = (k==="p") ? Math.max(0, parseInt(v,10)||0) : v;
-  if(k==="p") prices[i].d = today();   // un prix modifié est un prix du jour
+  if(k === "p"){
+    prices[i].p = Math.max(0, parseInt(v,10)||0);
+    prices[i].t = Date.now();          // saisir un prix, c'est le relever
+  } else { prices[i][k] = v; }
   refreshEco();
 }
 
@@ -1522,11 +1573,13 @@ function renderCrafts(){
     return;
   }
   el.innerHTML = crafts.map((c,i)=>{
-    let cout = 0, manquants = [];
+    let cout = 0, manquants = [], perimes = [];
     (c.ing||[]).forEach(g=>{
-      const p = prixDe(g.n);
-      if(p === null){ if(g.n.trim()) manquants.push(esc(g.n)); }
-      else cout += p * (Number(g.q)||0);
+      if(!g.n.trim()) return;
+      const r = ligneprix(g.n);
+      if(!r){ manquants.push(esc(g.n)); return; }
+      if(fraicheur(r).k === "perime") perimes.push(esc(g.n));
+      cout += (Number(r.p)||0) * (Number(g.q)||0);
     });
     const vente = Number(c.sell)||0;
     const net = vente * (1 - TAXE_HDV);
@@ -1535,6 +1588,11 @@ function renderCrafts(){
     const complet = vente > 0 && cout > 0 && !manquants.length;
     let verdict, cls;
     if(!complet){ verdict = manquants.length ? "Prix manquants au carnet : " + manquants.join(", ") : "Renseignez le prix de vente et au moins un ingrédient"; cls = "p-blue"; }
+    else if(perimes.length){
+      /* On calcule quand même, mais on refuse de conclure : décider d'une série
+         de crafts sur un prix vieux d'une heure, c'est décider au hasard. */
+      verdict = `Verdict suspendu — prix périmés : ${perimes.join(", ")}. Relevez-les avant de décider.`; cls = "p-red";
+    }
     else if(pct >= MARGE_MINI){ verdict = `Rentable — marge de ${Math.round(pct*100)} %`; cls = "p-green"; }
     else if(marge >= 0){ verdict = `Trop juste — ${Math.round(pct*100)} %, sous le seuil de 10 %`; cls = "p-gold"; }
     else { verdict = `À perte — vendez les ressources brutes`; cls = "p-red"; }
@@ -1624,7 +1682,10 @@ function applyData(d, silent){
      et n'ont jamais eu d'autre numérotation, donc on les reprend telles quelles. */
   state = (d.v && d.v >= 5) ? (d.state || {}) : {};
   notes  = (d.notes && typeof d.notes === "object") ? d.notes : {};
-  prices = Array.isArray(d.prices) ? d.prices.map(r=>({n:String(r.n||""), p:Number(r.p)||0, d:String(r.d||"")})) : [];
+  /* v8 stockait une date de relevé (`d`) ; on suit maintenant l'heure exacte
+     (`t`), parce qu'un prix de HDV se périme en dizaines de minutes, pas en
+     jours. Une ancienne date est donc traitée comme périmée, ce qu'elle est. */
+  prices = Array.isArray(d.prices) ? d.prices.map(r=>({n:String(r.n||""), p:Number(r.p)||0, t:Number(r.t)||0})) : [];
   crafts = Array.isArray(d.crafts) ? d.crafts.map(c=>({
     n:String(c.n||""), sell:Number(c.sell)||0,
     ing:Array.isArray(c.ing) ? c.ing.map(g=>({n:String(g.n||""), q:Number(g.q)||0})) : []
