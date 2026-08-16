@@ -345,6 +345,18 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
   </table>
   <p class="muted">Détail des métiers absents comptés par la carte ci-dessus&nbsp;: <span id="absentList"></span>.</p>
 
+  <h2>Ce que ce plan cherche à faire</h2>
+  <div class="card blue">
+    <p><b>Le moteur, c'est le drop. Les métiers ne sont qu'un moyen.</b> Ce que vous produisez vraiment, ce sont des ressources qui tombent en combat — et là vos 8 personnages valent huit fois un joueur seul, sans malus de groupe et sans un seul niveau de métier à monter. Tout le reste du plan existe pour <b>convertir ce flux en valeur</b>&nbsp;: les métiers de craft transforment, les métiers de magie valorisent, les métiers de récolte comblent les trous d'approvisionnement.</p>
+    <p style="margin-bottom:0">C'est une hiérarchie, pas une liste&nbsp;: <b>le bloc de drop passe avant le bloc métier</b>, tous les jours. Un métier qui monte pendant que le flux de ressources est à l'arrêt ne vous rapproche de rien. La routine de l'onglet <b>Routine</b> est écrite dans cet ordre-là.</p>
+  </div>
+
+  <div class="card red">
+    <h3>Le piège qui annule tout&nbsp;: crafter à perte</h3>
+    <p><b>Une ressource récoltée ou dropée n'est pas une ressource qu'il faut crafter.</b> Dans Dofus, il est courant que les ingrédients d'une recette coûtent plus cher que l'objet fini. Les retours de joueurs sont sans détour&nbsp;: en dehors des recettes proches du niveau 200, la plupart des crafts se font <b>à perte</b>.</p>
+    <p style="margin-bottom:0">Et l'erreur classique par-dessus&nbsp;: croire qu'une ressource qu'on a farmée soi-même est gratuite. <b>Elle ne l'est pas</b> — elle vaut son prix au HDV, que vous la vendiez ou non. La compter à zéro, c'est se convaincre qu'on gagne de l'argent pendant qu'on en perd. La règle de décision est dans l'onglet <b>Farm kamas</b>, section «&nbsp;Crafter ou vendre brut&nbsp;».</p>
+  </div>
+
   <h2>Les principes du plan</h2>
 
   <div class="card green">
@@ -693,6 +705,35 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
     <p style="margin-bottom:0"><b>Et ça se cumule avec Chasseur.</b> Le même combat vous donne le drop <i>et</i> un jet de viande par personnage équipé d'un outil de chasse. C'est pour ça que le bloc donjon est le meilleur usage de vos 8 comptes&nbsp;: trois revenus sur une seule action.</p>
   </div>
 
+  <h2>Crafter ou vendre brut — la décision qui décide de tout</h2>
+  <p class="muted">C'est l'étape que la plupart des joueurs sautent, et celle qui sépare un artisanat rentable d'un artisanat qui coûte de l'argent sans qu'on s'en aperçoive. Elle se fait <b>après le bloc de drop</b>, sur le butin, avant de lancer le moindre craft.</p>
+
+  <div class="card red">
+    <h3>Le calcul, en trois lignes</h3>
+    <p style="font-size:15px;margin:10px 0"><b>Prix de vente de l'objet × 0,98</b> <span class="muted">(la taxe HDV est de 2&nbsp;%)</span><br>
+    <b>− la somme des prix HDV de TOUS les ingrédients</b><br>
+    <b>= votre marge nette</b></p>
+    <p style="margin-bottom:0"><b>Marge sous 10&nbsp;% du coût&nbsp;: ne craftez pas.</b> Vendez les ressources brutes, vous gagnerez plus en faisant moins. Au-dessus, craftez — et refaites le calcul de temps en temps, les prix bougent.</p>
+  </div>
+
+  <div class="card gold">
+    <h3>La règle qu'on oublie toujours</h3>
+    <p style="margin-bottom:0"><b>Comptez vos propres ressources à leur prix HDV, pas à zéro.</b> Une bûche que vous avez coupée vaut exactement ce qu'elle vaut au marché&nbsp;: en la mettant dans un craft, vous renoncez à la vendre. C'est un coût réel. Un artisan qui compte ses ressources gratuites croit gagner sur chaque objet alors qu'il détruit de la valeur à chaque fois — et il ne s'en rend jamais compte, parce que son compte en banque monte quand même grâce au drop.</p>
+  </div>
+
+  <div class="card blue">
+    <h3>Les trois exceptions légitimes</h3>
+    <ul class="clean" style="margin-bottom:0">
+      <li><b>Monter un métier de craft.</b> Là, vous payez sciemment pour de l'XP. C'est incompressible et c'est un investissement, pas un revenu — mais sachez que c'est ce que vous êtes en train de faire. Et <b>brisez systématiquement les objets invendables</b>&nbsp;: les runes récupérées remboursent une bonne part du coût.</li>
+      <li><b>Une ressource introuvable en vente.</b> Si l'ingrédient n'est pas achetable en quantité, le calcul ne s'applique pas&nbsp;: votre stock a une valeur de rareté que le prix affiché ne reflète pas.</li>
+      <li><b>L'objet vaut plus brisé que vendu.</b> Comparez toujours le prix de vente au prix des runes qu'il rend. Pour certains objets, la casse est la vraie sortie.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <p style="margin-bottom:0"><b>Ne faites pas ce calcul à la main.</b> Plusieurs outils communautaires le font à partir des prix de votre serveur — DofuCraft, Doradins, l'atelier de Dafous ou le calculateur de DofusGadgets. Saisissez vos prix une fois, et vous saurez en un coup d'œil ce qui mérite d'être crafté. C'est cinq minutes d'installation pour une décision que vous prendrez des centaines de fois.</p>
+  </div>
+
   <h2>Trois circuits types</h2>
   <div class="grid g2">
     <div class="card green">
@@ -729,36 +770,49 @@ code{background:var(--bg3);padding:1px 6px;border-radius:4px;font-size:12.5px}
 <!-- ============ ROUTINE ============ -->
 <section class="tab" id="tab-routine">
   <h2>La journée type (~3 h)</h2>
-  <p class="muted">Voilà la partie du plan qui, elle, est <b>vraiment hebdomadaire</b>&nbsp;: le même squelette tous les jours, seul le contenu du bloc métier change selon l'étape en cours. L'idée est que tu n'aies jamais à te demander quoi faire en te connectant.</p>
+  <p class="muted">L'ordre n'est pas une préférence, c'est une dépendance&nbsp;: <b>chaque bloc a besoin du précédent</b>. On ne peut pas trier un butin qu'on n'a pas encore, ni décider quoi crafter sans prix à jour. Suivez-le dans cet ordre et vous n'aurez jamais à vous demander quoi faire en vous connectant.</p>
 
   <div class="card">
-    <h3>0:00 – 0:15 · Ouverture</h3>
-    <p style="margin-bottom:0">Connexion des 8 comptes → relève des ventes HDV et remise en vente de ce qui n'est pas parti → percepteurs → bonus Almanax → coup d'œil aux enclos. Rythme de démarrage, rien de plus.</p>
+    <h3>0:00 – 0:05 · Les prix, avant tout le reste</h3>
+    <p style="margin-bottom:0">Cinq minutes, et elles conditionnent toutes les décisions de la session. Relevez les ressources de votre carnet et le prix des 2-3 objets que vous fabriquez en ce moment. <b>Sans prix à jour, le tri du butin et la décision de crafter se font à l'aveugle</b> — et c'est comme ça qu'on craft à perte pendant des semaines sans le voir.</p>
   </div>
-  <div class="card gold">
-    <h3>0:15 – 1:45 · Bloc métier (le cœur)</h3>
-    <p style="margin-bottom:0">Le métier de l'étape en cours, en groupe de 8. C'est le bloc sur lequel tu ne transiges pas&nbsp;: c'est lui qui fait avancer le plan. Les autres blocs peuvent sauter, pas celui-ci.</p>
+  <div class="card">
+    <h3>0:05 – 0:15 · Ouverture</h3>
+    <p style="margin-bottom:0">Connexion des 8 comptes → relève des ventes HDV et remise en vente de ce qui n'est pas parti → percepteurs → bonus Almanax → passage sur les enclos. Rythme de démarrage, rien de plus.</p>
   </div>
   <div class="card blue">
-    <h3>1:45 – 2:45 · Bloc kamas</h3>
-    <p style="margin-bottom:0">Circuit A, B ou C selon l'envie et l'heure. Alterne pour laisser les ressources repousser&nbsp;: en pratique, A un jour, B le lendemain, C le soir où tu as de l'énergie. Les circuits A et B se font au récolteur seul&nbsp;; le <b>circuit C mobilise les 8</b>, panoplies de prospection équipées — c'est le seul bloc où sortir toute la team change quelque chose.</p>
+    <h3>0:15 – 1:15 · Bloc drop — le cœur</h3>
+    <p style="margin-bottom:0"><b>C'est le bloc sur lequel vous ne transigez pas</b>, celui qui produit la matière première de tout le reste. Panoplies de prospection sur les 8, idoles orientées drop, outils de chasse équipés, donjons niveau 150 et plus. Une seule action vous donne trois revenus&nbsp;: les ressources rares (8 jets indépendants), la viande pour Chasseur (8 jets), et les ingrédients de vos propres crafts. Les autres blocs peuvent sauter, pas celui-ci.</p>
+  </div>
+  <div class="card red">
+    <h3>1:15 – 1:25 · Tri du butin</h3>
+    <p style="margin-bottom:0">Dix minutes, et c'est l'étape que presque personne ne fait. Pour chaque ressource ramenée&nbsp;: <b>vendre brut, ou garder pour crafter&nbsp;?</b> Appliquez la règle de l'onglet <b>Farm kamas</b> — prix de vente × 0,98 moins la somme des ingrédients, et en dessous de 10&nbsp;% de marge on ne craft pas. Ce tri de dix minutes vaut plus que l'heure de craft qui suit.</p>
+  </div>
+  <div class="card gold">
+    <h3>1:25 – 2:10 · Bloc craft</h3>
+    <p style="margin-bottom:0">Uniquement ce qui a passé le tri. Le reste part en vente brute, sans état d'âme. Deux artisans peuvent tourner en parallèle sur deux personnages différents&nbsp;; l'artisan principal reste parqué près de ses ateliers en ville. Si vous êtes en train de monter un métier de craft, c'est ici — en sachant que vous payez pour de l'XP, pas que vous gagnez des kamas.</p>
   </div>
   <div class="card green">
-    <h3>2:45 – 3:00 · Clôture</h3>
-    <p style="margin-bottom:0">Dépôt en banque et centralisation → lancement des crafts en havre-sac (ils tournent pendant que tu fais autre chose) → mise en vente → note rapide des prix qui ont bougé. Cette dernière ligne, c'est ce qui te fait repérer les bonnes affaires avant les autres.</p>
+    <h3>2:10 – 2:50 · Bloc métier — secondaire</h3>
+    <p style="margin-bottom:0">La progression de l'étape en cours&nbsp;: récolte du métier neuf, sur son porteur. <b>C'est le bloc qui saute quand la journée est courte</b>, et c'est normal — un métier qui monte pendant que le flux de ressources est à l'arrêt ne vous rapproche de rien. Quand vous êtes deux connectés, c'est le moment de faire tourner les deux récolteurs en parallèle sur deux ressources différentes.</p>
+  </div>
+  <div class="card">
+    <h3>2:50 – 3:00 · Clôture</h3>
+    <p style="margin-bottom:0">Dépôt en banque et centralisation → mise en vente par lots → <b>mise à jour des niveaux et de la prospection dans l'onglet Personnages</b> → note de ce qui a bougé. Cette dernière ligne est ce qui garde le plan juste&nbsp;: des niveaux périmés, et tous les objectifs affichés deviennent faux.</p>
   </div>
 
   <h2>La semaine type</h2>
+  <p class="muted">Le bloc drop est quotidien et ne bouge pas. Ce qui change d'un jour à l'autre, c'est le bloc métier — et le circuit de récolte, qu'on alterne pour laisser repousser.</p>
   <table>
-    <thead><tr><th>Jour</th><th>Bloc métier</th><th>Bloc kamas</th></tr></thead>
+    <thead><tr><th>Jour</th><th>Bloc drop (1 h)</th><th>Bloc métier (40 min)</th></tr></thead>
     <tbody>
-      <tr><td><b>Lundi</b></td><td>Métier de l'étape</td><td>Circuit A — céréales &amp; plantes</td></tr>
-      <tr><td><b>Mardi</b></td><td>Métier de l'étape</td><td>Circuit B — bois &amp; minerais</td></tr>
-      <tr><td><b>Mercredi</b></td><td>Métier de l'étape</td><td>Circuit C — donjons</td></tr>
-      <tr><td><b>Jeudi</b></td><td>Métier de l'étape</td><td>Circuit A</td></tr>
-      <tr><td><b>Vendredi</b></td><td>Craft en gros (Natsu + Convict en parallèle)</td><td>Circuit B</td></tr>
-      <tr><td><b>Samedi</b></td><td colspan="2">Session longue (4-6 h) — grosse boucle de récolte + chaîne de donjons + gros batch de craft</td></tr>
-      <tr><td><b>Dimanche</b></td><td colspan="2">Bilan&nbsp;: relevé des prix, mise en vente de la semaine, point sur ce qui reste à cocher dans l'étape en cours. Session courte, ou repos si tu as bien bossé.</td></tr>
+      <tr><td><b>Lundi</b></td><td>Donjons 150+</td><td>Circuit A — céréales &amp; plantes</td></tr>
+      <tr><td><b>Mardi</b></td><td>Donjons 150+</td><td>Circuit B — bois &amp; minerais</td></tr>
+      <tr><td><b>Mercredi</b></td><td>Donjons 150+</td><td>Métier neuf de l'étape en cours</td></tr>
+      <tr><td><b>Jeudi</b></td><td>Donjons 150+</td><td>Circuit A</td></tr>
+      <tr><td><b>Vendredi</b></td><td>Donjons 150+</td><td>Craft en gros, sur les recettes qui passent le tri</td></tr>
+      <tr><td><b>Samedi</b></td><td colspan="2">Session longue (4-6 h) — chaîne de donjons étendue, gros tri, gros batch de craft, et les deux récolteurs en parallèle</td></tr>
+      <tr><td><b>Dimanche</b></td><td colspan="2">Bilan&nbsp;: relevé complet des prix, recalcul des marges de craft, point sur l'étape en cours. Session courte, ou repos si la semaine a été bonne.</td></tr>
     </tbody>
   </table>
 
@@ -1003,18 +1057,19 @@ const WEEKS = [
     ]
   }
 ];
+/* L'ordre compte : chaque ligne dépend de la précédente. */
 const DAILY = [
+  ["Relever les prix avant de commencer","Sans ça, le tri du butin et la décision de crafter se font à l'aveugle."],
   ["Connexion des 8 comptes + relève des ventes HDV","Remettre en vente ce qui n'est pas parti."],
   ["Percepteurs + bonus Almanax","2 minutes, revenu gratuit."],
-  ["Panoplies de prospection équipées avant le bloc donjon","Sur les 8. Un perso resté en stuff de combat tire au taux de base."],
-  ["Bloc métier de l'étape en cours (1 h 30)","Le bloc non négociable : c'est lui qui fait avancer le plan."],
-  ["Bloc kamas : circuit A, B ou C (1 h)","Alterner d'un jour à l'autre pour laisser repousser."],
-  ["Dépôt en banque + centralisation des ressources",""],
-  ["Lancement des crafts en havre-sac","Ils tournent pendant qu'on fait autre chose."],
-  ["Mise en vente par lots de 10 ou 100","Jamais à l'unité."],
-  ["Mettre à jour les niveaux dans l'onglet Personnages","C'est ce qui garde le plan juste — et ça évite que l'autre refasse le même bloc."],
-  ["Note des prix qui ont bougé","C'est ce qui fait repérer les bonnes affaires avant les autres."],
-  ["Passage sur les enclos : jauges et carburant","Deux jauges actives au maximum. Vérifier que les enclos sont bien remplis à 10 avant de relancer."]
+  ["Passage sur les enclos : jauges et carburant","Deux jauges actives au maximum, enclos remplis à 10."],
+  ["Panoplies de prospection équipées sur les 8","Un perso resté en stuff de combat tire au taux de base. Ça ne se voit pas."],
+  ["BLOC DROP — donjons 150+ (1 h)","Le bloc non négociable : c'est lui qui produit la matière de tout le reste."],
+  ["Trier le butin : vendre brut ou crafter ?","Marge sous 10 % après taxe : on ne craft pas. Dix minutes qui valent l'heure suivante."],
+  ["BLOC CRAFT — seulement ce qui a passé le tri","Le reste part en vente brute, sans état d'âme."],
+  ["BLOC MÉTIER — l'étape en cours","Secondaire : c'est lui qui saute quand la journée est courte."],
+  ["Dépôt en banque + mise en vente par lots","Jamais à l'unité."],
+  ["Mettre à jour niveaux et prospection dans l'onglet Personnages","Des niveaux périmés, et tous les objectifs affichés deviennent faux."]
 ];
 
 const TAGS = {rec:["t-rec","récolte"],craft:["t-craft","craft"],fm:["t-fm","magie"],elev:["t-elev","élevage"],kamas:["t-kamas","kamas"],setup:["t-setup","setup"]};
